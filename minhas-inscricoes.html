@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conecta Eventos - Minhas Inscrições</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+  
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background-color: #ffffff;
+      color: #0f172a;
+      -webkit-font-smoothing: antialiased;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    a {
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #ffffff;
+      padding: 0 4%;
+      height: 80px;
+      border-bottom: 1px solid #f1f5f9;
+      position: relative;
+      z-index: 100;
+    }
+
+    .nav-left-box {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      flex: 1;
+      max-width: 600px;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-imagem {
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+    }
+
+    .logo-brand {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #1e1b4b;
+      white-space: nowrap;
+    }
+
+    .logo-brand span {
+      color: #6366f1;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+
+    .search-wrapper {
+      position: relative;
+      width: 100%;
+    }
+
+    .search-wrapper i {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #94a3b8;
+      font-size: 0.95rem;
+    }
+
+    .search-input {
+      width: 100%;
+      background-color: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 12px 16px 12px 46px;
+      font-size: 0.9rem;
+      color: #334155;
+      outline: none;
+    }
+
+    .search-input::placeholder {
+      color: #94a3b8;
+    }
+
+    .nav-menu {
+      display: flex;
+      gap: 28px;
+    }
+
+    .nav-link {
+      color: #0f172a;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .nav-link.active {
+      color: #6366f1;
+      font-weight: 600;
+    }
+
+    .user-profile-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .notification-icon {
+      font-size: 1.2rem;
+      color: #64748b;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .notification-badge {
+      position: absolute;
+      top: -4px;
+      right: -4px;
+      background-color: #6366f1;
+      color: #ffffff;
+      font-size: 0.65rem;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .user-info-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      user-select: none;
+      padding: 6px 8px;
+      border-radius: 8px;
+      transition: background 0.2s;
+    }
+
+    .user-info-box:hover {
+      background-color: #f8fafc;
+    }
+
+    .user-avatar-container {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      overflow: hidden;
+    }
+
+    .user-avatar {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .user-text-name {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #0f172a;
+    }
+
+    .profile-dropdown {
+      position: absolute;
+      top: 110%;
+      right: 0;
+      width: 220px;
+      background-color: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+      display: none;
+      flex-direction: column;
+      padding: 8px;
+      z-index: 200;
+    }
+
+    .profile-dropdown.show {
+      display: flex;
+    }
+
+    .dropdown-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 14px;
+      color: #64748b;
+      font-size: 0.88rem;
+      font-weight: 500;
+      border-radius: 8px;
+    }
+
+    .dropdown-item:hover {
+      background-color: #f8fafc;
+      color: #0f172a;
+    }
+
+    .dropdown-item i {
+      font-size: 1rem;
+      width: 20px;
+      text-align: center;
+    }
+
+    .dropdown-divider {
+      height: 1px;
+      background-color: #f1f5f9;
+      margin: 6px 0;
+    }
+
+    .dashboard-layout {
+      display: block;
+      min-height: calc(100vh - 80px);
+    }
+
+    .main-content {
+      padding: 40px 4% 60px 4%;
+      background-color: #ffffff;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .page-title {
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 4px;
+    }
+
+    .page-subtitle {
+      font-size: 0.9rem;
+      color: #64748b;
+      margin-bottom: 32px;
+    }
+
+    .tabs-container {
+      display: flex;
+      gap: 24px;
+      border-bottom: 1px solid #e2e8f0;
+      margin-bottom: 24px;
+    }
+
+    .tab-button {
+      background: none;
+      border: none;
+      padding-bottom: 12px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #64748b;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .tab-button.active {
+      color: #4f46e5;
+      font-weight: 600;
+    }
+
+    .tab-button.active::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: #4f46e5;
+    }
+
+    .inscriptions-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .inscription-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 16px 24px;
+      background-color: #ffffff;
+      transition: box-shadow 0.2s;
+    }
+
+    .inscription-card:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    }
+
+    .card-left-info {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .event-thumbnail {
+      width: 110px;
+      height: 68px;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+
+    .event-details-box {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .event-badge-tag {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #4f46e5;
+      background-color: #eeebff;
+      padding: 2px 10px;
+      border-radius: 99px;
+      width: max-content;
+    }
+
+    .event-badge-tag.curso {
+      color: #0284c7;
+      background-color: #e0f2fe;
+    }
+
+    .event-main-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .event-meta-row {
+      display: flex;
+      gap: 20px;
+      font-size: 0.8rem;
+      color: #64748b;
+    }
+
+    .event-meta-row span {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .card-right-status {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .status-pill {
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 4px 14px;
+      border-radius: 99px;
+    }
+
+    .status-pill.confirmada {
+      background-color: #e6f4ea;
+      color: #137333;
+    }
+
+    .status-pill.cancelada {
+      background-color: #f1f3f4;
+      color: #5f6368;
+    }
+
+    .arrow-action-icon {
+      color: #94a3b8;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+
+    @media (max-width: 968px) {
+      .inscription-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+      }
+      .card-right-status {
+        width: 100%;
+        justify-content: space-between;
+        border-top: 1px solid #f1f5f9;
+        padding-top: 12px;
+      }
+      .nav-menu {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="navbar">
+    <div class="nav-left-box">
+      <div class="logo-container">
+        <img src="logo.png" alt="Logo Conecta" class="logo-imagem">
+        <div class="logo-brand">Conecta <span>Eventos</span></div>
+      </div>
+      
+      <div class="search-wrapper">
+        <i class="fas fa-search"></i>
+        <input type="text" class="search-input" placeholder="Buscar eventos, palestras, cursos...">
+      </div>
+    </div>
+
+    <nav class="nav-menu">
+      <a href="#" class="nav-link">Início</a>
+      <a href="#" class="nav-link active">Eventos</a>
+      <a href="#" class="nav-link">Categorias</a>
+      <a href="#" class="nav-link">Sobre</a>
+      <a href="#" class="nav-link">Contato</a>
+    </nav>
+
+    <div class="user-profile-wrapper">
+      <div class="notification-icon">
+        <i class="far fa-bell"></i>
+        <div class="notification-badge">3</div>
+      </div>
+      
+      <div class="user-info-box" id="profileDropdownBtn">
+        <div class="user-avatar-container">
+          <img src="foto-amanda.jpeg" alt="Foto da Amanda" class="user-avatar">
+        </div>
+        <div class="user-text-name">Olá, Amanda</div>
+        <i class="fas fa-chevron-down" style="font-size: 0.75rem; color: #64748b;"></i>
+      </div>
+
+      <div class="profile-dropdown" id="profileDropdownMenu">
+        <a href="#" class="dropdown-item"><i class="far fa-user"></i> Meus dados</a>
+        <a href="#" class="dropdown-item"><i class="far fa-calendar-alt"></i> Minhas inscrições</a>
+        <a href="#" class="dropdown-item"><i class="fas fa-receipt"></i> Comprovantes</a>
+        <a href="#" class="dropdown-item"><i class="fas fa-medal"></i> Certificados</a>
+        <a href="#" class="dropdown-item"><i class="fas fa-sliders"></i> Configurações</a>
+        <div class="dropdown-divider"></div>
+        <a href="#" class="dropdown-item" style="color: #ef4444;"><i class="fas fa-sign-out-alt"></i> Sair</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="dashboard-layout">
+    <main class="main-content">
+      <h1 class="page-title">Minhas inscrições</h1>
+      <p class="page-subtitle">Acompanhe todas as inscrições que você realizou.</p>
+
+      <div class="tabs-container">
+        <button class="tab-button active">Todas</button>
+        <button class="tab-button">Próximas</button>
+        <button class="tab-button">Realizadas</button>
+        <button class="tab-button">Canceladas</button>
+      </div>
+
+      <div class="inscriptions-list">
+        
+        <!-- CARD 1 -->
+        <div class="inscription-card">
+          <div class="card-left-info">
+            <img src="palestra.jpeg" alt="Robô IA" class="event-thumbnail">
+            <div class="event-details-box">
+              <span class="event-badge-tag">Palestra</span>
+              <h2 class="event-main-title">O Futuro da Inteligência Artificial</h2>
+              <div class="event-meta-row">
+                <span><i class="far fa-calendar"></i> 20/08/2025</span>
+                <span><i class="far fa-clock"></i> 16:00</span>
+                <span><i class="fas fa-map-marker-alt"></i> Auditório Principal</span>
+              </div>
+            </div>
+          </div>
+          <div class="card-right-status">
+            <span class="status-pill confirmada">Confirmada</span>
+            <i class="fas fa-chevron-right arrow-action-icon"></i>
+          </div>
+        </div>
+
+        <div class="inscription-card">
+          <div class="card-left-info">
+            <img src="curso.jpeg" alt="Código Python" class="event-thumbnail">
+            <div class="event-details-box">
+              <span class="event-badge-tag curso">Curso</span>
+              <h2 class="event-main-title">Introdução ao Python</h2>
+              <div class="event-meta-row">
+                <span><i class="far fa-calendar"></i> 05/09/2025</span>
+                <span><i class="far fa-clock"></i> 19:00</span>
+                <span><i class="fas fa-map-marker-alt"></i> Sala 203</span>
+              </div>
+            </div>
+          </div>
+          <div class="card-right-status">
+            <span class="status-pill confirmada">Confirmada</span>
+            <i class="fas fa-chevron-right arrow-action-icon"></i>
+          </div>
+        </div>
+
+        <div class="inscription-card">
+          <div class="card-left-info">
+            <img src="empreendedorismo.jfif" alt="Reunião" class="event-thumbnail">
+            <div class="event-details-box">
+              <span class="event-badge-tag">Palestra</span>
+              <h2 class="event-main-title">Empreendedorismo Digital</h2>
+              <div class="event-meta-row">
+                <span><i class="far fa-calendar"></i> 15/10/2025</span>
+                <span><i class="far fa-clock"></i> 18:30</span>
+                <span><i class="fas fa-map-marker-alt"></i> Auditório Principal</span>
+              </div>
+            </div>
+          </div>
+          <div class="card-right-status">
+            <span class="status-pill cancelada">Cancelada</span>
+            <i class="fas fa-chevron-right arrow-action-icon"></i>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <script>
+
+    const dropdownBtn = document.getElementById('profileDropdownBtn');
+    const dropdownMenu = document.getElementById('profileDropdownMenu');
+
+    dropdownBtn.addEventListener('click', function(event) {
+      event.stopPropagation();
+      dropdownMenu.classList.toggle('show');
+    });
+
+    document.addEventListener('click', function(event) {
+      if (!dropdownBtn.contains(event.target) && !dropdownMenu.contains(event.target)) {
+        dropdownMenu.classList.remove('show');
+      }
+    });
+  </script>
+
+</body>
+</html>
+

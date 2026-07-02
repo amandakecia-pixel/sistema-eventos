@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conecta Eventos - Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+   
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background-color: #f8fafc;
+      color: #1e293b;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    a {
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #ffffff;
+      padding: 0 6%;
+      height: 80px;
+      border-bottom: 1px solid #e2e8f0;
+      width: 100%;
+      position: relative;
+      z-index: 10;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-imagem {
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+    }
+
+    .logo-brand {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #1e1b4b;
+      line-height: 1.1;
+    }
+
+    .logo-brand span {
+      color: #6366f1;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+
+    .nav-menu {
+      display: flex;
+      gap: 32px;
+    }
+
+    .nav-link {
+      color: #475569;
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+
+    .nav-link:hover {
+      color: #6366f1;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .btn-login {
+      background: none;
+      border: 1px solid #cbd5e1;
+      padding: 10px 24px;
+      border-radius: 8px;
+      color: #0f172a;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+
+    .btn-register {
+      background-color: #6366f1;
+      border: none;
+      padding: 10px 24px;
+      border-radius: 8px;
+      color: #ffffff;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+
+    .login-container {
+      display: flex;
+      flex: 1;
+      width: 100%;
+    }
+
+    .login-sidebar {
+      flex: 1.1;
+      background: linear-gradient(135deg, #0f1035 0%, #231955 50%, #6366f1 100%);
+      position: relative;
+      padding: 60px 6% 0 6%;
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+      border-top-right-radius: 80px;
+      border-bottom-right-radius: 80px;
+    }
+
+    .sidebar-text h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 16px;
+      max-width: 500px;
+    }
+
+    .sidebar-text h1 span {
+      color: #818cf8;
+    }
+
+    .sidebar-text p {
+      font-size: 1rem;
+      color: #cbd5e1;
+      margin-bottom: 30px;
+      max-width: 450px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 40px;
+      max-width: 550px;
+    }
+
+    .feature-item {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .feature-icon-box {
+      width: 54px;
+      height: 54px;
+      background-color: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #818cf8;
+      font-size: 1.3rem;
+    }
+
+    .feature-item span {
+      font-size: 0.75rem;
+      color: #e2e8f0;
+      font-weight: 500;
+      line-height: 1.3;
+    }
+
+    .sidebar-bg-image {
+      width: 100%;
+      height: 220px;
+      margin-top: auto;
+      border-top-left-radius: 16px;
+      border-top-right-radius: 16px;
+      overflow: hidden;
+      opacity: 0.85;
+    }
+
+    .sidebar-bg-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      margin-top: -1px;
+     
+    }
+
+    .login-content-pane {
+      flex: 0.9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+      background-color: #f8fafc;
+      position: relative;
+    }
+
+    .login-card {
+      background-color: #ffffff;
+      width: 100%;
+      max-width: 480px;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+      border: 1px solid #f1f5f9;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .welcome-icon-box {
+      width: 48px;
+      height: 48px;
+      background-color: #eeebff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #6366f1;
+      font-size: 1.2rem;
+    }
+
+    .card-header-text h2 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .card-header-text p {
+      font-size: 0.85rem;
+      color: #64748b;
+      margin-top: 2px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #334155;
+      margin-bottom: 8px;
+    }
+
+    .input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .input-wrapper i.prefix-icon {
+      position: absolute;
+      left: 14px;
+      color: #94a3b8;
+      font-size: 0.95rem;
+    }
+
+    .input-wrapper i.suffix-icon {
+      position: absolute;
+      right: 14px;
+      color: #94a3b8;
+      font-size: 0.95rem;
+      cursor: pointer;
+    }
+
+    .input-wrapper input {
+      width: 100%;
+      padding: 12px 40px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      outline: none;
+      color: #334155;
+      transition: border-color 0.2s;
+    }
+
+    .input-wrapper input:focus {
+      border-color: #6366f1;
+    }
+
+    .form-options {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+      margin-bottom: 24px;
+    }
+
+    .remember-me {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #475569;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    .remember-me input {
+      accent-color: #6366f1;
+      width: 16px;
+      height: 16px;
+    }
+
+    .forgot-password {
+      color: #6366f1;
+      font-weight: 500;
+    }
+
+    .btn-submit-login {
+      width: 100%;
+      background-color: #6366f1;
+      color: #ffffff;
+      border: none;
+      padding: 14px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      margin-bottom: 24px;
+    }
+
+    .divider-text {
+      display: flex;
+      align-items: center;
+      text-align: center;
+      color: #94a3b8;
+      font-size: 0.8rem;
+      font-weight: 500;
+      margin-bottom: 24px;
+    }
+
+    .divider-text::before, .divider-text::after {
+      content: '';
+      flex: 1;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .divider-text:not(:empty)::before { margin-right: 12px; }
+    .divider-text:not(:empty)::after { margin-left: 12px; }
+
+    .social-login-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .btn-social {
+      width: 100%;
+      background-color: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #334155;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .btn-social:hover {
+      background-color: #f8fafc;
+    }
+
+    .btn-social img {
+      width: 18px;
+      height: 18px;
+      object-fit: contain;
+    }
+
+    .register-footer-text {
+      text-align: center;
+      font-size: 0.85rem;
+      color: #475569;
+    }
+
+    .register-footer-text a {
+      color: #6366f1;
+      font-weight: 600;
+    }
+
+    .security-footer {
+      position: absolute;
+      bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.8rem;
+      color: #64748b;
+    }
+
+    .security-footer i {
+      color: #6366f1;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="navbar">
+    <div class="logo-container">
+      <img src="logo.png" alt="Logo Conecta" class="logo-imagem">
+      <div class="logo-brand">Conecta <span>Eventos</span></div>
+    </div>
+    <nav class="nav-menu">
+      <a href="index.html" class="nav-link">Início</a>
+      <a href="#" class="nav-link">Eventos</a>
+      <a href="#" class="nav-link">Categorias</a>
+      <a href="#" class="nav-link">Sobre</a>
+      <a href="#" class="nav-link">Contato</a>
+    </nav>
+    <div class="nav-actions">
+      <button class="btn-login">Entrar</button>
+      <button class="btn-register">Cadastrar</button>
+    </div>
+  </header>
+
+  <main class="login-container">
+    
+    <section class="login-sidebar">
+      <div class="sidebar-text">
+        <h1>Conecte-se ao <span>conhecimento</span> e viva novas experiências</h1>
+        <p>Encontre cursos, palestras, oficinas e eventos incríveis perto de você.</p>
+        
+        <div class="features-grid">
+          <div class="feature-item">
+            <div class="feature-icon-box"><i class="fas fa-search"></i></div>
+            <span>Encontre os melhores eventos</span>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon-box"><i class="far fa-calendar-check"></i></div>
+            <span>Inscreva-se de forma rápida e segura</span>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon-box"><i class="fas fa-ticket-alt"></i></div>
+            <span>Participe e amplie seus conhecimentos</span>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon-box"><i class="fas fa-certificate"></i></div>
+            <span>Receba seu certificado de participação</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="sidebar-bg-image">
+        <img src="palestra1.jfif" alt="Público assistindo palestra">
+      </div>
+    </section>
+
+    <section class="login-content-pane">
+      <div class="login-card">
+        
+        <div class="card-header">
+          <div class="welcome-icon-box"><i class="fas fa-lock"></i></div>
+          <div class="card-header-text">
+            <h2>Bem-vindo de volta!</h2>
+            <p>Faça login para continuar e encontrar eventos incríveis.</p>
+          </div>
+        </div>
+
+        <form>
+          <div class="form-group">
+            <label for="email">E-mail</label>
+            <div class="input-wrapper">
+              <i class="far fa-envelope prefix-icon"></i>
+              <input type="email" id="email" placeholder="seu@email.com" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="password">Senha</label>
+            <div class="input-wrapper">
+              <i class="fas fa-lock prefix-icon"></i>
+              <input type="password" id="password" placeholder="••••••••" required>
+              <i class="far fa-eye suffix-icon"></i>
+            </div>
+          </div>
+
+          <div class="form-options">
+            <label class="remember-me">
+              <input type="checkbox"> Lembrar-me
+            </label>
+            <a href="#" class="forgot-password">Esqueci minha senha</a>
+          </div>
+
+          <button type="submit" class="btn-submit-login">Entrar</button>
+        </form>
+
+        <div class="divider-text">ou</div>
+
+        <div class="social-login-buttons">
+          <button class="btn-social">
+            <img src="download.png" alt="Google">
+            Entrar com Google
+          </button>
+          <button class="btn-social">
+            <img src="download (1).png" alt="Microsoft">
+            Entrar com Microsoft
+          </button>
+        </div>
+
+        <div class="register-footer-text">
+          Não tem uma conta? <a href="#">Cadastre-se</a>
+        </div>
+
+      </div>
+
+      <div class="security-footer">
+        <i class="fas fa-shield-alt"></i>
+        <span>Seus dados estão protegidos com segurança.</span>
+      </div>
+    </section>
+
+  </main>
+
+</body>
+</html>

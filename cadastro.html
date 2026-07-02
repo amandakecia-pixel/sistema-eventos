@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conecta Eventos - Cadastrar</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background-color: #f3f4f6;
+      color: #1e293b;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    a {
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #ffffff;
+      padding: 0 6%;
+      height: 80px;
+      border-bottom: 1px solid #e2e8f0;
+      width: 100%;
+      position: relative;
+      z-index: 10;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-imagem {
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+    }
+
+    .logo-brand {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #1e1b4b;
+      line-height: 1.1;
+    }
+
+    .logo-brand span {
+      color: #6366f1;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+
+    .nav-menu {
+      display: flex;
+      gap: 32px;
+    }
+
+    .nav-link {
+      color: #0f172a;
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+
+    .nav-link:hover {
+      color: #6366f1;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .btn-theme-toggle {
+      background: none;
+      border: 1px solid #cbd5e1;
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #334155;
+      cursor: pointer;
+      font-size: 1.1rem;
+    }
+
+    .btn-login {
+      background: none;
+      border: 1px solid #cbd5e1;
+      padding: 10px 24px;
+      border-radius: 8px;
+      color: #0f172a;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+
+    .btn-register {
+      background-color: #6366f1;
+      border: none;
+      padding: 10px 24px;
+      border-radius: 8px;
+      color: #ffffff;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+
+    .main-container {
+      display: flex;
+      flex: 1;
+      width: 100%;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 40px 6%;
+      gap: 40px;
+      align-items: center;
+    }
+
+    
+    .sidebar-left {
+      flex: 0.8;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .sidebar-left h1 {
+      font-size: 3.2rem;
+      font-weight: 800;
+      line-height: 1.15;
+      color: #4f46e5;
+      margin-bottom: 8px;
+    }
+
+    .sidebar-left h2 {
+      font-size: 3.2rem;
+      font-weight: 800;
+      line-height: 1.15;
+      color: #1e293b;
+      margin-bottom: 40px;
+    }
+
+    
+    .illustration-img-container {
+      width: 100%;
+      max-width: 450px;
+      margin-top: 10px;
+    }
+
+    .illustration-img-container img {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+    }
+
+    .content-right {
+      flex: 1.2;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .register-card {
+      background-color: #ffffff;
+      width: 100%;
+      max-width: 680px;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .icon-box-profile {
+      width: 48px;
+      height: 48px;
+      background-color: #eeebff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #6366f1;
+      font-size: 1.2rem;
+    }
+
+    .card-header-text h3 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .card-header-text p {
+      font-size: 0.9rem;
+      color: #64748b;
+      margin-top: 2px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-group-full {
+      grid-column: span 2;
+    }
+
+    .form-group label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #334155;
+      margin-bottom: 8px;
+    }
+
+    .input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .input-wrapper i.prefix-icon {
+      position: absolute;
+      left: 14px;
+      color: #94a3b8;
+      font-size: 0.95rem;
+    }
+
+    .input-wrapper i.suffix-icon {
+      position: absolute;
+      right: 14px;
+      color: #94a3b8;
+      font-size: 0.95rem;
+      cursor: pointer;
+    }
+
+    .input-wrapper input, .input-wrapper select {
+      width: 100%;
+      padding: 12px 14px 12px 40px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      outline: none;
+      color: #334155;
+      background-color: #ffffff;
+      transition: border-color 0.2s;
+    }
+
+    .input-wrapper input[type="date"] {
+      padding-right: 14px;
+    }
+
+    .input-wrapper select {
+      appearance: none;
+      cursor: pointer;
+    }
+
+    .input-wrapper input:focus, .input-wrapper select:focus {
+      border-color: #6366f1;
+    }
+
+    .terms-acceptance {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.85rem;
+      color: #475569;
+      line-height: 1.4;
+      margin-bottom: 24px;
+    }
+
+    .terms-acceptance input {
+      accent-color: #6366f1;
+      width: 16px;
+      height: 16px;
+      margin-top: 2px;
+      cursor: pointer;
+    }
+
+    .terms-acceptance a {
+      color: #1e1b4b;
+      font-weight: 600;
+    }
+
+    .btn-submit-register {
+      width: 100%;
+      background-color: #4f46e5;
+      color: #ffffff;
+      border: none;
+      padding: 14px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      margin-bottom: 24px;
+      transition: background-color 0.2s;
+    }
+
+    .btn-submit-register:hover {
+      background-color: #4338ca;
+    }
+
+    .divider-text {
+      display: flex;
+      align-items: center;
+      text-align: center;
+      color: #94a3b8;
+      font-size: 0.8rem;
+      font-weight: 500;
+      margin-bottom: 24px;
+    }
+
+    .divider-text::before, .divider-text::after {
+      content: '';
+      flex: 1;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .divider-text:not(:empty)::before { margin-right: 12px; }
+    .divider-text:not(:empty)::after { margin-left: 12px; }
+
+    .social-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .btn-social {
+      background-color: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #334155;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .btn-social:hover {
+      background-color: #f8fafc;
+    }
+
+    .btn-social img {
+      width: 18px;
+      height: 18px;
+      object-fit: contain;
+    }
+
+    .login-footer-text {
+      text-align: center;
+      font-size: 0.85rem;
+      color: #475569;
+    }
+
+    .login-footer-text a {
+      color: #4f46e5;
+      font-weight: 600;
+    }
+
+    @media (max-width: 968px) {
+      .main-container {
+        flex-direction: column;
+        padding: 20px 4%;
+      }
+      .sidebar-left {
+        text-align: center;
+        align-items: center;
+      }
+      .sidebar-left h1, .sidebar-left h2 {
+        font-size: 2.2rem;
+      }
+      .illustration-img-container {
+        max-width: 320px;
+      }
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+      .form-group-full {
+        grid-column: span 1;
+      }
+      .social-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="navbar">
+    <div class="logo-container">
+      <img src="logo.png" alt="Logo Conecta" class="logo-imagem">
+      <div class="logo-brand">Conecta <span>Eventos</span></div>
+    </div>
+    <nav class="nav-menu">
+      <a href="index.html" class="nav-link">Início</a>
+      <a href="#" class="nav-link">Eventos</a>
+      <a href="#" class="nav-link">Categorias</a>
+      <a href="#" class="nav-link">Sobre</a>
+      <a href="#" class="nav-link">Contato</a>
+    </nav>
+    <div class="nav-actions">
+      <button class="btn-theme-toggle" title="Mudar tema"><i class="far fa-moon"></i></button>
+      <button class="btn-login">Entrar</button>
+      <button class="btn-register">Cadastrar</button>
+    </div>
+  </header>
+
+  <main class="main-container">
+    
+    <section class="sidebar-left">
+      <h1>Crie sua conta.</h1>
+      <h2>Acesse grátis agora mesmo.</h2>
+      
+      <div class="illustration-img-container">
+        <img src="cadrasto- ilustracao.png" alt="Ilustração de Cadastro">
+      </div>
+    </section>
+
+    <section class="content-right">
+      <div class="register-card">
+        
+        <div class="card-header">
+          <div class="icon-box-profile"><i class="user-icon fas fa-user-shield"></i></div>
+          <div class="card-header-text">
+            <h3>Criar sua conta</h3>
+            <p>Preencha os dados abaixo para se cadastrar.</p>
+          </div>
+        </div>
+
+        <form>
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="fullName">Nome completo</label>
+              <div class="input-wrapper">
+                <i class="far fa-user prefix-icon"></i>
+                <input type="text" id="fullName" placeholder="Digite seu nome completo" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="birthDate">Data de nascimento</label>
+              <div class="input-wrapper">
+                <input type="date" id="birthDate" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="email">E-mail</label>
+              <div class="input-wrapper">
+                <i class="far fa-envelope prefix-icon"></i>
+                <input type="email" id="email" placeholder="seu@email.com" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="phone">Telefone (opcional)</label>
+              <div class="input-wrapper">
+                <i class="fas fa-phone-alt prefix-icon"></i>
+                <input type="tel" id="phone" placeholder="(11) 99999-9999">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="password">Senha</label>
+              <div class="input-wrapper">
+                <i class="fas fa-lock prefix-icon"></i>
+                <input type="password" id="password" placeholder="Mínimo de 6 caracteres" required>
+                <i class="far fa-eye suffix-icon"></i>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="confirmPassword">Confirmar senha</label>
+              <div class="input-wrapper">
+                <i class="fas fa-lock prefix-icon"></i>
+                <input type="password" id="confirmPassword" placeholder="Confirme sua senha" required>
+                <i class="far fa-eye suffix-icon"></i>
+              </div>
+            </div>
+
+            <div class="form-group form-group-full">
+              <label for="userType">Tipo de usuário</label>
+              <div class="input-wrapper">
+                <i class="fas fa-users prefix-icon"></i>
+                <select id="userType">
+                  <option value="participante">Participante</option>
+                  <option value="organizador">Organizador</option>
+                </select>
+                <i class="fas fa-chevron-down suffix-icon" style="pointer-events: none;"></i>
+              </div>
+            </div>
+          </div>
+
+          <div class="terms-acceptance">
+            <input type="checkbox" id="terms" required>
+            <label for="terms">Ao se cadastrar, você concorda com nossos <a href="#">Termos de Uso</a> e <a href="#">Política de Privacidade</a>.</label>
+          </div>
+
+          <button type="submit" class="btn-submit-register">Cadastrar</button>
+        </form>
+
+        <div class="divider-text">ou cadastre-se com</div>
+
+        <div class="social-grid">
+          <button class="btn-social">
+            <img src="download.png" alt="Google">
+            Continuar com Google
+          </button>
+          <button class="btn-social">
+            <img src="download (1).png" alt="Microsoft">
+            Continuar com Microsoft
+          </button>
+        </div>
+
+        <div class="login-footer-text">
+          Já tem uma conta? <a href="login.html">Entrar</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+</body>
+</html>
