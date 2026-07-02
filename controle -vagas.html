@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Controle de Vagas - Conecta Eventos</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Inter',sans-serif;
+}
+
+body{
+  background:#f8fafc;
+  color:#0f172a;
+}
+
+a{
+  text-decoration:none;
+}
+
+.topbar{
+  height:80px;
+  background:#fff;
+  border-bottom:1px solid #e2e8f0;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 35px;
+}
+
+.logo{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.logo img{
+  width:45px;
+  height:45px;
+  object-fit:contain;
+}
+
+.logo-brand {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #1e1b4b;
+      white-space: nowrap;
+    }
+
+    .logo-brand span {
+      color: #6366f1;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+.search-box{
+  width:360px;
+  height:48px;
+  background:#fff;
+  border:1px solid #e2e8f0;
+  border-radius:10px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:0 16px;
+}
+
+.search-box i{
+  color:#64748b;
+}
+
+.search-box input{
+  border:none;
+  outline:none;
+  width:100%;
+  font-size:14px;
+}
+
+.profile{
+  display:flex;
+  align-items:center;
+  gap:20px;
+  position:relative;
+}
+
+.notification{
+  position:relative;
+  font-size:22px;
+  color:#64748b;
+}
+
+.notification span{
+  position:absolute;
+  top:-7px;
+  right:-8px;
+  background:#5b21f6;
+  color:#fff;
+  width:18px;
+  height:18px;
+  border-radius:50%;
+  font-size:11px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.user{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  cursor:pointer;
+  padding:6px 10px;
+  border-radius:8px;
+}
+
+.user:hover{
+  background:#f8fafc;
+}
+
+.user img{
+  width:45px;
+  height:45px;
+  border-radius:50%;
+  object-fit:cover;
+  border:2px solid #5b21f6;
+}
+
+.user-info strong{
+  font-size:14px;
+}
+
+.user-info p{
+  font-size:12px;
+  color:#64748b;
+}
+
+.dropdown{
+  position:absolute;
+  top:68px;
+  right:0;
+  width:260px;
+  background:#fff;
+  border:1px solid #e2e8f0;
+  border-radius:12px;
+  box-shadow:0 8px 25px rgba(0,0,0,.08);
+  display:none;
+  padding:8px;
+  z-index:999;
+}
+
+.dropdown.show{
+  display:block;
+}
+
+.dropdown a{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:12px;
+  border-radius:8px;
+  color:#334155;
+  font-size:15px;
+  font-weight:500;
+}
+
+.dropdown a:hover{
+  background:#f3f4f6;
+  color:#5b21f6;
+}
+
+.dropdown hr{
+  margin:8px 0;
+  border:none;
+  border-top:1px solid #e2e8f0;
+}
+
+.dropdown .logout{
+  color:#ef4444;
+}
+
+.main{
+  padding:32px;
+}
+.header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:24px;
+}
+
+.header h1{
+  font-size:30px;
+  margin-bottom:6px;
+}
+
+.header p{
+  color:#64748b;
+  font-size:15px;
+}
+
+.btn{
+  background:#5b21f6;
+  color:#fff;
+  border:none;
+  border-radius:9px;
+  padding:14px 22px;
+  font-weight:600;
+  cursor:pointer;
+  font-size:15px;
+}
+
+.btn:hover{
+  background:#4c1d95;
+}
+
+.cards{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:18px;
+  margin-bottom:24px;
+}
+
+.card{
+  background:#fff;
+  border:1px solid #e2e8f0;
+  border-radius:14px;
+  padding:22px;
+  display:flex;
+  align-items:center;
+  gap:18px;
+}
+
+.icon-box{
+  width:64px;
+  height:64px;
+  background:#ede9fe;
+  color:#5b21f6;
+  border-radius:14px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:28px;
+}
+
+.icon-green{
+  background:#dcfce7;
+  color:#16a34a;
+}
+
+.icon-orange{
+  background:#ffedd5;
+  color:#ea580c;
+}
+
+.card h3{
+  font-size:14px;
+  margin-bottom:6px;
+}
+
+.card strong{
+  font-size:29px;
+}
+
+.card p{
+  color:#64748b;
+  font-size:13px;
+  margin-top:5px;
+}
+
+.panel{
+  background:#fff;
+  border:1px solid #e2e8f0;
+  border-radius:16px;
+  padding:18px;
+  margin-bottom:20px;
+}
+
+.filters{
+  display:grid;
+  grid-template-columns:2fr 1.4fr 1.4fr auto;
+  gap:16px;
+  margin-bottom:20px;
+}
+
+.input-box,
+.select-box{
+  height:50px;
+  border:1px solid #e2e8f0;
+  border-radius:10px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:0 14px;
+  background:#fff;
+}
+
+.input-box i,
+.select-box i{
+  color:#64748b;
+}
+
+.input-box input{
+  border:none;
+  outline:none;
+  width:100%;
+  font-size:14px;
+}
+
+.select-box select{
+  border:none;
+  outline:none;
+  width:100%;
+  background:transparent;
+  font-size:14px;
+}
+
+.btn-filter{
+  height:50px;
+  padding:0 18px;
+  border:1px solid #e2e8f0;
+  background:#fff;
+  color:#5b21f6;
+  border-radius:10px;
+  font-weight:600;
+  cursor:pointer;
+}
+
+.table-wrapper{
+  border:1px solid #e2e8f0;
+  border-radius:14px;
+  overflow:hidden;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  background:#fff;
+}
+
+thead{
+  background:#fff;
+}
+
+th{
+  text-align:left;
+  padding:16px;
+  font-size:14px;
+  color:#0f172a;
+  border-bottom:1px solid #e2e8f0;
+}
+
+td{
+  padding:14px 16px;
+  font-size:14px;
+  border-bottom:1px solid #e2e8f0;
+  vertical-align:middle;
+}
+
+tr:last-child td{
+  border-bottom:none;
+}
+.event-cell{
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+
+.event-img{
+  width:72px;
+  height:52px;
+  border-radius:8px;
+  background:linear-gradient(135deg,#312e81,#06b6d4);
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:24px;
+}
+
+.event-name strong{
+  display:block;
+  font-size:14px;
+  margin-bottom:6px;
+}
+
+.event-name span{
+  color:#64748b;
+  font-size:12px;
+}
+
+.tag{
+  padding:7px 10px;
+  border-radius:7px;
+  font-size:12px;
+  font-weight:600;
+}
+
+.tag-purple{
+  background:#ede9fe;
+  color:#5b21f6;
+}
+
+.tag-blue{
+  background:#dbeafe;
+  color:#2563eb;
+}
+
+.tag-green{
+  background:#dcfce7;
+  color:#16a34a;
+}
+
+.tag-orange{
+  background:#ffedd5;
+  color:#ea580c;
+}
+
+.available-red{
+  color:#dc2626;
+  font-weight:700;
+}
+
+.available-green{
+  color:#16a34a;
+  font-weight:700;
+}
+
+.progress-box{
+  width:130px;
+}
+
+.progress-text{
+  font-weight:700;
+  margin-bottom:8px;
+}
+
+.progress-bg{
+  width:100%;
+  height:8px;
+  background:#e5e7eb;
+  border-radius:20px;
+  overflow:hidden;
+}
+
+.progress-fill{
+  height:100%;
+  border-radius:20px;
+  background:#f97316;
+}
+
+.progress-red{
+  background:#ef4444;
+}
+
+.status{
+  padding:7px 11px;
+  border-radius:8px;
+  font-size:12px;
+  font-weight:600;
+}
+
+.status-open{
+  background:#dcfce7;
+  color:#15803d;
+}
+
+.status-full{
+  background:#fee2e2;
+  color:#dc2626;
+}
+
+.actions{
+  display:flex;
+  gap:8px;
+}
+
+.action-btn{
+  border:1px solid #e2e8f0;
+  background:#fff;
+  color:#5b21f6;
+  border-radius:8px;
+  padding:9px 13px;
+  cursor:pointer;
+  font-weight:600;
+}
+
+.footer-table{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:14px;
+  color:#64748b;
+  font-size:14px;
+  border-top:1px solid #e2e8f0;
+}
+
+.pagination{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.page{
+  width:34px;
+  height:34px;
+  border:1px solid #e2e8f0;
+  border-radius:8px;
+  background:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#334155;
+  cursor:pointer;
+}
+
+.page.active{
+  background:#5b21f6;
+  color:#fff;
+}
+
+.tip{
+  background:#f5f3ff;
+  border:1px solid #ddd6fe;
+  border-radius:12px;
+  padding:18px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.tip-left{
+  display:flex;
+  align-items:center;
+  gap:16px;
+}
+
+.tip-icon{
+  width:44px;
+  height:44px;
+  border-radius:50%;
+  background:#5b21f6;
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:20px;
+}
+
+.tip strong{
+  display:block;
+  margin-bottom:5px;
+}
+
+.tip p{
+  color:#475569;
+  font-size:14px;
+}
+
+.tip button{
+  border:1px solid #c4b5fd;
+  color:#5b21f6;
+  background:#fff;
+  border-radius:8px;
+  padding:11px 18px;
+  font-weight:600;
+}
+
+@media(max-width:1100px){
+  .cards{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .filters{
+    grid-template-columns:1fr;
+  }
+
+  .table-wrapper{
+    overflow-x:auto;
+  }
+
+  table{
+    min-width:1050px;
+  }
+}
+
+@media(max-width:700px){
+  .topbar{
+    padding:0 18px;
+  }
+
+  .search-box{
+    display:none;
+  }
+
+  .main{
+    padding:20px;
+  }
+
+  .header{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:16px;
+  }
+
+  .cards{
+    grid-template-columns:1fr;
+  }
+
+  .logo-text{
+    font-size:20px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header class="topbar">
+
+  <div class="logo">
+    <img src="logo.png" alt="Logo Conecta Eventos">
+    <div class="logo-brand">Conecta <span>Eventos</span></div>
+  </div>
+
+  <div class="search-box">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <input type="text" placeholder="Buscar eventos, palestras, cursos...">
+  </div>
+
+  <div class="profile">
+
+    <div class="notification">
+      <i class="fa-regular fa-bell"></i>
+      <span>4</span>
+    </div>
+
+    <div class="user" id="profileBtn">
+      <img src="foto-amanda.jpeg" alt="Organizador">
+      <div class="user-info">
+        <strong>Olá, Amanda</strong>
+        <p>Organizador</p>
+      </div>
+      <i class="fa-solid fa-chevron-down"></i>
+    </div>
+
+    <div class="dropdown" id="dropdown">
+      <a href="#"><i class="fa-solid fa-house"></i> Início</a>
+      <a href="#"><i class="fa-regular fa-calendar-days"></i> Eventos</a>
+      <a href="#"><i class="fa-solid fa-users"></i> Participantes</a>
+      <a href="#"><i class="fa-regular fa-calendar-check"></i> Controle de Vagas</a>
+      <a href="#"><i class="fa-regular fa-file-lines"></i> Comprovantes</a>
+      <a href="#"><i class="fa-solid fa-gear"></i> Configurações</a>
+      <hr>
+      <a href="#" class="logout"><i class="fa-solid fa-arrow-right-from-bracket"></i> Sair</a>
+    </div>
+
+  </div>
+
+</header>
+<main class="main">
+
+<div class="header">
+
+    <div>
+
+        <h1>Controle de Vagas</h1>
+
+        <p>Acompanhe e gerencie a disponibilidade de vagas de todos os eventos.</p>
+
+    </div>
+
+    <button class="btn">
+
+        <i class="fa-solid fa-plus"></i>
+
+        Cadastrar novo evento
+
+    </button>
+
+</div>
+
+<div class="cards">
+
+<div class="card">
+
+<div class="icon-box">
+
+<i class="fa-regular fa-calendar"></i>
+
+</div>
+
+<div>
+
+<h3>Total de Eventos</h3>
+
+<strong>12</strong>
+
+<p>Eventos cadastrados</p>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<div class="icon-box">
+
+<i class="fa-solid fa-users"></i>
+
+</div>
+
+<div>
+
+<h3>Vagas Totais</h3>
+
+<strong>500</strong>
+
+<p>Vagas disponibilizadas</p>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<div class="icon-box icon-green">
+
+<i class="fa-solid fa-user-check"></i>
+
+</div>
+
+<div>
+
+<h3>Inscritos</h3>
+
+<strong>387</strong>
+
+<p>Pessoas inscritas</p>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<div class="icon-box icon-orange">
+
+<i class="fa-solid fa-chair"></i>
+
+</div>
+
+<div>
+
+<h3>Vagas Disponíveis</h3>
+
+<strong>113</strong>
+
+<p>Vagas restantes</p>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="panel">
+
+<div class="filters">
+
+<div class="input-box">
+
+<i class="fa-solid fa-magnifying-glass"></i>
+
+<input placeholder="Buscar evento...">
+
+</div>
+
+<div class="select-box">
+
+<select>
+
+<option>Todos os tipos</option>
+
+<option>Curso</option>
+
+<option>Palestra</option>
+
+<option>Workshop</option>
+
+</select>
+
+</div>
+
+<div class="select-box">
+
+<select>
+
+<option>Todos os status</option>
+
+<option>Aberto</option>
+
+<option>Lotado</option>
+
+</select>
+
+</div>
+
+<button class="btn-filter">
+
+<i class="fa-solid fa-rotate-right"></i>
+
+Limpar
+
+</button>
+
+</div>
+
+<div class="table-wrapper">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Evento</th>
+
+<th>Tipo</th>
+
+<th>Data</th>
+
+<th>Vagas</th>
+
+<th>Inscritos</th>
+
+<th>Disponíveis</th>
+
+<th>Ocupação</th>
+
+<th>Status</th>
+
+<th>Ações</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td>
+
+<div class="event-cell">
+
+<div class="event-img">
+
+<i class="fa-solid fa-code"></i>
+
+</div>
+
+<div class="event-name">
+
+<strong>Curso HTML e CSS</strong>
+
+<span>Sala 01</span>
+
+</div>
+
+</div>
+
+</td>
+
+<td><span class="tag tag-purple">Curso</span></td>
+
+<td>15/08/2026</td>
+
+<td>50</td>
+
+<td>45</td>
+
+<td class="available-red">5</td>
+
+<td>
+
+<div class="progress-box">
+
+<div class="progress-text">90%</div>
+
+<div class="progress-bg">
+
+<div class="progress-fill progress-red" style="width:90%"></div>
+
+</div>
+
+</div>
+
+</td>
+
+<td><span class="status status-open">Aberto</span></td>
+
+<td>
+
+<div class="actions">
+
+<button class="action-btn">
+
+<i class="fa-regular fa-eye"></i>
+
+</button>
+
+<button class="action-btn">
+
+<i class="fa-solid fa-pen"></i>
+
+</button>
+
+</div>
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+<div class="footer-table">
+
+<span>Mostrando 1 de 12 eventos</span>
+
+<div class="pagination">
+
+<div class="page active">1</div>
+
+<div class="page">2</div>
+
+<div class="page">3</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="tip">
+
+<div class="tip-left">
+
+<div class="tip-icon">
+
+<i class="fa-solid fa-circle-info"></i>
+
+</div>
+
+<div>
+
+<strong>Dica importante</strong>
+
+<p>Eventos lotados não aceitam novas inscrições.</p>
+
+</div>
+
+</div>
+
+<button>Saiba mais</button>
+
+</div>
+
+</main>
+
+<script>
+
+const profileBtn=document.getElementById("profileBtn");
+
+const dropdown=document.getElementById("dropdown");
+
+profileBtn.onclick=function(e){
+
+e.stopPropagation();
+
+dropdown.classList.toggle("show");
+
+}
+
+document.onclick=function(e){
+
+if(!profileBtn.contains(e.target)&&!dropdown.contains(e.target)){
+
+dropdown.classList.remove("show");
+
+}
+
+}
+
+</script>
+
+</body>
+
+</html>
+
