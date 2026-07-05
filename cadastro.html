@@ -4,12 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Conecta Eventos - Cadastrar</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
-  <style>
 
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
     * {
       margin: 0;
       padding: 0;
@@ -20,7 +19,6 @@
     body {
       background-color: #f3f4f6;
       color: #1e293b;
-      -webkit-font-smoothing: antialiased;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -137,7 +135,6 @@
       align-items: center;
     }
 
-    
     .sidebar-left {
       flex: 0.8;
       display: flex;
@@ -161,7 +158,6 @@
       margin-bottom: 40px;
     }
 
-    
     .illustration-img-container {
       width: 100%;
       max-width: 450px;
@@ -264,7 +260,8 @@
       cursor: pointer;
     }
 
-    .input-wrapper input, .input-wrapper select {
+    .input-wrapper input,
+    .input-wrapper select {
       width: 100%;
       padding: 12px 14px 12px 40px;
       border: 1px solid #cbd5e1;
@@ -285,7 +282,8 @@
       cursor: pointer;
     }
 
-    .input-wrapper input:focus, .input-wrapper select:focus {
+    .input-wrapper input:focus,
+    .input-wrapper select:focus {
       border-color: #6366f1;
     }
 
@@ -340,14 +338,20 @@
       margin-bottom: 24px;
     }
 
-    .divider-text::before, .divider-text::after {
+    .divider-text::before,
+    .divider-text::after {
       content: '';
       flex: 1;
       border-bottom: 1px solid #e2e8f0;
     }
 
-    .divider-text:not(:empty)::before { margin-right: 12px; }
-    .divider-text:not(:empty)::after { margin-left: 12px; }
+    .divider-text:not(:empty)::before {
+      margin-right: 12px;
+    }
+
+    .divider-text:not(:empty)::after {
+      margin-left: 12px;
+    }
 
     .social-grid {
       display: grid;
@@ -393,33 +397,54 @@
       font-weight: 600;
     }
 
+    .mensagem-sucesso {
+      display: none;
+      background-color: #dcfce7;
+      color: #166534;
+      border: 1px solid #86efac;
+      padding: 12px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      text-align: center;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
     @media (max-width: 968px) {
       .main-container {
         flex-direction: column;
         padding: 20px 4%;
       }
+
       .sidebar-left {
         text-align: center;
         align-items: center;
       }
-      .sidebar-left h1, .sidebar-left h2 {
+
+      .sidebar-left h1,
+      .sidebar-left h2 {
         font-size: 2.2rem;
       }
+
       .illustration-img-container {
         max-width: 320px;
       }
+
       .form-grid {
         grid-template-columns: 1fr;
       }
+
       .form-group-full {
         grid-column: span 1;
       }
+
       .social-grid {
         grid-template-columns: 1fr;
       }
     }
   </style>
 </head>
+
 <body>
 
   <header class="navbar">
@@ -427,6 +452,7 @@
       <img src="logo.png" alt="Logo Conecta" class="logo-imagem">
       <div class="logo-brand">Conecta <span>Eventos</span></div>
     </div>
+
     <nav class="nav-menu">
       <a href="index.html" class="nav-link">Início</a>
       <a href="#" class="nav-link">Eventos</a>
@@ -434,19 +460,22 @@
       <a href="#" class="nav-link">Sobre</a>
       <a href="#" class="nav-link">Contato</a>
     </nav>
+
     <div class="nav-actions">
-      <button class="btn-theme-toggle" title="Mudar tema"><i class="far fa-moon"></i></button>
-      <button class="btn-login">Entrar</button>
+      <button class="btn-theme-toggle" title="Mudar tema">
+        <i class="far fa-moon"></i>
+      </button>
+      <button class="btn-login" onclick="window.location.href='login.html'">Entrar</button>
       <button class="btn-register">Cadastrar</button>
     </div>
   </header>
 
   <main class="main-container">
-    
+
     <section class="sidebar-left">
       <h1>Crie sua conta.</h1>
       <h2>Acesse grátis agora mesmo.</h2>
-      
+
       <div class="illustration-img-container">
         <img src="cadrasto- ilustracao.png" alt="Ilustração de Cadastro">
       </div>
@@ -454,17 +483,25 @@
 
     <section class="content-right">
       <div class="register-card">
-        
+
         <div class="card-header">
-          <div class="icon-box-profile"><i class="user-icon fas fa-user-shield"></i></div>
+          <div class="icon-box-profile">
+            <i class="user-icon fas fa-user-shield"></i>
+          </div>
+
           <div class="card-header-text">
             <h3>Criar sua conta</h3>
             <p>Preencha os dados abaixo para se cadastrar.</p>
           </div>
         </div>
 
-        <form>
+        <div class="mensagem-sucesso" id="mensagemSucesso">
+          Cadastro realizado com sucesso! Redirecionando...
+        </div>
+
+        <form id="formCadastro">
           <div class="form-grid">
+
             <div class="form-group">
               <label for="fullName">Nome completo</label>
               <div class="input-wrapper">
@@ -501,7 +538,7 @@
               <div class="input-wrapper">
                 <i class="fas fa-lock prefix-icon"></i>
                 <input type="password" id="password" placeholder="Mínimo de 6 caracteres" required>
-                <i class="far fa-eye suffix-icon"></i>
+                <i class="far fa-eye suffix-icon" onclick="mostrarSenha('password', this)"></i>
               </div>
             </div>
 
@@ -510,7 +547,7 @@
               <div class="input-wrapper">
                 <i class="fas fa-lock prefix-icon"></i>
                 <input type="password" id="confirmPassword" placeholder="Confirme sua senha" required>
-                <i class="far fa-eye suffix-icon"></i>
+                <i class="far fa-eye suffix-icon" onclick="mostrarSenha('confirmPassword', this)"></i>
               </div>
             </div>
 
@@ -518,18 +555,23 @@
               <label for="userType">Tipo de usuário</label>
               <div class="input-wrapper">
                 <i class="fas fa-users prefix-icon"></i>
-                <select id="userType">
+                <select id="userType" required>
                   <option value="participante">Participante</option>
                   <option value="organizador">Organizador</option>
                 </select>
                 <i class="fas fa-chevron-down suffix-icon" style="pointer-events: none;"></i>
               </div>
             </div>
+
           </div>
 
           <div class="terms-acceptance">
             <input type="checkbox" id="terms" required>
-            <label for="terms">Ao se cadastrar, você concorda com nossos <a href="#">Termos de Uso</a> e <a href="#">Política de Privacidade</a>.</label>
+            <label for="terms">
+              Ao se cadastrar, você concorda com nossos
+              <a href="#">Termos de Uso</a> e
+              <a href="#">Política de Privacidade</a>.
+            </label>
           </div>
 
           <button type="submit" class="btn-submit-register">Cadastrar</button>
@@ -538,11 +580,12 @@
         <div class="divider-text">ou cadastre-se com</div>
 
         <div class="social-grid">
-          <button class="btn-social">
+          <button class="btn-social" type="button">
             <img src="download.png" alt="Google">
             Continuar com Google
           </button>
-          <button class="btn-social">
+
+          <button class="btn-social" type="button">
             <img src="download (1).png" alt="Microsoft">
             Continuar com Microsoft
           </button>
@@ -551,10 +594,99 @@
         <div class="login-footer-text">
           Já tem uma conta? <a href="login.html">Entrar</a>
         </div>
+
       </div>
     </section>
 
   </main>
+
+  <script>
+  const formCadastro = document.getElementById("formCadastro");
+  const mensagemSucesso = document.getElementById("mensagemSucesso");
+
+  formCadastro.addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    const nome = document.getElementById("fullName").value.trim();
+    const nascimento = document.getElementById("birthDate").value;
+    const email = document.getElementById("email").value.trim();
+    const telefone = document.getElementById("phone").value.trim();
+    const senha = document.getElementById("password").value;
+    const confirmarSenha = document.getElementById("confirmPassword").value;
+    const tipo = document.getElementById("userType").value;
+    const termos = document.getElementById("terms").checked;
+
+    if (nome === "" || nascimento === "" || email === "" || senha === "" || confirmarSenha === "") {
+      alert("Preencha todos os campos obrigatórios.");
+      return;
+    }
+
+    if (!termos) {
+      alert("Você precisa aceitar os termos de uso.");
+      return;
+    }
+
+    if (senha.length < 6) {
+      alert("A senha deve ter no mínimo 6 caracteres.");
+      return;
+    }
+
+    if (senha !== confirmarSenha) {
+      alert("As senhas não coincidem.");
+      return;
+    }
+
+    const usuario = {
+      nome: nome,
+      nascimento: nascimento,
+      email: email,
+      telefone: telefone,
+      senha: senha,
+      tipo: tipo
+    };
+
+    let usuarios = JSON.parse(localStorage.getItem("usuariosCadastrados")) || [];
+
+const emailJaExiste = usuarios.some(function(user) {
+  return user.email === email;
+});
+
+if (emailJaExiste) {
+  alert("Este e-mail já está cadastrado. Use outro e-mail.");
+  return;
+}
+
+usuarios.push(usuario);
+
+localStorage.setItem("usuariosCadastrados", JSON.stringify(usuarios));
+localStorage.setItem("usuarioLogado", JSON.stringify(usuario));
+
+
+    mensagemSucesso.style.display = "block";
+
+    setTimeout(function() {
+      if (tipo === "participante") {
+        window.location.href = "dashboard.html";
+      } else if (tipo === "organizador") {
+        window.location.href = "dashboard-organizado.html";
+      }
+    }, 1500);
+  });
+
+  function mostrarSenha(idCampo, icone) {
+    const campo = document.getElementById(idCampo);
+
+    if (campo.type === "password") {
+      campo.type = "text";
+      icone.classList.remove("fa-eye");
+      icone.classList.add("fa-eye-slash");
+    } else {
+      campo.type = "password";
+      icone.classList.remove("fa-eye-slash");
+      icone.classList.add("fa-eye");
+    }
+  }
+</script>
 
 </body>
 </html>
