@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Conecta Eventos - Comprovantes</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background-color: #ffffff;
+      color: #0f172a;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 4%;
+      height: 80px;
+      border-bottom: 1px solid #f1f5f9;
+      gap: 20px;
+      position: relative;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-img {
+      width: 35px;
+      height: 35px;
+      border-radius: 6px;
+    }
+
+    .logo-brand {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #1e1b4b;
+      display: flex;
+      gap: 6px;
+    }
+
+    .logo-brand span {
+      color: #6366f1;
+      font-size: 0.8rem;
+      font-weight: 500;
+      margin-top: 10px;
+    }
+
+    .search-wrapper {
+      position: relative;
+      width: 300px;
+    }
+
+    .search-wrapper i {
+      position: absolute;
+      left: 10px;
+      top: 12px;
+      color: #94a3b8;
+    }
+
+    .search-input {
+      width: 100%;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 10px 10px 10px 35px;
+      outline: none;
+    }
+
+    .nav-menu {
+      display: flex;
+      gap: 20px;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .nav-menu a {
+      color: #0f172a;
+    }
+
+    .user-info-box {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .avatar-inicial {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #eef2ff;
+      color: #4f46e5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+    }
+
+    .profile-dropdown {
+      position: absolute;
+      top: 70px;
+      right: 4%;
+      width: 220px;
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      display: none;
+      padding: 8px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      z-index: 999;
+    }
+
+    .profile-dropdown.show {
+      display: block;
+    }
+
+    .dropdown-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px;
+      color: #64748b;
+      font-size: 0.9rem;
+      border-radius: 8px;
+    }
+
+    .dropdown-item:hover {
+      background: #f8fafc;
+    }
+
+    .main-wrapper {
+      padding: 40px 8%;
+      flex: 1;
+    }
+
+    .main-wrapper h1 {
+      font-size: 1.7rem;
+      margin-bottom: 8px;
+    }
+
+    .page-subtitle {
+      color: #64748b;
+      margin-top: 8px;
+    }
+
+    .comprovantes-grid {
+      display: grid;
+      grid-template-columns: 1fr 400px;
+      gap: 40px;
+      margin-top: 30px;
+    }
+
+    .tab-container {
+      display: flex;
+      gap: 20px;
+      border-bottom: 1px solid #e2e8f0;
+      margin-bottom: 20px;
+    }
+
+    .tab-btn {
+      border: none;
+      background: none;
+      padding-bottom: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      color: #64748b;
+    }
+
+    .tab-btn.active {
+      color: #6366f1;
+      border-bottom: 2px solid #6366f1;
+    }
+
+    .event-card {
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 16px;
+      display: flex;
+      gap: 16px;
+      margin-bottom: 16px;
+      cursor: pointer;
+      transition: 0.2s;
+      background: white;
+    }
+
+    .event-card:hover {
+      box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+    }
+
+    .event-card.active {
+      border-color: #6366f1;
+      background: #f8f7ff;
+    }
+
+    .event-card img {
+      width: 80px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    .event-card h3 {
+      font-size: 0.95rem;
+      margin-top: 3px;
+    }
+
+    .event-card small {
+      color: #64748b;
+      display: block;
+      margin-top: 4px;
+    }
+
+    .details-panel {
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 24px;
+      height: max-content;
+      position: sticky;
+      top: 24px;
+    }
+
+    .details-panel h3 {
+      margin-bottom: 16px;
+    }
+
+    .meta-line {
+      margin: 10px 0;
+      color: #64748b;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.9rem;
+    }
+
+    .btn-main {
+      width: 100%;
+      background: #4f46e5;
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 8px;
+      font-weight: 600;
+      margin: 18px 0 10px;
+      cursor: pointer;
+    }
+
+    .btn-secondary {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid #e2e8f0;
+      background: #f8fafc;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      color: #334155;
+    }
+
+    .empty-box {
+      padding: 24px;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      color: #64748b;
+    }
+
+    @media (max-width: 1000px) {
+      .comprovantes-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-menu {
+        display: none;
+      }
+
+      .search-wrapper {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .navbar {
+        flex-direction: column;
+        height: auto;
+        padding: 16px;
+      }
+
+      .main-wrapper {
+        padding: 24px 4%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header class="navbar">
+  <div class="logo-container">
+    <img src="logo.png" alt="Logo" class="logo-img">
+    <div class="logo-brand">Conecta <span>Eventos</span></div>
+  </div>
+
+  <div class="search-wrapper">
+    <i class="fas fa-search"></i>
+    <input type="text" class="search-input" placeholder="Buscar comprovantes...">
+  </div>
+
+  <nav class="nav-menu">
+    <a href="dashboard.html">Início</a>
+    <a href="eventos.html">Eventos</a>
+    <a href="categorias.html">Categorias</a>
+    <a href="sobre.html">Sobre</a>
+    <a href="contato.html">Contato</a>
+  </nav>
+
+  <div class="user-info-box" id="profileDropdownBtn">
+    <div class="avatar-inicial" id="avatarInicial">U</div>
+    <span>Olá</span>
+    <i class="fas fa-chevron-down"></i>
+  </div>
+
+  <div class="profile-dropdown" id="profileDropdownMenu">
+    <a href="meus-dados.html" class="dropdown-item"><i class="far fa-user"></i> Meus dados</a>
+    <a href="minhas-inscricoes.html" class="dropdown-item"><i class="far fa-calendar-alt"></i> Minhas inscrições</a>
+    <a href="comprovantes.html" class="dropdown-item"><i class="fas fa-shield-alt"></i> Comprovantes</a>
+    <a href="certificados.html" class="dropdown-item"><i class="fas fa-certificate"></i> Certificados</a>
+    <a href="configuracoes.html" class="dropdown-item"><i class="fas fa-cog"></i> Configurações</a>
+    <a href="#" onclick="sair()" class="dropdown-item" style="color:red;">
+      <i class="fas fa-sign-out-alt"></i> Sair
+    </a>
+  </div>
+</header>
+
+<main class="main-wrapper">
+  <h1>Comprovantes de participação</h1>
+  <p class="page-subtitle">Consulte e emita os comprovantes dos eventos que você participou ou se inscreveu.</p>
+
+  <div class="comprovantes-grid">
+    <section id="listaComprovantes"></section>
+
+    <aside class="details-panel" id="detailsPanel">
+      <h3>Detalhes do evento</h3>
+      <p style="color:#64748b;">Selecione um comprovante para visualizar.</p>
+    </aside>
+  </div>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<script>
+  const usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado"));
+
+  if (!usuarioLogado) {
+    window.location.href = "login.html";
+  }
+
+  const primeiroNome = usuarioLogado.nome.split(" ")[0];
+
+  document.querySelector(".user-info-box span").innerText = `Olá, ${primeiroNome}`;
+  document.getElementById("avatarInicial").innerText = primeiroNome.charAt(0).toUpperCase();
+
+  const inscricoes = JSON.parse(localStorage.getItem("inscricoesConecta")) || [];
+
+  let comprovantes = inscricoes.filter(item =>
+    item.emailUsuario === usuarioLogado.email &&
+    item.status !== "Cancelada"
+  );
+
+  let comprovanteSelecionado = comprovantes[0] || null;
+
+  const listaComprovantes = document.getElementById("listaComprovantes");
+  const detailsPanel = document.getElementById("detailsPanel");
+  const campoBusca = document.querySelector(".search-input");
+
+  function sair() {
+    localStorage.removeItem("usuarioLogado");
+    window.location.href = "login.html";
+  }
+
+  function renderizarLista() {
+    const tabs = `
+      <div class="tab-container">
+        <button class="tab-btn active" onclick="filtrarComprovantes('disponiveis', this)">
+          Disponíveis
+        </button>
+        <button class="tab-btn" onclick="filtrarComprovantes('indisponiveis', this)">
+          Indisponíveis
+        </button>
+      </div>
+    `;
+
+    if (comprovantes.length === 0) {
+      listaComprovantes.innerHTML = tabs + `
+        <div class="empty-box">
+          Nenhum comprovante disponível.
+        </div>
+      `;
+
+      renderizarDetalhes(null);
+      return;
+    }
+
+    listaComprovantes.innerHTML = tabs + comprovantes.map(item => `
+      <div class="event-card ${comprovanteSelecionado && Number(comprovanteSelecionado.id) === Number(item.id) ? 'active' : ''}"
+           onclick="selecionarComprovante(${item.id})">
+
+        <img src="${item.imagem || 'palestra.jpeg'}" alt="${item.titulo}">
+
+        <div>
+          <p style="color:#6366f1;font-weight:600;">${item.categoria || "Evento"}</p>
+          <h3>${item.titulo || "Evento sem título"}</h3>
+          <small>${item.data || "Data não informada"} • ${item.horario || "Horário não informado"}</small>
+        </div>
+      </div>
+    `).join("");
+
+    renderizarDetalhes(comprovanteSelecionado);
+  }
+
+  function selecionarComprovante(id) {
+    comprovanteSelecionado = comprovantes.find(item => Number(item.id) === Number(id));
+    renderizarLista();
+  }
+
+  function renderizarDetalhes(item) {
+    if (!item) {
+      detailsPanel.innerHTML = `
+        <h3>Detalhes do evento</h3>
+        <p style="color:#64748b;">Selecione um comprovante para visualizar.</p>
+      `;
+      return;
+    }
+
+    detailsPanel.innerHTML = `
+      <h3>${item.titulo || "Evento"}</h3>
+
+      <div class="meta-line">
+        <i class="far fa-calendar-alt"></i>
+        ${item.data || "Data não informada"}
+      </div>
+
+      <div class="meta-line">
+        <i class="far fa-clock"></i>
+        ${item.horario || "Horário não informado"}
+      </div>
+
+      <div class="meta-line">
+        <i class="fas fa-map-marker-alt"></i>
+        ${item.local || "Local não informado"}
+      </div>
+
+      <div class="meta-line">
+        <i class="far fa-user"></i>
+        ${item.nomeUsuario || usuarioLogado.nome}
+      </div>
+
+      <div class="meta-line">
+        <i class="far fa-envelope"></i>
+        ${item.emailFormulario || item.emailUsuario || usuarioLogado.email}
+      </div>
+
+      <button class="btn-main" onclick="visualizarComprovante()">
+        Visualizar comprovante
+      </button>
+
+      <div style="display:flex;gap:10px;">
+        <button class="btn-secondary" onclick="baixarPDF()">Baixar PDF</button>
+        <button class="btn-secondary" onclick="enviarEmail()">Enviar e-mail</button>
+      </div>
+    `;
+  }
+
+  function visualizarComprovante() {
+    if (!comprovanteSelecionado) return;
+
+    localStorage.setItem("comprovanteSelecionado", JSON.stringify(comprovanteSelecionado));
+    window.location.href = "comprovante.html";
+  }
+
+  function baixarPDF() {
+    if (!comprovanteSelecionado) return;
+
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    doc.setFontSize(18);
+    doc.text("Conecta Eventos", 20, 20);
+
+    doc.setFontSize(14);
+    doc.text("Comprovante de Participação", 20, 35);
+
+    doc.setFontSize(11);
+    doc.text(`Nome: ${comprovanteSelecionado.nomeUsuario || usuarioLogado.nome}`, 20, 55);
+    doc.text(`E-mail: ${comprovanteSelecionado.emailFormulario || comprovanteSelecionado.emailUsuario}`, 20, 65);
+    doc.text(`Evento: ${comprovanteSelecionado.titulo}`, 20, 75);
+    doc.text(`Categoria: ${comprovanteSelecionado.categoria || "Evento"}`, 20, 85);
+    doc.text(`Data: ${comprovanteSelecionado.data || "Não informada"}`, 20, 95);
+    doc.text(`Horário: ${comprovanteSelecionado.horario || "Não informado"}`, 20, 105);
+    doc.text(`Local: ${comprovanteSelecionado.local || "Não informado"}`, 20, 115);
+    doc.text(`Data da inscrição: ${comprovanteSelecionado.dataInscricao || "Não informada"}`, 20, 125);
+    doc.text(`Status: ${comprovanteSelecionado.status || "Confirmada"}`, 20, 135);
+
+    doc.save(`comprovante-${comprovanteSelecionado.titulo || "evento"}.pdf`);
+  }
+
+  function enviarEmail() {
+    if (!comprovanteSelecionado) return;
+
+    const email = comprovanteSelecionado.emailFormulario || comprovanteSelecionado.emailUsuario || usuarioLogado.email;
+    const assunto = `Comprovante - ${comprovanteSelecionado.titulo}`;
+
+    const corpo = `
+Olá, ${comprovanteSelecionado.nomeUsuario || usuarioLogado.nome}!
+
+Segue o comprovante da sua inscrição no evento:
+
+Evento: ${comprovanteSelecionado.titulo}
+Data: ${comprovanteSelecionado.data}
+Horário: ${comprovanteSelecionado.horario}
+Local: ${comprovanteSelecionado.local}
+Status: ${comprovanteSelecionado.status || "Confirmada"}
+
+Conecta Eventos
+    `;
+
+    window.location.href = `mailto:${email}?subject=${encodeURIComponent(assunto)}&body=${encodeURIComponent(corpo)}`;
+  }
+
+  function filtrarComprovantes(tipo, botao) {
+    document.querySelectorAll(".tab-btn").forEach(btn => btn.classList.remove("active"));
+    botao.classList.add("active");
+
+    if (tipo === "indisponiveis") {
+      const canceladas = inscricoes.filter(item =>
+        item.emailUsuario === usuarioLogado.email &&
+        item.status === "Cancelada"
+      );
+
+      const tabs = `
+        <div class="tab-container">
+          <button class="tab-btn" onclick="filtrarComprovantes('disponiveis', this)">
+            Disponíveis
+          </button>
+          <button class="tab-btn active" onclick="filtrarComprovantes('indisponiveis', this)">
+            Indisponíveis
+          </button>
+        </div>
+      `;
+
+      listaComprovantes.innerHTML = tabs + (
+        canceladas.length === 0
+          ? `<div class="empty-box">Nenhum comprovante indisponível.</div>`
+          : canceladas.map(item => `
+              <div class="event-card" style="opacity:0.6;">
+                <img src="${item.imagem || 'palestra.jpeg'}" alt="${item.titulo}">
+                <div>
+                  <p style="color:#ef4444;font-weight:600;">Cancelada</p>
+                  <h3>${item.titulo || "Evento"}</h3>
+                  <small>Comprovante indisponível</small>
+                </div>
+              </div>
+            `).join("")
+      );
+
+      renderizarDetalhes(null);
+      return;
+    }
+
+    comprovantes = inscricoes.filter(item =>
+      item.emailUsuario === usuarioLogado.email &&
+      item.status !== "Cancelada"
+    );
+
+    comprovanteSelecionado = comprovantes[0] || null;
+    renderizarLista();
+  }
+
+  campoBusca.addEventListener("input", function() {
+    const termo = this.value.toLowerCase();
+
+    comprovantes = inscricoes.filter(item =>
+      item.emailUsuario === usuarioLogado.email &&
+      item.status !== "Cancelada" &&
+      (
+        (item.titulo || "").toLowerCase().includes(termo) ||
+        (item.local || "").toLowerCase().includes(termo) ||
+        (item.categoria || "").toLowerCase().includes(termo)
+      )
+    );
+
+    comprovanteSelecionado = comprovantes[0] || null;
+    renderizarLista();
+  });
+
+  document.getElementById("profileDropdownBtn").onclick = (e) => {
+    e.stopPropagation();
+    document.getElementById("profileDropdownMenu").classList.toggle("show");
+  };
+
+  document.onclick = () => {
+    document.getElementById("profileDropdownMenu").classList.remove("show");
+  };
+
+  renderizarLista();
+</script>
+
+</body>
+</html>
+

@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conecta Eventos - Detalhes da Inscrição</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background-color: #ffffff;
+      color: #0f172a;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    a {
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #ffffff;
+      padding: 0 4%;
+      height: 80px;
+      border-bottom: 1px solid #f1f5f9;
+      position: relative;
+      z-index: 100;
+    }
+
+    .nav-left-box {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      flex: 1;
+      max-width: 600px;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-imagem {
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+    }
+
+    .logo-brand {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #1e1b4b;
+      white-space: nowrap;
+    }
+
+    .logo-brand span {
+      color: #6366f1;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+
+    .search-wrapper {
+      position: relative;
+      width: 100%;
+    }
+
+    .search-wrapper i {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #94a3b8;
+      font-size: 0.95rem;
+    }
+
+    .search-input {
+      width: 100%;
+      background-color: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 12px 16px 12px 46px;
+      font-size: 0.9rem;
+      color: #334155;
+      outline: none;
+    }
+
+    .nav-menu {
+      display: flex;
+      gap: 28px;
+    }
+
+    .nav-link {
+      color: #0f172a;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .nav-link.active {
+      color: #6366f1;
+      font-weight: 600;
+    }
+
+    .user-profile-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .notification-icon {
+      font-size: 1.2rem;
+      color: #64748b;
+      position: relative;
+    }
+
+    .notification-badge {
+      position: absolute;
+      top: -4px;
+      right: -4px;
+      background-color: #6366f1;
+      color: #ffffff;
+      font-size: 0.65rem;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .user-info-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      user-select: none;
+      padding: 6px 8px;
+      border-radius: 8px;
+      transition: background 0.2s;
+    }
+
+    .user-info-box:hover {
+      background-color: #f8fafc;
+    }
+
+    .user-avatar-container {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      overflow: hidden;
+      background-color: #eef2ff;
+      color: #4f46e5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+    }
+
+    .user-text-name {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #0f172a;
+    }
+
+    .profile-dropdown {
+      position: absolute;
+      top: 110%;
+      right: 0;
+      width: 220px;
+      background-color: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+      display: none;
+      flex-direction: column;
+      padding: 8px;
+      z-index: 200;
+    }
+
+    .profile-dropdown.show {
+      display: flex;
+    }
+
+    .dropdown-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 14px;
+      color: #64748b;
+      font-size: 0.88rem;
+      font-weight: 500;
+      border-radius: 8px;
+    }
+
+    .dropdown-item:hover {
+      background-color: #f8fafc;
+      color: #0f172a;
+    }
+
+    .dropdown-divider {
+      height: 1px;
+      background-color: #f1f5f9;
+      margin: 6px 0;
+    }
+
+    .dashboard-layout {
+      display: block;
+      min-height: calc(100vh - 80px);
+    }
+
+    .main-content {
+      padding: 40px 4% 60px 4%;
+      background-color: #ffffff;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      color: #64748b;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+    }
+
+    .breadcrumb a {
+      color: #64748b;
+    }
+
+    .breadcrumb i {
+      font-size: 0.7rem;
+      color: #94a3b8;
+    }
+
+    .details-grid-container {
+      display: grid;
+      grid-template-columns: 1fr 360px;
+      gap: 32px;
+      align-items: start;
+    }
+
+    .main-details-card {
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 32px;
+      background-color: #ffffff;
+    }
+
+    .btn-back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #4f46e5;
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-bottom: 24px;
+    }
+
+    .event-info-flex {
+      display: flex;
+      gap: 24px;
+      margin-bottom: 28px;
+    }
+
+    .event-large-thumb {
+      width: 220px;
+      height: 135px;
+      border-radius: 12px;
+      object-fit: cover;
+    }
+
+    .event-text-content {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex: 1;
+    }
+
+    .event-badge-tag {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #4f46e5;
+      background-color: #eeebff;
+      padding: 3px 12px;
+      border-radius: 99px;
+      width: max-content;
+    }
+
+    .event-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .meta-details-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-top: 8px;
+    }
+
+    .meta-item {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .meta-item i {
+      color: #6366f1;
+      font-size: 1.1rem;
+      margin-top: 2px;
+    }
+
+    .meta-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #0f172a;
+      margin-bottom: 2px;
+    }
+
+    .meta-value {
+      font-size: 0.85rem;
+      color: #64748b;
+      line-height: 1.4;
+    }
+       .email-notice-banner {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background-color: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-top: 12px;
+    }
+
+    .email-notice-banner i {
+      color: #4f46e5;
+      font-size: 1.1rem;
+    }
+
+    .email-notice-banner p {
+      font-size: 0.85rem;
+      color: #475569;
+    }
+
+    .status-sidebar-card {
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 24px;
+      background-color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .sidebar-card-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .status-pill-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #137333;
+      background-color: #e6f4ea;
+      padding: 6px 14px;
+      border-radius: 99px;
+      width: max-content;
+    }
+
+    .status-pill-badge.cancelled {
+      color: #b91c1c;
+      background-color: #fef2f2;
+    }
+
+    .info-list-group {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      border-top: 1px solid #f1f5f9;
+      border-bottom: 1px solid #f1f5f9;
+      padding: 16px 0;
+    }
+
+    .info-row {
+      display: flex;
+      gap: 12px;
+    }
+
+    .info-row i {
+      color: #64748b;
+      font-size: 1rem;
+      margin-top: 2px;
+    }
+
+    .info-text-box {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .info-title {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #0f172a;
+    }
+
+    .info-desc {
+      font-size: 0.85rem;
+      color: #64748b;
+      margin-top: 2px;
+    }
+
+    .btn-cancel-subscription {
+      width: 100%;
+      background-color: #ffffff;
+      border: 1px solid #fca5a5;
+      color: #ef4444;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn-cancel-subscription:hover {
+      background-color: #fef2f2;
+    }
+
+    .cancel-warning-text {
+      font-size: 0.75rem;
+      color: #64748b;
+      line-height: 1.4;
+      text-align: center;
+    }
+
+    @media (max-width: 1024px) {
+      .details-grid-container {
+        grid-template-columns: 1fr;
+      }
+
+      .event-info-flex {
+        flex-direction: column;
+      }
+
+      .event-large-thumb {
+        width: 100%;
+        height: 180px;
+      }
+
+      .meta-details-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-menu {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header class="navbar">
+  <div class="nav-left-box">
+    <div class="logo-container">
+      <img src="logo.png" alt="Logo Conecta" class="logo-imagem" onerror="this.style.display='none'">
+      <div class="logo-brand">Conecta <span>Eventos</span></div>
+    </div>
+
+    <div class="search-wrapper">
+      <i class="fas fa-search"></i>
+      <input type="text" class="search-input" placeholder="Buscar eventos, palestras, cursos...">
+    </div>
+  </div>
+
+  <nav class="nav-menu">
+    <a href="dashboard.html" class="nav-link">Início</a>
+    <a href="eventos.html" class="nav-link active">Eventos</a>
+    <a href="categorias.html" class="nav-link">Categorias</a>
+    <a href="sobre.html" class="nav-link">Sobre</a>
+    <a href="contato.html" class="nav-link">Contato</a>
+  </nav>
+
+  <div class="user-profile-wrapper">
+    <a href="notificacoes.html" class="notification-icon">
+      <i class="far fa-bell"></i>
+      <div class="notification-badge">3</div>
+    </a>
+
+    <div class="user-info-box" id="profileDropdownBtn">
+      <div class="user-avatar-container" id="avatarInicial">U</div>
+      <div class="user-text-name">Olá</div>
+      <i class="fas fa-chevron-down" style="font-size:0.75rem;color:#64748b;"></i>
+    </div>
+
+    <div class="profile-dropdown" id="profileDropdownMenu">
+      <a href="meus-dados.html" class="dropdown-item"><i class="far fa-user"></i> Meus dados</a>
+      <a href="minhas-inscricoes.html" class="dropdown-item"><i class="far fa-calendar-alt"></i> Minhas inscrições</a>
+      <a href="comprovantes.html" class="dropdown-item"><i class="fas fa-receipt"></i> Comprovantes</a>
+      <a href="certificados.html" class="dropdown-item"><i class="fas fa-medal"></i> Certificados</a>
+      <a href="configuracoes.html" class="dropdown-item"><i class="fas fa-sliders"></i> Configurações</a>
+      <div class="dropdown-divider"></div>
+      <a href="#" class="dropdown-item" onclick="sair()" style="color:#ef4444;">
+        <i class="fas fa-sign-out-alt"></i> Sair
+      </a>
+    </div>
+  </div>
+</header>
+
+<div class="dashboard-layout">
+  <main class="main-content">
+
+    <nav class="breadcrumb">
+      <a href="minhas-inscricoes.html">Minhas inscrições</a>
+      <i class="fas fa-chevron-right"></i>
+      <span style="color:#0f172a;font-weight:500;">Detalhes da inscrição</span>
+    </nav>
+
+    <div class="details-grid-container">
+
+      <div class="main-details-card">
+        <a href="minhas-inscricoes.html" class="btn-back-link">
+          <i class="fas fa-arrow-left"></i> Voltar para minhas inscrições
+        </a>
+
+        <div class="event-info-flex">
+          <img src="palestra.jpeg" alt="Imagem do evento" class="event-large-thumb">
+
+          <div class="event-text-content">
+            <span class="event-badge-tag">Evento</span>
+            <h1 class="event-title">Evento</h1>
+
+            <div class="meta-details-grid">
+              <div class="meta-item">
+                <i class="far fa-calendar"></i>
+                <div>
+                  <div class="meta-label">Data</div>
+                  <div class="meta-value" id="eventoData">Data não informada</div>
+                </div>
+              </div>
+
+              <div class="meta-item">
+                <i class="far fa-clock"></i>
+                <div>
+                  <div class="meta-label">Horário</div>
+                  <div class="meta-value" id="eventoHorario">Horário não informado</div>
+                </div>
+              </div>
+
+              <div class="meta-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <div>
+                  <div class="meta-label">Local</div>
+                  <div class="meta-value" id="eventoLocal">Local não informado</div>
+                </div>
+              </div>
+
+              <div class="meta-item">
+                <i class="fas fa-ticket-alt"></i>
+                <div>
+                  <div class="meta-label">Tipo de ingresso</div>
+                  <div class="meta-value">Gratuito</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="email-notice-banner">
+          <i class="far fa-envelope"></i>
+          <p>Você receberá um e-mail com todos os detalhes do evento.</p>
+        </div>
+      </div>
+
+      <aside class="status-sidebar-card">
+        <h2 class="sidebar-card-title">Sua inscrição</h2>
+
+        <div class="status-pill-badge" id="statusBadge">
+          <i class="far fa-check-circle"></i> <span>Confirmada</span>
+        </div>
+
+        <div class="info-list-group">
+          <div class="info-row">
+            <i class="far fa-calendar-alt"></i>
+            <div class="info-text-box">
+              <span class="info-title">Data da inscrição</span>
+              <span class="info-desc" id="dataInscricao">Data não informada</span>
+            </div>
+          </div>
+
+          <div class="info-row">
+            <i class="far fa-envelope"></i>
+            <div class="info-text-box">
+              <span class="info-title">E-mail</span>
+              <span class="info-desc" id="emailInscrito">E-mail não informado</span>
+            </div>
+          </div>
+
+          <div class="info-row">
+            <i class="far fa-user"></i>
+            <div class="info-text-box">
+              <span class="info-title">Inscrito por</span>
+              <span class="info-desc" id="nomeInscrito">Nome não informado</span>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn-cancel-subscription" id="btnCancel">
+          <i class="far fa-trash-alt"></i> Cancelar inscrição
+        </button>
+
+        <p class="cancel-warning-text" id="warningText">
+          Ao cancelar sua inscrição, você não poderá participar deste evento.
+        </p>
+      </aside>
+
+    </div>
+  </main>
+</div>
+
+<script>
+  const usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado"));
+
+  if (!usuarioLogado) {
+    window.location.href = "login.html";
+  }
+
+  let inscricaoSelecionada = JSON.parse(localStorage.getItem("inscricaoSelecionada"));
+
+  if (!inscricaoSelecionada) {
+    alert("Nenhuma inscrição selecionada.");
+    window.location.href = "minhas-inscricoes.html";
+  }
+
+  const primeiroNome = usuarioLogado.nome.split(" ")[0];
+
+  document.querySelector(".user-text-name").innerText = `Olá, ${primeiroNome}`;
+  document.getElementById("avatarInicial").innerText = primeiroNome.charAt(0).toUpperCase();
+
+  function carregarDadosInscricao() {
+    document.querySelector(".event-large-thumb").src = inscricaoSelecionada.imagem || "palestra.jpeg";
+    document.querySelector(".event-badge-tag").innerText = inscricaoSelecionada.categoria || "Evento";
+    document.querySelector(".event-title").innerText = inscricaoSelecionada.titulo || "Evento";
+
+    document.getElementById("eventoData").innerText = inscricaoSelecionada.data || "Data não informada";
+    document.getElementById("eventoHorario").innerText = inscricaoSelecionada.horario || "Horário não informado";
+    document.getElementById("eventoLocal").innerText = inscricaoSelecionada.local || "Local não informado";
+
+    document.getElementById("dataInscricao").innerText = inscricaoSelecionada.dataInscricao || "Data não informada";
+    document.getElementById("emailInscrito").innerText =
+      inscricaoSelecionada.emailFormulario || inscricaoSelecionada.emailUsuario || "E-mail não informado";
+    document.getElementById("nomeInscrito").innerText =
+      inscricaoSelecionada.nomeUsuario || usuarioLogado.nome || "Usuário";
+
+    const statusBadge = document.getElementById("statusBadge");
+    const btnCancel = document.getElementById("btnCancel");
+    const warningText = document.getElementById("warningText");
+
+    if (inscricaoSelecionada.status === "Cancelada") {
+      statusBadge.classList.add("cancelled");
+      statusBadge.innerHTML = `<i class="fas fa-times-circle"></i> <span>Cancelada</span>`;
+      btnCancel.style.display = "none";
+      warningText.innerText = "Esta inscrição já foi cancelada.";
+      warningText.style.color = "#ef4444";
+    } else {
+      statusBadge.classList.remove("cancelled");
+      statusBadge.innerHTML = `<i class="far fa-check-circle"></i> <span>Confirmada</span>`;
+    }
+  }
+
+  carregarDadosInscricao();
+
+  const dropdownBtn = document.getElementById("profileDropdownBtn");
+  const dropdownMenu = document.getElementById("profileDropdownMenu");
+
+  dropdownBtn.addEventListener("click", function(event) {
+    event.stopPropagation();
+    dropdownMenu.classList.toggle("show");
+  });
+
+  document.addEventListener("click", function(event) {
+    if (!dropdownBtn.contains(event.target) && !dropdownMenu.contains(event.target)) {
+      dropdownMenu.classList.remove("show");
+    }
+  });
+
+  function sair() {
+    localStorage.removeItem("usuarioLogado");
+    window.location.href = "login.html";
+  }
+
+  document.querySelector(".btn-back-link").addEventListener("click", function(e) {
+    e.preventDefault();
+    window.location.href = "minhas-inscricoes.html";
+  });
+
+  document.getElementById("btnCancel").addEventListener("click", function() {
+    const confirmar = confirm("Tem certeza que deseja cancelar sua inscrição?");
+
+    if (!confirmar) return;
+
+    let inscricoes = JSON.parse(localStorage.getItem("inscricoesConecta")) || [];
+
+    inscricoes = inscricoes.map(item => {
+      if (Number(item.id) === Number(inscricaoSelecionada.id)) {
+        return {
+          ...item,
+          status: "Cancelada",
+          dataCancelamento: new Date().toLocaleDateString("pt-BR")
+        };
+      }
+
+      return item;
+    });
+
+    inscricaoSelecionada.status = "Cancelada";
+    inscricaoSelecionada.dataCancelamento = new Date().toLocaleDateString("pt-BR");
+
+    localStorage.setItem("inscricoesConecta", JSON.stringify(inscricoes));
+    localStorage.setItem("inscricaoSelecionada", JSON.stringify(inscricaoSelecionada));
+
+    alert("Inscrição cancelada com sucesso.");
+    window.location.href = "minhas-inscricoes.html";
+  });
+</script>
+
+</body>
+</html>

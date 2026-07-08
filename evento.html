@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Conecta Eventos - Detalhes do Evento</title>
+  <title>Conecta Eventos - Evento</title>
+
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
+
   <style>
-    
     * {
       margin: 0;
       padding: 0;
@@ -19,7 +19,6 @@
     body {
       background-color: #ffffff;
       color: #0f172a;
-      -webkit-font-smoothing: antialiased;
       display: flex;
       flex-direction: column;
       min-height: 100vh;
@@ -148,10 +147,8 @@
       align-items: center;
       gap: 10px;
       cursor: pointer;
-      user-select: none;
       padding: 6px 12px;
       border-radius: 8px;
-      transition: background 0.2s;
     }
 
     .user-info-box:hover {
@@ -163,6 +160,12 @@
       height: 36px;
       border-radius: 50%;
       overflow: hidden;
+      background: #eef2ff;
+      color: #4f46e5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
     }
 
     .user-avatar {
@@ -252,6 +255,9 @@
       font-weight: 600;
       margin-bottom: 24px;
       width: max-content;
+      cursor: pointer;
+      border: none;
+      background: none;
     }
 
     .event-grid-layout {
@@ -545,6 +551,7 @@
       display: flex;
       align-items: center;
       gap: 20px;
+      flex-wrap: wrap;
     }
 
     .footer-left-links a {
@@ -566,264 +573,434 @@
         grid-template-columns: 1fr;
         gap: 32px;
       }
+
       .sidebar-sticky-column {
         order: -1;
       }
+
       .speakers-grid {
         grid-template-columns: 1fr;
       }
     }
 
     @media (max-width: 768px) {
+      .navbar {
+        flex-direction: column;
+        height: auto;
+        padding: 16px;
+        gap: 16px;
+      }
+
+      .nav-left-box {
+        flex-direction: column;
+        width: 100%;
+      }
+
       .main-content {
         padding: 24px 4%;
       }
+
       .nav-menu {
         display: none;
       }
+
+      .event-hero-banner {
+        height: 240px;
+      }
+
+      .event-title {
+        font-size: 1.7rem;
+      }
+
+      .dashboard-footer {
+        flex-direction: column;
+        gap: 20px;
+        align-items: flex-start;
+      }
     }
-    </style>
+  </style>
 </head>
+
 <body>
 
-  <header class="navbar">
-    <div class="nav-left-box">
-      <div class="logo-container">
-        <img src="logo.png" alt="Logo Conecta Eventos" class="logo-image-src">
-        <div class="logo-brand">Conecta <span>Eventos</span></div>
-      </div>
-      
-      <div class="search-wrapper">
-        <i class="fas fa-search"></i>
-        <input type="text" class="search-input" placeholder="Buscar eventos, palestras, cursos...">
-      </div>
+<header class="navbar">
+  <div class="nav-left-box">
+    <div class="logo-container">
+      <img src="logo.png" alt="Logo Conecta Eventos" class="logo-image-src">
+      <div class="logo-brand">Conecta <span>Eventos</span></div>
     </div>
 
-    <nav class="nav-menu">
-      <a href="#" class="nav-link">Início</a>
-      <a href="#" class="nav-link active">Eventos</a>
-      <a href="#" class="nav-link">Categorias</a>
-      <a href="#" class="nav-link">Sobre</a>
-      <a href="#" class="nav-link">Contato</a>
-    </nav>
-
-    <div class="user-profile-wrapper">
-      <div class="notification-icon">
-        <i class="far fa-bell"></i>
-        <div class="notification-badge">3</div>
-      </div>
-      
-      <div class="user-info-box" id="profileDropdownBtn">
-        <div class="user-avatar-container">
-          <img src="foto-amanda.jpeg" alt="Foto da Amanda" class="user-avatar" onerror="this.src='https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=150'">
-        </div>
-        <div class="user-text-box">
-          <div class="user-text-name">Olá, Amanda</div>
-          <div class="user-text-role">Participante</div>
-        </div>
-        <i class="fas fa-chevron-down" style="font-size: 0.75rem; color: #64748b;"></i>
-      </div>
-
-      <div class="profile-dropdown" id="profileDropdownMenu">
-        <a href="#" class="dropdown-item">
-          <i class="far fa-user"></i> Meus dados
-        </a>
-        <a href="#" class="dropdown-item">
-          <i class="far fa-calendar-alt"></i> Minhas inscrições
-        </a>
-        <a href="#" class="dropdown-item">
-          <i class="fas fa-receipt"></i> Comprovantes
-        </a>
-        <a href="#" class="dropdown-item">
-          <i class="fas fa-medal"></i> Certificados
-        </a>
-        <a href="#" class="dropdown-item">
-          <i class="far fa-bell"></i> Notificações
-        </a>
-        <a href="#" class="dropdown-item">
-          <i class="fas fa-sliders"></i> Configurações
-        </a>
-        <div class="dropdown-divider"></div>
-        <a href="#" class="dropdown-item" style="color: #ef4444;">
-          <i class="fas fa-sign-out-alt"></i> Sair
-        </a>
-      </div>
+    <div class="search-wrapper">
+      <i class="fas fa-search"></i>
+      <input type="text" class="search-input" placeholder="Buscar eventos, palestras, cursos...">
     </div>
-  </header>
+  </div>
 
-  <main class="main-content">
-    
-    <a href="#" class="btn-back-link">
-      <i class="fas fa-arrow-left"></i> Voltar 
+  <nav class="nav-menu">
+    <a href="dashboard.html" class="nav-link">Início</a>
+    <a href="eventos.html" class="nav-link active">Eventos</a>
+    <a href="categorias.html" class="nav-link">Categorias</a>
+    <a href="sobre.html" class="nav-link">Sobre</a>
+    <a href="contato.html" class="nav-link">Contato</a>
+  </nav>
+
+  <div class="user-profile-wrapper">
+    <a href="notificacoes.html" class="notification-icon">
+      <i class="far fa-bell"></i>
+      <div class="notification-badge">3</div>
     </a>
 
-    <div class="event-grid-layout">
-      
-      <section class="event-main-content">
-        <img src="palestra.jpeg" alt="Robô Inteligência Artificial" class="event-hero-banner" onerror="this.src='https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&q=80&w=800'">
-        
-        <span class="tag-category">Palestra</span>
-        <h1 class="event-title">O Futuro da Inteligência Artificial</h1>
-        
-        <p class="event-short-description">
-          Uma palestra imperdível sobre as tendências e o impacto da IA na sociedade, na educação e no mercado de trabalho. Teremos demonstrações ao vivo e sessão de perguntas.
-        </p>
+    <div class="user-info-box" id="profileDropdownBtn">
+      <div class="user-avatar-container" id="avatarInicial">U</div>
 
-        <div class="meta-info-list">
-          <div class="meta-item">
-            <div class="meta-icon-wrapper"><i class="far fa-calendar"></i></div>
-            <div class="meta-text">
-              <p>20 de agosto de 2025 (quarta-feira)</p>
-            </div>
-          </div>
-          <div class="meta-item">
-            <div class="meta-icon-wrapper"><i class="far fa-clock"></i></div>
-            <div class="meta-text">
-              <p>16:00 às 18:00</p>
-            </div>
-          </div>
-          <div class="meta-item">
-            <div class="meta-icon-wrapper"><i class="fas fa-map-marker-alt"></i></div>
-            <div class="meta-text">
-              <p>Auditório Principal – IFSertãoPE</p>
-              <span>Av. Manoel Alves de Carvalho, no bairro Caetano II – Floresta, PE</span>
-            </div>
-          </div>
-          <div class="meta-item">
-            <div class="meta-icon-wrapper"><i class="fas fa-users"></i></div>
-            <div class="meta-text">
-              <p>Público-alvo: <span>Estudantes, profissionais e interessados em tecnologia</span></p>
-            </div>
-          </div>
-        </div>
+      <div class="user-text-box">
+        <div class="user-text-name">Olá</div>
+        <div class="user-text-role">Participante</div>
+      </div>
 
-        <div class="inner-tabs-nav">
-          <div class="tab-nav-item active">Sobre o evento</div>
-          <div class="tab-nav-item">Palestrantes</div>
-          <div class="tab-nav-item">Informações</div>
-        </div>
-
-        <h3 class="section-block-title">Sobre o evento</h3>
-        <p class="text-description-block">
-          A Inteligência Artificial está transformando o mundo e criando novas possibilidades. Nesta palestra, vamos explorar como a IA está impactando diferentes áreas e o que podemos esperar para o futuro. Participe e descubra como se preparar para essa revolução tecnológica!
-        </p>
-
-        <h3 class="section-block-title">Palestrantes confirmados</h3>
-        <div class="speakers-grid">
-          
-          <div class="speaker-card">
-            <div class="speaker-photo-container">
-              <img src="palestrante1.jpeg" alt="Martha Gabriel" class="speaker-photo" onerror="this.src='https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=150'">
-            </div>
-            <div>
-              <div class="speaker-name">Prof. Martha Gabriel</div>
-              <div class="speaker-bio">Especialista em Inteligência Artificial, inovação e transformação digital.</div>
-            </div>
-          </div>
-          
-          <div class="speaker-card">
-            <div class="speaker-photo-container">
-              <img src="palestrante2.jpeg" alt="Jornalista Thássius Veloso" class="speaker-photo" onerror="this.src='https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=150'">
-            </div>
-            <div>
-              <div class="speaker-name">Jornalista Thássius Veloso</div>
-              <div class="speaker-bio">Especializado em tecnologia e Inteligência Artificial. Palestrante e comentarista sobre inovação, IA e transformação digital.</div>
-            </div>
-          </div>
-          
-        </div>
-
-      </section>
-
-      <aside class="sidebar-sticky-column">
-        
-        <div class="action-sticky-card">
-          <div class="card-section-label">Inscrição</div>
-          <div class="price-tag-free">Gratuito</div>
-          
-          <button class="btn-action-primary">
-            Inscrever-se agora <i class="fas fa-arrow-right"></i>
-          </button>
-          <button class="btn-action-secondary">
-            <i class="far fa-share-square"></i> Compartilhar evento
-          </button>
-        </div>
-
-        <div class="info-additional-card">
-          <div class="card-section-label">Informações adicionais</div>
-          
-          <div class="additional-info-list">
-            <div class="info-row">
-              <i class="fas fa-medal"></i>
-              <div class="info-row-text">
-                <h4>Certificado</h4>
-                <p>Será fornecido certificado de participação</p>
-              </div>
-            </div>
-            <div class="info-row">
-              <i class="far fa-clock"></i>
-              <div class="info-row-text">
-                <h4>Carga horária</h4>
-                <p>2 horas</p>
-              </div>
-            </div>
-            <div class="info-row">
-              <i class="far fa-building"></i>
-              <div class="info-row-text">
-                <h4>Realização</h4>
-                <p>Conecta Eventos</p>
-              </div>
-            </div>
-            <div class="info-row">
-              <i class="far fa-envelope"></i>
-              <div class="info-row-text">
-                <h4>Dúvidas?</h4>
-                <p>Entre em contato pelo e-mail <a href="mailto:contato@conectaeventos.com.br">contato@conectaeventos.com.br</a></p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </aside>
-
+      <i class="fas fa-chevron-down" style="font-size: 0.75rem; color: #64748b;"></i>
     </div>
 
-    <footer class="dashboard-footer">
-      <div class="footer-left-links">
-        <div class="logo-container" style="gap: 8px;">
-          <img src="logo.png" alt="Logo Conecta Eventos" class="logo-image-src" style="width: 24px; height: 24px;">
-          <div class="logo-brand" style="font-size: 1.1rem;">Conecta <span>Eventos</span></div>
+    <div class="profile-dropdown" id="profileDropdownMenu">
+      <a href="meus-dados.html" class="dropdown-item"><i class="far fa-user"></i> Meus dados</a>
+      <a href="minhas-inscricoes.html" class="dropdown-item"><i class="far fa-calendar-alt"></i> Minhas inscrições</a>
+      <a href="comprovantes.html" class="dropdown-item"><i class="fas fa-receipt"></i> Comprovantes</a>
+      <a href="certificados.html" class="dropdown-item"><i class="fas fa-medal"></i> Certificados</a>
+      <a href="notificacoes.html" class="dropdown-item"><i class="far fa-bell"></i> Notificações</a>
+      <a href="configuracoes.html" class="dropdown-item"><i class="fas fa-sliders"></i> Configurações</a>
+      <div class="dropdown-divider"></div>
+      <a href="#" class="dropdown-item" onclick="sair()" style="color:#ef4444;">
+        <i class="fas fa-sign-out-alt"></i> Sair
+      </a>
+    </div>
+  </div>
+</header>
+
+<main class="main-content">
+
+  <a href="dashboard.html" class="btn-back-link" id="btnVoltar">
+    <i class="fas fa-arrow-left"></i> Voltar
+  </a>
+
+  <div class="event-grid-layout">
+
+    <section class="event-main-content">
+      <img src="palestra.jpeg" alt="Imagem do evento" class="event-hero-banner">
+
+      <span class="tag-category">Palestra</span>
+
+      <h1 class="event-title">O Futuro da Inteligência Artificial</h1>
+
+      <p class="event-short-description">
+        Uma palestra imperdível sobre as tendências e o impacto da IA na sociedade, na educação e no mercado de trabalho.
+      </p>
+
+      <div class="meta-info-list">
+        <div class="meta-item">
+          <div class="meta-icon-wrapper"><i class="far fa-calendar"></i></div>
+          <div class="meta-text">
+            <p id="eventoData">20 de agosto de 2025</p>
+          </div>
         </div>
-        <a href="#" style="margin-left: 12px;">Sobre</a>
-        <a href="#">Política de Privacidade</a>
-        <a href="#">Termos de Uso</a>
-        <a href="#">Contato</a>
+
+        <div class="meta-item">
+          <div class="meta-icon-wrapper"><i class="far fa-clock"></i></div>
+          <div class="meta-text">
+            <p id="eventoHorario">16:00 às 18:00</p>
+          </div>
+        </div>
+
+        <div class="meta-item">
+          <div class="meta-icon-wrapper"><i class="fas fa-map-marker-alt"></i></div>
+          <div class="meta-text">
+            <p id="eventoLocal">Auditório Principal – IF SertãoPE</p>
+            <span id="eventoEndereco">Floresta, PE</span>
+          </div>
+        </div>
+
+        <div class="meta-item">
+          <div class="meta-icon-wrapper"><i class="fas fa-users"></i></div>
+          <div class="meta-text">
+            <p>Público-alvo: <span id="eventoPublico">Estudantes, profissionais e interessados em tecnologia</span></p>
+          </div>
+        </div>
       </div>
-      <div class="footer-social-icons">
-        <a href="#"><i class="fab fa-linkedin"></i></a>
-        <a href="#"><i class="fab fa-instagram"></i></a>
-        <a href="#"><i class="fab fa-facebook"></i></a>
-        <a href="#"><i class="fab fa-youtube"></i></a>
+
+      <div class="inner-tabs-nav">
+        <div class="tab-nav-item active" data-tab="sobre">Sobre o evento</div>
+        <div class="tab-nav-item" data-tab="palestrantes">Palestrantes</div>
+        <div class="tab-nav-item" data-tab="informacoes">Informações</div>
       </div>
-    </footer>
 
-  </main>
+      <h3 class="section-block-title">Sobre o evento</h3>
 
-  <script>
-    const dropdownBtn = document.getElementById('profileDropdownBtn');
-    const dropdownMenu = document.getElementById('profileDropdownMenu');
+      <p class="text-description-block">
+        A Inteligência Artificial está transformando o mundo e criando novas possibilidades. Nesta palestra, vamos explorar como a IA está impactando diferentes áreas.
+      </p>
 
-    dropdownBtn.addEventListener('click', function(event) {
-      event.stopPropagation();
-      dropdownMenu.classList.toggle('show');
-    });
+      <h3 class="section-block-title" id="tituloPalestrantes">Palestrantes confirmados</h3>
 
-    document.addEventListener('click', function(event) {
-      if (!dropdownBtn.contains(event.target) && !dropdownMenu.contains(event.target)) {
-        dropdownMenu.classList.remove('show');
+      <div class="speakers-grid">
+        <div class="speaker-card">
+          <div class="speaker-photo-container">
+            <img src="palestrante1.jpeg" alt="Martha Gabriel" class="speaker-photo" onerror="this.src='https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=150'">
+          </div>
+          <div>
+            <div class="speaker-name">Prof. Martha Gabriel</div>
+            <div class="speaker-bio">Especialista em Inteligência Artificial, inovação e transformação digital.</div>
+          </div>
+        </div>
+
+        <div class="speaker-card">
+          <div class="speaker-photo-container">
+            <img src="palestrante2.jpeg" alt="Thássius Veloso" class="speaker-photo" onerror="this.src='https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=150'">
+          </div>
+          <div>
+            <div class="speaker-name">Jornalista Thássius Veloso</div>
+            <div class="speaker-bio">Especializado em tecnologia, inovação e Inteligência Artificial.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <aside class="sidebar-sticky-column">
+
+      <div class="action-sticky-card">
+        <div class="card-section-label">Inscrição</div>
+        <div class="price-tag-free">Gratuito</div>
+
+        <button class="btn-action-primary" id="btnInscrever">
+          Inscrever-se agora <i class="fas fa-arrow-right"></i>
+        </button>
+
+        <button class="btn-action-secondary" id="btnCompartilhar">
+          <i class="far fa-share-square"></i> Compartilhar evento
+        </button>
+      </div>
+
+      <div class="info-additional-card">
+        <div class="card-section-label">Informações adicionais</div>
+
+        <div class="additional-info-list">
+          <div class="info-row">
+            <i class="fas fa-medal"></i>
+            <div class="info-row-text">
+              <h4>Certificado</h4>
+              <p>Será fornecido certificado de participação</p>
+            </div>
+          </div>
+
+          <div class="info-row">
+            <i class="far fa-clock"></i>
+            <div class="info-row-text">
+              <h4>Carga horária</h4>
+              <p id="eventoCargaHoraria">2 horas</p>
+            </div>
+          </div>
+
+          <div class="info-row">
+            <i class="far fa-building"></i>
+            <div class="info-row-text">
+              <h4>Realização</h4>
+              <p>Conecta Eventos</p>
+            </div>
+          </div>
+
+          <div class="info-row">
+            <i class="far fa-envelope"></i>
+            <div class="info-row-text">
+              <h4>Dúvidas?</h4>
+              <p>Entre em contato pelo e-mail <a href="mailto:contato@conectaeventos.com.br">contato@conectaeventos.com.br</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </aside>
+  </div>
+
+  <footer class="dashboard-footer">
+    <div class="footer-left-links">
+      <div class="logo-container" style="gap: 8px;">
+        <img src="logo.png" alt="Logo Conecta Eventos" class="logo-image-src" style="width: 24px; height: 24px;">
+        <div class="logo-brand" style="font-size: 1.1rem;">Conecta <span>Eventos</span></div>
+      </div>
+
+      <a href="sobre.html" style="margin-left: 12px;">Sobre</a>
+      <a href="privacidade.html">Política de Privacidade</a>
+      <a href="termos.html">Termos de Uso</a>
+      <a href="contato.html">Contato</a>
+    </div>
+
+    <div class="footer-social-icons">
+      <a href="#"><i class="fab fa-linkedin"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fab fa-facebook"></i></a>
+      <a href="#"><i class="fab fa-youtube"></i></a>
+    </div>
+  </footer>
+
+</main>
+
+<script>
+  const usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado"));
+
+  if (!usuarioLogado) {
+    window.location.href = "login.html";
+  }
+
+  const nomeUsuario = usuarioLogado?.nome || "Usuário";
+  const primeiroNome = nomeUsuario.split(" ")[0];
+
+  document.querySelector(".user-text-name").innerText = `Olá, ${primeiroNome}`;
+  document.getElementById("avatarInicial").innerText = primeiroNome.charAt(0).toUpperCase();
+
+  let eventoSelecionado = JSON.parse(localStorage.getItem("eventoSelecionado"));
+
+  if (!eventoSelecionado) {
+    eventoSelecionado = {
+      id: 1,
+      titulo: "O Futuro da Inteligência Artificial",
+      categoria: "Palestra",
+      data: "20 de agosto de 2025",
+      horario: "16:00 às 18:00",
+      local: "Auditório Principal – IF SertãoPE",
+      endereco: "Floresta, PE",
+      publico: "Estudantes, profissionais e interessados em tecnologia",
+      descricao: "Uma palestra imperdível sobre as tendências e o impacto da IA na sociedade, na educação e no mercado de trabalho.",
+      imagem: "palestra.jpeg",
+      cargaHoraria: "2 horas"
+    };
+  }
+
+  function carregarEvento() {
+    document.querySelector(".event-title").innerText = eventoSelecionado.titulo || "Evento";
+    document.querySelector(".tag-category").innerText = eventoSelecionado.categoria || "Evento";
+    document.querySelector(".event-short-description").innerText =
+      eventoSelecionado.descricao || "Confira as informações deste evento.";
+
+    document.querySelector(".event-hero-banner").src = eventoSelecionado.imagem || "palestra.jpeg";
+
+    document.getElementById("eventoData").innerText = eventoSelecionado.data || "Data não informada";
+    document.getElementById("eventoHorario").innerText = eventoSelecionado.horario || "Horário não informado";
+    document.getElementById("eventoLocal").innerText = eventoSelecionado.local || "Local não informado";
+    document.getElementById("eventoEndereco").innerText = eventoSelecionado.endereco || "Endereço não informado";
+    document.getElementById("eventoPublico").innerText =
+      eventoSelecionado.publico || "Público geral";
+    document.getElementById("eventoCargaHoraria").innerText =
+      eventoSelecionado.cargaHoraria || "2 horas";
+
+    document.querySelector(".text-description-block").innerText =
+      eventoSelecionado.descricao || "Confira os detalhes deste evento e participe.";
+  }
+
+  carregarEvento();
+
+  const dropdownBtn = document.getElementById("profileDropdownBtn");
+  const dropdownMenu = document.getElementById("profileDropdownMenu");
+
+  dropdownBtn.addEventListener("click", function(event) {
+    event.stopPropagation();
+    dropdownMenu.classList.toggle("show");
+  });
+
+  document.addEventListener("click", function(event) {
+    if (!dropdownBtn.contains(event.target) && !dropdownMenu.contains(event.target)) {
+      dropdownMenu.classList.remove("show");
+    }
+  });
+
+  function sair() {
+    localStorage.removeItem("usuarioLogado");
+    window.location.href = "login.html";
+  }
+
+  document.getElementById("btnVoltar").addEventListener("click", function(e) {
+    e.preventDefault();
+    history.back();
+  });
+
+  document.getElementById("btnInscrever").addEventListener("click", function() {
+    localStorage.setItem("eventoParaInscricao", JSON.stringify(eventoSelecionado));
+    window.location.href = "inscricao.html";
+  });
+
+  document.getElementById("btnCompartilhar").addEventListener("click", async function() {
+    const titulo = eventoSelecionado?.titulo || "Evento Conecta Eventos";
+    const texto = `Confira este evento: ${titulo}`;
+    const link = window.location.href;
+
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: titulo,
+          text: texto,
+          url: link
+        });
+      } catch (error) {
+        console.log("Compartilhamento cancelado.");
+      }
+    } else {
+      navigator.clipboard.writeText(link);
+      alert("Link do evento copiado!");
+    }
+  });
+
+  const abas = document.querySelectorAll(".tab-nav-item");
+  const tituloSecao = document.querySelector(".section-block-title");
+  const textoSecao = document.querySelector(".text-description-block");
+  const tituloPalestrantes = document.getElementById("tituloPalestrantes");
+  const palestrantes = document.querySelector(".speakers-grid");
+
+  abas.forEach(aba => {
+    aba.addEventListener("click", function() {
+      abas.forEach(item => item.classList.remove("active"));
+      this.classList.add("active");
+
+      const tab = this.dataset.tab;
+
+      if (tab === "sobre") {
+        tituloSecao.innerText = "Sobre o evento";
+        textoSecao.style.display = "block";
+        tituloPalestrantes.style.display = "block";
+        palestrantes.style.display = "grid";
+
+        textoSecao.innerText =
+          eventoSelecionado.descricao ||
+          "Este evento faz parte da programação do Conecta Eventos.";
+      }
+
+      if (tab === "palestrantes") {
+        tituloSecao.innerText = "Palestrantes confirmados";
+        textoSecao.style.display = "none";
+        tituloPalestrantes.style.display = "none";
+        palestrantes.style.display = "grid";
+      }
+
+      if (tab === "informacoes") {
+        tituloSecao.innerText = "Informações do evento";
+        textoSecao.style.display = "block";
+        tituloPalestrantes.style.display = "none";
+        palestrantes.style.display = "none";
+
+        textoSecao.innerHTML = `
+          <strong>Certificado:</strong> Será fornecido certificado de participação.<br><br>
+          <strong>Carga horária:</strong> ${eventoSelecionado.cargaHoraria || "2 horas"}.<br><br>
+          <strong>Local:</strong> ${eventoSelecionado.local || "Local não informado"}.<br><br>
+          <strong>Inscrição:</strong> Clique em “Inscrever-se agora” para realizar sua inscrição.
+        `;
       }
     });
-  </script>
+  });
+
+  document.querySelector(".search-input").addEventListener("keydown", function(e) {
+    if (e.key === "Enter") {
+      const termo = this.value.trim();
+      localStorage.setItem("buscaEvento", termo);
+      window.location.href = "eventos.html";
+    }
+  });
+</script>
 
 </body>
 </html>

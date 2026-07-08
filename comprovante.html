@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Visualização do Comprovante - Conecta Eventos</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Allura&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background-color: #f8fafc;
+      color: #0f172a;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 4%;
+      height: 80px;
+      background: #fff;
+      border-bottom: 1px solid #e2e8f0;
+      position: relative;
+      gap: 20px;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-img {
+      width: 35px;
+      height: 35px;
+      object-fit: contain;
+    }
+
+    .logo-brand {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #1e1b4b;
+      display: flex;
+      gap: 6px;
+    }
+
+    .logo-brand span {
+      color: #6366f1;
+      font-size: 0.8rem;
+      font-weight: 500;
+      margin-top: 10px;
+    }
+
+    .search-wrapper {
+      position: relative;
+      width: 300px;
+    }
+
+    .search-wrapper i {
+      position: absolute;
+      left: 10px;
+      top: 12px;
+      color: #94a3b8;
+    }
+
+    .search-input {
+      width: 100%;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 10px 10px 10px 35px;
+      outline: none;
+    }
+
+    .nav-menu {
+      display: flex;
+      gap: 20px;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .nav-menu a {
+      color: #0f172a;
+    }
+
+    .user-profile-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .user-info-box {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .avatar-inicial {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #eef2ff;
+      color: #4f46e5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+    }
+
+    .profile-dropdown {
+      position: absolute;
+      top: 120%;
+      right: 0;
+      width: 220px;
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      display: none;
+      padding: 8px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      z-index: 999;
+    }
+
+    .profile-dropdown.show {
+      display: block;
+    }
+
+    .dropdown-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px;
+      color: #64748b;
+      font-size: 0.9rem;
+      border-radius: 8px;
+    }
+
+    .dropdown-item:hover {
+      background: #f8fafc;
+    }
+
+    .main-wrapper {
+      padding: 40px 8%;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .breadcrumb {
+      color: #64748b;
+      font-size: 0.85rem;
+      margin-bottom: 20px;
+    }
+
+    .breadcrumb a {
+      color: #64748b;
+    }
+
+    .action-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn-back {
+      color: #4f46e5;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-action {
+      padding: 10px 20px;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      background: white;
+      cursor: pointer;
+      font-weight: 600;
+      color: #334155;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    
+   .cert-preview-container{
+      display:flex;
+      justify-content:center;
+      margin-top:20px;
+    }
+
+    .comprovante-box{
+      width:1000px;
+      max-width:100%;
+      min-height:650px;
+      background:#fff;
+      border:2px solid #2563eb;
+      border-radius:8px;
+      position:relative;
+      overflow:hidden;
+      padding:45px 70px;
+      box-shadow:0 15px 35px rgba(0,0,0,.12);
+    }
+
+    .comprovante-box::before{
+      content:"";
+      position:absolute;
+      inset:15px;
+      border:1px solid #60a5fa;
+      pointer-events:none;
+    }
+
+    .corner-left{
+      position:absolute;
+      width:270px;
+      height:140px;
+      left:-90px;
+      top:-20px;
+      background:linear-gradient(135deg,#0f172a,#2563eb,#38bdf8,#bfdbfe);
+      transform:skew(-35deg);
+    }
+
+    .corner-right{
+      position:absolute;
+      width:270px;
+      height:140px;
+      right:-90px;
+      bottom:-20px;
+      background:linear-gradient(135deg,#bfdbfe,#38bdf8,#2563eb,#0f172a);
+      transform:skew(-35deg);
+    }
+
+    .seal{
+      position:absolute;
+      top:35px;
+      right:60px;
+      width:135px;
+      height:135px;
+      border:6px double #2563eb;
+      border-radius:50%;
+      color:#2563eb;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      font-weight:700;
+      text-align:center;
+      background:#fff;
+    }
+
+    .seal i{
+      font-size:18px;
+      margin-bottom:5px;
+    }
+
+    .seal strong{
+      font-size:13px;
+    }
+
+    .seal span{
+      font-size:12px;
+    }
+
+    .cert-header{
+      text-align:center;
+      margin-top:10px;
+    }
+
+    .cert-logo-text{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      gap:12px;
+    }
+
+    .logo-symbol{
+      font-size:48px;
+      color:#2563eb;
+      font-weight:800;
+    }
+
+    .cert-logo-text h1{
+      font-size:36px;
+      color:#111827;
+    }
+
+    .cert-logo-text h1 small{
+      font-size:16px;
+      color:#2563eb;
+    }
+
+    .cert-title{
+      text-align:center;
+      font-size:44px;
+      font-weight:800;
+      margin-top:25px;
+      margin-bottom:25px;
+      color:#111827;
+    }
+
+    .cert-small{
+      text-align:center;
+      font-size:22px;
+      color:#334155;
+      margin:12px 0;
+    }
+
+    .cert-name{
+      font-family:'Allura', cursive;
+      font-size:50px;
+      color:#2563eb;
+      text-align:center;
+      border-bottom:2px solid #2563eb;
+      width:78%;
+      margin:0 auto 20px auto;
+      padding-bottom:10px;
+      font-weight:400;
+    }
+
+    .cert-event{
+      text-align:center;
+      color:#2563eb;
+      font-size:30px;
+      margin:18px 0;
+      font-weight:700;
+    }
+
+    .cert-text{
+      text-align:center;
+      font-size: 18px;
+      line-height:1.7;
+      color:#374151;
+    }
+
+    .cert-date{
+      text-align:center;
+      margin-top:20px;
+      font-size: 18px;
+      color:#374151;
+    }
+
+    .signature-area{
+      width:260px;
+      margin:40px auto 0 auto;
+      text-align:center;
+    }
+
+    .signature-name{
+      font-family:'Great Vibes',cursive;
+      font-size:30px;
+      color:#374151;
+      margin-bottom:-6px;
+    }
+
+    .signature-line{
+      border-top:2px solid #2563eb;
+      margin-bottom:8px;
+    }
+
+    .signature-area strong{
+      display:block;
+      color:#1e3a8a;
+      font-size:20px;
+    }
+
+    .signature-area span{
+      font-size:17px;
+      color:#64748b;
+    }
+
+    @media print{
+
+      body *{
+        visibility:hidden;
+      }
+
+      #comprovantePDF,
+      #comprovantePDF *{
+        visibility:visible;
+      }
+
+      #comprovantePDF{
+        position:absolute;
+        left:0;
+        top:0;
+        width:100%;
+        box-shadow:none;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+<header class="navbar">
+
+<div class="logo-container">
+
+<img src="logo.png" class="logo-img">
+
+<div class="logo-brand">
+Conecta <span>Eventos</span>
+</div>
+
+</div>
+
+<div class="search-wrapper">
+<i class="fas fa-search"></i>
+
+<input
+class="search-input"
+placeholder="Buscar..."
+>
+
+</div>
+
+<nav class="nav-menu">
+
+<a href="dashboard.html">Início</a>
+
+<a href="eventos.html">Eventos</a>
+
+<a href="categorias.html">Categorias</a>
+
+<a href="sobre.html">Sobre</a>
+
+<a href="contato.html">Contato</a>
+
+</nav>
+
+<div class="user-profile-wrapper">
+
+<i class="far fa-bell"></i>
+
+<div class="user-info-box" id="profileDropdownBtn">
+
+<div class="avatar-inicial" id="avatarInicial">
+A
+</div>
+
+<span id="nomeMenu">
+Olá
+</span>
+
+<i class="fas fa-chevron-down"></i>
+
+</div>
+
+<div class="profile-dropdown" id="profileDropdownMenu">
+
+<a href="meus-dados.html" class="dropdown-item">
+<i class="far fa-user"></i>
+Meus dados
+</a>
+
+<a href="minhas-inscricoes.html" class="dropdown-item">
+<i class="far fa-calendar-alt"></i>
+Minhas inscrições
+</a>
+
+<a href="comprovantes.html" class="dropdown-item">
+<i class="fas fa-file-alt"></i>
+Comprovantes
+</a>
+
+<a href="certificados.html" class="dropdown-item">
+<i class="fas fa-award"></i>
+Certificados
+</a>
+
+<a href="configuracoes.html" class="dropdown-item">
+<i class="fas fa-cog"></i>
+Configurações
+</a>
+
+<a href="#" onclick="sair()" class="dropdown-item" style="color:red;">
+<i class="fas fa-sign-out-alt"></i>
+Sair
+</a>
+
+</div>
+
+</div>
+
+</header>
+<main class="main-wrapper">
+
+  <div class="breadcrumb">
+    <a href="comprovantes.html">Comprovantes</a> &gt; Visualizar comprovante
+  </div>
+
+  <div class="action-bar">
+
+    <div class="btn-back" id="btnVoltar">
+      <i class="fas fa-arrow-left"></i>
+      Voltar para meus comprovantes
+    </div>
+
+    <div style="display:flex; gap:10px;">
+
+      
+<button class="btn-action" id="btnBaixar">
+    <i class="fas fa-download"></i>
+    Baixar PDF
+</button>
+
+
+      <button class="btn-action" id="btnImprimir">
+        <i class="fas fa-print"></i>
+        Imprimir
+      </button>
+
+    </div>
+
+  </div>
+
+  <div class="cert-preview-container">
+
+    <div class="comprovante-box" id="comprovantePDF">
+
+      <div class="corner-left"></div>
+      <div class="corner-right"></div>
+
+      <div class="seal">
+        <i class="fas fa-star"></i>
+        <span>PARTICIPAÇÃO</span>
+        <strong>CONFIRMADA</strong>
+        <span>★ ★ ★</span>
+      </div>
+
+      <div class="cert-header">
+
+        <div class="cert-logo-text">
+          <div class="logo-symbol">
+            <img src="logo.png" alt="Logo" style="width:50px; height: 50px;; object-fit:contain;">  
+          </div>
+
+          <h1>
+            Conecta
+            <small>Eventos</small>
+          </h1>
+        </div>
+
+      </div>
+
+      <h2 class="cert-title">COMPROVANTE</h2>
+
+      <p class="cert-small">Certificamos que</p>
+
+      <h3 id="nomeParticipante" class="cert-name">
+        Nome do Participante
+      </h3>
+
+      <p class="cert-small">participou do evento</p>
+
+      <h4 id="nomeEvento" class="cert-event">
+        Nome do Evento
+      </h4>
+
+      <p class="cert-text">
+        realizado no dia
+        <strong id="dataEvento">--</strong>,
+        no horário
+        <strong id="horarioEvento">--</strong>.
+      </p>
+
+      <p class="cert-text">
+        Local:
+        <strong id="localEvento">--</strong>.
+      </p>
+
+      <p class="cert-text">
+        Categoria:
+        <strong id="categoriaEvento">--</strong>
+        | Carga horária:
+        <strong id="cargaHoraria">2 horas</strong>.
+      </p>
+
+      <p class="cert-date">
+        Floresta - PE,
+        <span id="dataEmissao">--</span>.
+      </p>
+
+      <div class="signature-area">
+
+        <div class="signature-name">
+          Conecta Eventos
+        </div>
+
+        <div class="signature-line"></div>
+
+        <strong>Conecta Eventos</strong>
+        <span>Organização do Evento</span>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="official-note" style="background:#f1f5f9; padding:20px; border-radius:8px; margin-top:40px; color:#475569; display:flex; gap:12px; align-items:center;">
+    <i class="fas fa-info-circle"></i>
+    Este é um documento oficial emitido pela plataforma Conecta Eventos.
+  </div>
+
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<script>
+  const usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado"));
+
+  if (!usuarioLogado) {
+    window.location.href = "login.html";
+  }
+
+  const comprovante = JSON.parse(localStorage.getItem("comprovanteSelecionado"));
+
+  if (!comprovante) {
+    alert("Nenhum comprovante selecionado.");
+    window.location.href = "comprovantes.html";
+  }
+
+  const nomeCompleto = usuarioLogado.nome || "Usuário";
+  const primeiroNome = nomeCompleto.split(" ")[0];
+
+  document.getElementById("nomeMenu").innerText = `Olá, ${primeiroNome}`;
+  document.getElementById("avatarInicial").innerText = primeiroNome.charAt(0).toUpperCase();
+
+  function formatarNome(nome) {
+    return nome
+        .toLowerCase()
+        .split(" ")
+        .map((palavra, indice) => {
+            if (
+                indice > 0 &&
+                ["da", "de", "do", "das", "dos", "e"].includes(palavra)
+            ) {
+                return palavra;
+            }
+            return palavra.charAt(0).toUpperCase() + palavra.slice(1);
+        })
+        .join(" ");
+}
+
+  document.getElementById("nomeParticipante").innerText =
+    formatarNome(comprovante.nomeUsuario || "Nome Completo");
+
+
+  document.getElementById("nomeEvento").innerText =
+    comprovante.titulo || "Evento";
+
+  document.getElementById("dataEvento").innerText =
+    comprovante.data || "Data não informada";
+
+  document.getElementById("horarioEvento").innerText =
+    comprovante.horario || "Horário não informado";
+
+  document.getElementById("localEvento").innerText =
+    comprovante.local || "Local não informado";
+
+  document.getElementById("categoriaEvento").innerText =
+    comprovante.categoria || "Evento";
+
+  document.getElementById("cargaHoraria").innerText =
+    comprovante.cargaHoraria || "2 horas";
+
+  document.getElementById("dataEmissao").innerText =
+    new Date().toLocaleDateString("pt-BR");
+
+  document.getElementById("btnVoltar").addEventListener("click", function() {
+    window.location.href = "comprovantes.html";
+  });
+
+
+
+document.getElementById("btnBaixar").addEventListener("click", async function () {
+  try {
+    const { jsPDF } = window.jspdf;
+    const comprovanteArea = document.getElementById("comprovantePDF");
+
+    await document.fonts.ready;
+
+    const canvas = await html2canvas(comprovanteArea, {
+      scale: 3,
+      useCORS: false,
+      allowTaint: true,
+      backgroundColor: "#ffffff"
+    });
+
+    const imgData = canvas.toDataURL("image/png");
+
+    const pdf = new jsPDF("landscape", "mm", "a4");
+
+    const larguraPagina = pdf.internal.pageSize.getWidth();
+    const alturaPagina = pdf.internal.pageSize.getHeight();
+
+    const larguraImagem = larguraPagina - 20;
+    const alturaImagem = (canvas.height * larguraImagem) / canvas.width;
+
+    const posY = (alturaPagina - alturaImagem) / 2;
+
+    pdf.addImage(imgData, "PNG", 10, posY, larguraImagem, alturaImagem);
+
+    pdf.save("comprovante-conecta-eventos.pdf");
+
+  } catch (erro) {
+    console.error("Erro ao gerar PDF:", erro);
+    alert("Não foi possível baixar o PDF.");
+  }
+});
+
+
+
+
+  document.getElementById("btnImprimir").addEventListener("click", function() {
+    window.print();
+  });
+
+  const dropdownBtn = document.getElementById("profileDropdownBtn");
+  const dropdownMenu = document.getElementById("profileDropdownMenu");
+
+  dropdownBtn.addEventListener("click", function(event) {
+    event.stopPropagation();
+    dropdownMenu.classList.toggle("show");
+  });
+
+  document.addEventListener("click", function(event) {
+    if (!dropdownBtn.contains(event.target) && !dropdownMenu.contains(event.target)) {
+      dropdownMenu.classList.remove("show");
+    }
+  });
+
+  function sair() {
+    localStorage.removeItem("usuarioLogado");
+    window.location.href = "login.html";
+  }
+</script>
+
+</body>
+</html>

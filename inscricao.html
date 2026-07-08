@@ -1,15 +1,14 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Conecta Eventos - Inscrição no Evento</title>
+
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
+
   <style>
-    
     * {
       margin: 0;
       padding: 0;
@@ -141,12 +140,12 @@
       height: 36px;
       border-radius: 50%;
       overflow: hidden;
-    }
-
-    .user-avatar {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+      background-color: #eef2ff;
+      color: #4f46e5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
     }
 
     .user-text-name {
@@ -217,6 +216,7 @@
       font-size: 0.85rem;
       color: #64748b;
       margin-bottom: 24px;
+      flex-wrap: wrap;
     }
 
     .breadcrumb a {
@@ -296,6 +296,7 @@
       gap: 20px;
       font-size: 0.8rem;
       color: #64748b;
+      flex-wrap: wrap;
     }
 
     .event-summary-meta span {
@@ -303,8 +304,7 @@
       align-items: center;
       gap: 6px;
     }
-
-    .steps-form {
+       .steps-form {
       display: flex;
       flex-direction: column;
       gap: 36px;
@@ -537,233 +537,390 @@
       .inputs-grid {
         grid-template-columns: 1fr;
       }
+
+      .event-summary-card {
+        align-items: flex-start;
+      }
+
       .footer-clean {
         flex-direction: column;
         gap: 20px;
         text-align: center;
       }
+
       .footer-brand-box {
         flex-direction: column;
         gap: 10px;
       }
+
       .footer-brand-box p {
         border-left: none;
         padding-left: 0;
       }
+
       .nav-menu {
         display: none;
       }
     }
+
+    @media (max-width: 600px) {
+      .navbar {
+        flex-direction: column;
+        height: auto;
+        gap: 16px;
+        padding: 16px;
+      }
+
+      .event-summary-card {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .event-summary-thumb {
+        width: 100%;
+        height: 150px;
+      }
+
+      .form-actions-wrapper {
+        flex-direction: column;
+      }
+
+      .btn-back,
+      .btn-submit {
+        width: 100%;
+        justify-content: center;
+      }
+    }
   </style>
 </head>
+
 <body>
 
-  <header class="navbar">
-    <div class="nav-left-box">
-      <div class="logo-container">
-        <img src="logo.png" alt="Logo Conecta" class="logo-imagem" onerror="this.style.display='none'">
-        <div class="logo-brand">Conecta <span>Eventos</span></div>
-      </div>
+<header class="navbar">
+  <div class="nav-left-box">
+    <div class="logo-container">
+      <img src="logo.png" alt="Logo Conecta" class="logo-imagem" onerror="this.style.display='none'">
+      <div class="logo-brand">Conecta <span>Eventos</span></div>
+    </div>
+  </div>
+
+  <nav class="nav-menu">
+    <a href="dashboard.html" class="nav-link">Início</a>
+    <a href="eventos.html" class="nav-link active">Eventos</a>
+    <a href="categorias.html" class="nav-link">Categorias</a>
+    <a href="sobre.html" class="nav-link">Sobre</a>
+    <a href="contato.html" class="nav-link">Contato</a>
+  </nav>
+
+  <div class="user-profile-wrapper">
+    <a href="notificacoes.html" class="notification-icon">
+      <i class="far fa-bell"></i>
+      <div class="notification-badge">3</div>
+    </a>
+
+    <div class="user-info-box" id="profileDropdownBtn">
+      <div class="user-avatar-container" id="avatarInicial">U</div>
+      <div class="user-text-name">Olá</div>
+      <i class="fas fa-chevron-down" style="font-size: 0.75rem; color: #64748b;"></i>
     </div>
 
-    <nav class="nav-menu">
-      <a href="#" class="nav-link">Início</a>
-      <a href="#" class="nav-link active">Eventos</a>
-      <a href="#" class="nav-link">Categorias</a>
-      <a href="#" class="nav-link">Sobre</a>
-      <a href="#" class="nav-link">Contato</a>
-    </nav>
-
-    <div class="user-profile-wrapper">
-      <div class="notification-icon">
-        <i class="far fa-bell"></i>
-        <div class="notification-badge">3</div>
-      </div>
-      
-      <div class="user-info-box" id="profileDropdownBtn">
-        <div class="user-avatar-container">
-          <img src="foto-amanda.jpeg" alt="Foto da Amanda" class="user-avatar">
-        </div>
-        <div class="user-text-name">Olá, Amanda</div>
-        <i class="fas fa-chevron-down" style="font-size: 0.75rem; color: #64748b;"></i>
-      </div>
-
-      <div class="profile-dropdown" id="profileDropdownMenu">
-        <a href="#" class="dropdown-item"><i class="far fa-user"></i> Meus dados</a>
-        <a href="#" class="dropdown-item"><i class="far fa-calendar-alt"></i> Minhas inscrições</a>
-        <a href="#" class="dropdown-item"><i class="fas fa-receipt"></i> Comprovantes</a>
-        <a href="#" class="dropdown-item"><i class="fas fa-medal"></i> Certificados</a>
-        <a href="#" class="dropdown-item"><i class="fas fa-sliders"></i> Configurações</a>
-        <div class="dropdown-divider"></div>
-        <a href="#" class="dropdown-item" style="color: #ef4444;"><i class="fas fa-sign-out-alt"></i> Sair</a>
-      </div>
+    <div class="profile-dropdown" id="profileDropdownMenu">
+      <a href="meus-dados.html" class="dropdown-item"><i class="far fa-user"></i> Meus dados</a>
+      <a href="minhas-inscricoes.html" class="dropdown-item"><i class="far fa-calendar-alt"></i> Minhas inscrições</a>
+      <a href="comprovantes.html" class="dropdown-item"><i class="fas fa-receipt"></i> Comprovantes</a>
+      <a href="certificados.html" class="dropdown-item"><i class="fas fa-medal"></i> Certificados</a>
+      <a href="configuracoes.html" class="dropdown-item"><i class="fas fa-sliders"></i> Configurações</a>
+      <div class="dropdown-divider"></div>
+      <a href="#" class="dropdown-item" onclick="sair()" style="color: #ef4444;">
+        <i class="fas fa-sign-out-alt"></i> Sair
+      </a>
     </div>
-  </header>
+  </div>
+</header>
 
-  <main class="page-wrapper">
-    
-    <nav class="breadcrumb">
-      <a href="#">Início</a> <i class="fas fa-chevron-right"></i>
-      <a href="#">Eventos</a> <i class="fas fa-chevron-right"></i>
-      <a href="#">O Futuro da Inteligência Artificial</a> <i class="fas fa-chevron-right"></i>
-      <span class="active">Inscrição</span>
-    </nav>
+<main class="page-wrapper">
 
-    <h1 class="page-title">Inscrição no evento</h1>
-    <p class="page-subtitle">Garanta sua vaga preenchendo os dados abaixo.</p>
+  <nav class="breadcrumb" id="breadcrumbInscricao">
+    <a href="dashboard.html">Início</a> <i class="fas fa-chevron-right"></i>
+    <a href="eventos.html">Eventos</a> <i class="fas fa-chevron-right"></i>
+    <a href="evento.html">Evento</a> <i class="fas fa-chevron-right"></i>
+    <span class="active">Inscrição</span>
+  </nav>
 
-    <div class="checkout-container">
-      
-      <form class="steps-form" action="#" method="POST">
-        
-        <div class="event-summary-card">
-          <img src="palestra.jpeg" alt="Robô IA" class="event-summary-thumb">
-          <div class="event-summary-details">
-            <span class="event-summary-tag">Palestra</span>
-            <h2 class="event-summary-title">O Futuro da Inteligência Artificial</h2>
-            <div class="event-summary-meta">
-              <span><i class="far fa-calendar"></i> 20/08/2025</span>
-              <span><i class="far fa-clock"></i> 16:00</span>
-              <span><i class="fas fa-map-marker-alt"></i> Auditório Principal</span>
-            </div>
+  <h1 class="page-title">Inscrição no evento</h1>
+  <p class="page-subtitle">Garanta sua vaga preenchendo os dados abaixo.</p>
+
+  <div class="checkout-container">
+
+    <form class="steps-form" action="#" method="POST">
+
+      <div class="event-summary-card">
+        <img src="palestra.jpeg" alt="Imagem do evento" class="event-summary-thumb">
+
+        <div class="event-summary-details">
+          <span class="event-summary-tag">Evento</span>
+          <h2 class="event-summary-title">Evento selecionado</h2>
+
+          <div class="event-summary-meta">
+            <span><i class="far fa-calendar"></i> Data</span>
+            <span><i class="far fa-clock"></i> Horário</span>
+            <span><i class="fas fa-map-marker-alt"></i> Local</span>
           </div>
         </div>
+      </div>
 
-        <div class="step-section">
-          <div class="step-header">
-            <div class="step-number">1</div>
-            <h3 class="step-title">Seus dados</h3>
-          </div>
-          
-          <div class="inputs-grid">
-            <div class="input-group">
-              <label for="nome">Nome completo</label>
-              <div class="input-wrapper">
-                <i class="far fa-user"></i>
-                <input type="text" id="nome" name="nome" placeholder="Seu nome" required>
-              </div>
-            </div>
-
-            <div class="input-group">
-              <label for="telefone">Telefone</label>
-              <div class="input-wrapper">
-                <i class="fas fa-phone-alt"></i>
-                <input type="tel" id="telefone" name="telefone" placeholder="(11) 98765-4321" required>
-              </div>
-            </div>
-
-            <div class="input-group">
-              <label for="email">E-mail</label>
-              <div class="input-wrapper">
-                <i class="far fa-envelope"></i>
-                <input type="email" id="email" name="email" placeholder="seu@email.com" required>
-              </div>
-            </div>
-
-            <div class="input-group">
-              <label for="cpf">CPF</label>
-              <div class="input-wrapper">
-                <i class="far fa-id-card"></i>
-                <input type="text" id="cpf" name="cpf" placeholder="000.000.000-00" required>
-              </div>
-            </div>
-          </div>
+      <div class="step-section">
+        <div class="step-header">
+          <div class="step-number">1</div>
+          <h3 class="step-title">Seus dados</h3>
         </div>
 
-        <div class="step-section">
-          <div class="step-header">
-            <div class="step-number">2</div>
-            <h3 class="step-title">Informações adicionais <span>(opcional)</span></h3>
-          </div>
-          
+        <div class="inputs-grid">
           <div class="input-group">
+            <label for="nome">Nome completo</label>
             <div class="input-wrapper">
-              <textarea id="observacoes" name="observacoes" placeholder="Conte-nos brevemente..."></textarea>
+              <i class="far fa-user"></i>
+              <input type="text" id="nome" name="nome" placeholder="Seu nome" required>
             </div>
-            <span class="textarea-counter">0/300</span>
           </div>
 
-          <label class="checkbox-container">
-            <input type="checkbox" name="newsletter" checked>
-            <span>Quero receber novidades da Conecta Eventos por e-mail.</span>
-          </label>
-        </div>
-
-        <div class="step-section">
-          <div class="step-header">
-            <div class="step-number">3</div>
-            <h3 class="step-title">Confirmar inscrição</h3>
+          <div class="input-group">
+            <label for="telefone">Telefone</label>
+            <div class="input-wrapper">
+              <i class="fas fa-phone-alt"></i>
+              <input type="tel" id="telefone" name="telefone" placeholder="(87) 99999-9999" required>
+            </div>
           </div>
 
-          <label class="checkbox-container">
-            <input type="checkbox" name="termos" required>
-            <span>Declaro que li e concordo com os <a href="#">Termos de Uso</a> e <a href="#">Política de Privacidade</a>.</span>
-          </label>
+          <div class="input-group">
+            <label for="email">E-mail</label>
+            <div class="input-wrapper">
+              <i class="far fa-envelope"></i>
+              <input type="email" id="email" name="email" placeholder="seu@email.com" required>
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label for="cpf">CPF</label>
+            <div class="input-wrapper">
+              <i class="far fa-id-card"></i>
+              <input type="text" id="cpf" name="cpf" placeholder="000.000.000-00" required>
+            </div>
+          </div>
         </div>
-
-        <div class="form-actions-wrapper">
-          <button type="button" class="btn-back"><i class="fas fa-arrow-left"></i> Voltar</button>
-          <button type="submit" class="btn-submit">Finalizar inscrição</button>
-        </div>
-
-        <div class="security-notice">
-          <i class="fas fa-lock"></i> Seus dados estão protegidos.
-        </div>
-
-      </form>
-    </div>
-  </main>
-
-  <footer class="footer-clean">
-    <div class="footer-brand-box">
-      <div class="footer-logo-wrapper">
-        <img src="logo.png" alt="Logo Conecta" class="logo-imagem" onerror="this.style.display='none'">
-        <div class="logo-brand" style="font-size: 1.1rem;">Conecta <span>Eventos</span></div>
       </div>
-      <p>Conectando pessoas ao conhecimento.</p>
+           <div class="step-section">
+        <div class="step-header">
+          <div class="step-number">2</div>
+          <h3 class="step-title">Informações adicionais <span>(opcional)</span></h3>
+        </div>
+
+        <div class="input-group">
+          <div class="input-wrapper">
+            <textarea id="observacoes" name="observacoes" placeholder="Conte-nos brevemente..."></textarea>
+          </div>
+          <span class="textarea-counter">0/300</span>
+        </div>
+
+        <label class="checkbox-container">
+          <input type="checkbox" name="newsletter" checked>
+          <span>Quero receber novidades da Conecta Eventos por e-mail.</span>
+        </label>
+      </div>
+
+      <div class="step-section">
+        <div class="step-header">
+          <div class="step-number">3</div>
+          <h3 class="step-title">Confirmar inscrição</h3>
+        </div>
+
+        <label class="checkbox-container">
+          <input type="checkbox" name="termos" required>
+          <span>
+            Declaro que li e concordo com os
+            <a href="termos.html">Termos de Uso</a> e
+            <a href="privacidade.html">Política de Privacidade</a>.
+          </span>
+        </label>
+      </div>
+
+      <div class="form-actions-wrapper">
+        <button type="button" class="btn-back">
+          <i class="fas fa-arrow-left"></i> Voltar
+        </button>
+        <button type="submit" class="btn-submit">Finalizar inscrição</button>
+      </div>
+
+      <div class="security-notice">
+        <i class="fas fa-lock"></i> Seus dados estão protegidos.
+      </div>
+
+    </form>
+  </div>
+</main>
+
+<footer class="footer-clean">
+  <div class="footer-brand-box">
+    <div class="footer-logo-wrapper">
+      <img src="logo.png" alt="Logo Conecta" class="logo-imagem" onerror="this.style.display='none'">
+      <div class="logo-brand" style="font-size: 1.1rem;">Conecta <span>Eventos</span></div>
     </div>
-    
-    <div class="footer-social-links">
-      <a href="#"><i class="fab fa-facebook-f"></i></a>
-      <a href="#"><i class="fab fa-instagram"></i></a>
-      <a href="#"><i class="fab fa-linkedin-in"></i></a>
-    </div>
+    <p>Conectando pessoas ao conhecimento.</p>
+  </div>
 
-    <div class="footer-copy">
-      &copy; 2025 Conecta Eventos. Todos os direitos reservados.
-    </div>
-  </footer>
+  <div class="footer-social-links">
+    <a href="#"><i class="fab fa-facebook-f"></i></a>
+    <a href="#"><i class="fab fa-instagram"></i></a>
+    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+  </div>
 
-  <script>
-    const dropdownBtn = document.getElementById('profileDropdownBtn');
-    const dropdownMenu = document.getElementById('profileDropdownMenu');
+  <div class="footer-copy">
+    &copy; 2025 Conecta Eventos. Todos os direitos reservados.
+  </div>
+</footer>
 
-    dropdownBtn.addEventListener('click', function(event) {
-      event.stopPropagation();
-      dropdownMenu.classList.toggle('show');
-    });
+<script>
+  const usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado"));
 
-    document.addEventListener('click', function(event) {
-      if (!dropdownBtn.contains(event.target) && !dropdownMenu.contains(event.target)) {
-        dropdownMenu.classList.remove('show');
-      }
-    });
+  if (!usuarioLogado) {
+    window.location.href = "login.html";
+  }
 
-    const textarea = document.getElementById('observacoes');
-    const counter = document.querySelector('.textarea-counter');
-    if (textarea && counter) {
-      textarea.addEventListener('input', function() {
-        const length = this.value.length;
-        counter.textContent = `${length}/300`;
-        if (length > 300) {
-          counter.style.color = '#ef4444';
-        } else {
-          counter.style.color = '#94a3b8';
-        }
-      });
+  const eventoInscricao =
+    JSON.parse(localStorage.getItem("eventoParaInscricao")) ||
+    JSON.parse(localStorage.getItem("eventoSelecionado"));
+
+  if (!eventoInscricao) {
+    alert("Nenhum evento selecionado para inscrição.");
+    window.location.href = "dashboard.html";
+  }
+
+  const nomeUsuario = usuarioLogado.nome || "Usuário";
+  const emailUsuario = usuarioLogado.email || "";
+  const primeiroNome = nomeUsuario.split(" ")[0];
+
+  document.querySelector(".user-text-name").innerText = `Olá, ${primeiroNome}`;
+  document.getElementById("avatarInicial").innerText = primeiroNome.charAt(0).toUpperCase();
+
+  document.getElementById("nome").value = usuarioLogado.nome || "";
+  document.getElementById("email").value = usuarioLogado.email || "";
+  document.getElementById("telefone").value = usuarioLogado.telefone || "";
+
+  document.querySelector(".event-summary-thumb").src = eventoInscricao.imagem || "palestra.jpeg";
+  document.querySelector(".event-summary-tag").innerText = eventoInscricao.categoria || "Evento";
+  document.querySelector(".event-summary-title").innerText = eventoInscricao.titulo || "Evento selecionado";
+
+  document.querySelector(".event-summary-meta").innerHTML = `
+    <span><i class="far fa-calendar"></i> ${eventoInscricao.data || "Data não informada"}</span>
+    <span><i class="far fa-clock"></i> ${eventoInscricao.horario || "Horário não informado"}</span>
+    <span><i class="fas fa-map-marker-alt"></i> ${eventoInscricao.local || "Local não informado"}</span>
+  `;
+
+  document.getElementById("breadcrumbInscricao").innerHTML = `
+    <a href="dashboard.html">Início</a> <i class="fas fa-chevron-right"></i>
+    <a href="eventos.html">Eventos</a> <i class="fas fa-chevron-right"></i>
+    <a href="evento.html">${eventoInscricao.titulo || "Evento"}</a> <i class="fas fa-chevron-right"></i>
+    <span class="active">Inscrição</span>
+  `;
+
+  const dropdownBtn = document.getElementById("profileDropdownBtn");
+  const dropdownMenu = document.getElementById("profileDropdownMenu");
+
+  dropdownBtn.addEventListener("click", function(event) {
+    event.stopPropagation();
+    dropdownMenu.classList.toggle("show");
+  });
+
+  document.addEventListener("click", function(event) {
+    if (!dropdownBtn.contains(event.target) && !dropdownMenu.contains(event.target)) {
+      dropdownMenu.classList.remove("show");
     }
-  </script>
+  });
+
+  function sair() {
+    localStorage.removeItem("usuarioLogado");
+    window.location.href = "login.html";
+  }
+
+  const textarea = document.getElementById("observacoes");
+  const counter = document.querySelector(".textarea-counter");
+
+  textarea.addEventListener("input", function() {
+    if (this.value.length > 300) {
+      this.value = this.value.substring(0, 300);
+    }
+
+    counter.textContent = `${this.value.length}/300`;
+  });
+
+  document.querySelector(".btn-back").addEventListener("click", function() {
+    window.location.href = "evento.html";
+  });
+
+  document.querySelector(".steps-form").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    const nome = document.getElementById("nome").value.trim();
+    const telefone = document.getElementById("telefone").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const cpf = document.getElementById("cpf").value.trim();
+    const observacoes = document.getElementById("observacoes").value.trim();
+    const newsletter = document.querySelector("input[name='newsletter']").checked;
+    const termos = document.querySelector("input[name='termos']").checked;
+
+    if (!nome || !telefone || !email || !cpf) {
+      alert("Preencha todos os campos obrigatórios.");
+      return;
+    }
+
+    if (!termos) {
+      alert("Você precisa aceitar os termos para finalizar a inscrição.");
+      return;
+    }
+
+    let inscricoes = JSON.parse(localStorage.getItem("inscricoesConecta")) || [];
+
+    const jaInscrito = inscricoes.some(item =>
+      Number(item.eventoId) === Number(eventoInscricao.id) &&
+      item.emailUsuario === emailUsuario
+    );
+
+    if (jaInscrito) {
+      alert("Você já está inscrito neste evento.");
+      window.location.href = "dashboard.html";
+      return;
+    }
+
+    const novaInscricao = {
+      id: Date.now(),
+      eventoId: eventoInscricao.id,
+      titulo: eventoInscricao.titulo,
+      categoria: eventoInscricao.categoria || "Evento",
+      data: eventoInscricao.data,
+      horario: eventoInscricao.horario,
+      local: eventoInscricao.local,
+      imagem: eventoInscricao.imagem || "palestra.jpeg",
+
+      nomeUsuario: nome,
+      emailUsuario: emailUsuario,
+      emailFormulario: email,
+      telefone: telefone,
+      cpf: cpf,
+      observacoes: observacoes,
+      newsletter: newsletter,
+
+      status: "Inscrição confirmada",
+      dataInscricao: new Date().toLocaleDateString("pt-BR")
+    };
+
+    inscricoes.push(novaInscricao);
+    localStorage.setItem("inscricoesConecta", JSON.stringify(inscricoes));
+    localStorage.setItem("ultimaInscricao", JSON.stringify(novaInscricao));
+
+    alert("Inscrição realizada com sucesso!");
+    window.location.href = "dashboard.html";
+  });
+</script>
 
 </body>
 </html>
-

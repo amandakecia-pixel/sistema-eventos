@@ -4,11 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Conecta Eventos - Minhas Inscrições</title>
+
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
+
   <style>
-  
     * {
       margin: 0;
       padding: 0;
@@ -19,7 +19,6 @@
     body {
       background-color: #ffffff;
       color: #0f172a;
-      -webkit-font-smoothing: antialiased;
       display: flex;
       flex-direction: column;
       min-height: 100vh;
@@ -100,10 +99,6 @@
       outline: none;
     }
 
-    .search-input::placeholder {
-      color: #94a3b8;
-    }
-
     .nav-menu {
       display: flex;
       gap: 28px;
@@ -169,12 +164,12 @@
       height: 36px;
       border-radius: 50%;
       overflow: hidden;
-    }
-
-    .user-avatar {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+      background-color: #eef2ff;
+      color: #4f46e5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
     }
 
     .user-text-name {
@@ -260,6 +255,7 @@
       gap: 24px;
       border-bottom: 1px solid #e2e8f0;
       margin-bottom: 24px;
+      flex-wrap: wrap;
     }
 
     .tab-button {
@@ -303,6 +299,7 @@
       padding: 16px 24px;
       background-color: #ffffff;
       transition: box-shadow 0.2s;
+      cursor: pointer;
     }
 
     .inscription-card:hover {
@@ -354,6 +351,7 @@
       gap: 20px;
       font-size: 0.8rem;
       color: #64748b;
+      flex-wrap: wrap;
     }
 
     .event-meta-row span {
@@ -388,7 +386,14 @@
     .arrow-action-icon {
       color: #94a3b8;
       font-size: 0.9rem;
-      cursor: pointer;
+    }
+
+    .empty-message {
+      padding: 30px;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      color: #64748b;
+      background-color: #ffffff;
     }
 
     @media (max-width: 968px) {
@@ -397,160 +402,274 @@
         align-items: flex-start;
         gap: 16px;
       }
+
+      .card-left-info {
+        width: 100%;
+      }
+
       .card-right-status {
         width: 100%;
         justify-content: space-between;
         border-top: 1px solid #f1f5f9;
         padding-top: 12px;
       }
+
       .nav-menu {
         display: none;
       }
     }
+
+    @media (max-width: 600px) {
+      .navbar {
+        flex-direction: column;
+        height: auto;
+        gap: 16px;
+        padding: 16px;
+      }
+
+      .nav-left-box {
+        flex-direction: column;
+        width: 100%;
+      }
+
+      .card-left-info {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .event-thumbnail {
+        width: 100%;
+        height: 150px;
+      }
+    }
   </style>
 </head>
+
 <body>
 
-  <header class="navbar">
-    <div class="nav-left-box">
-      <div class="logo-container">
-        <img src="logo.png" alt="Logo Conecta" class="logo-imagem">
-        <div class="logo-brand">Conecta <span>Eventos</span></div>
-      </div>
-      
-      <div class="search-wrapper">
-        <i class="fas fa-search"></i>
-        <input type="text" class="search-input" placeholder="Buscar eventos, palestras, cursos...">
-      </div>
+<header class="navbar">
+  <div class="nav-left-box">
+    <div class="logo-container">
+      <img src="logo.png" alt="Logo Conecta" class="logo-imagem">
+      <div class="logo-brand">Conecta <span>Eventos</span></div>
     </div>
 
-    <nav class="nav-menu">
-      <a href="#" class="nav-link">Início</a>
-      <a href="#" class="nav-link active">Eventos</a>
-      <a href="#" class="nav-link">Categorias</a>
-      <a href="#" class="nav-link">Sobre</a>
-      <a href="#" class="nav-link">Contato</a>
-    </nav>
-
-    <div class="user-profile-wrapper">
-      <div class="notification-icon">
-        <i class="far fa-bell"></i>
-        <div class="notification-badge">3</div>
-      </div>
-      
-      <div class="user-info-box" id="profileDropdownBtn">
-        <div class="user-avatar-container">
-          <img src="foto-amanda.jpeg" alt="Foto da Amanda" class="user-avatar">
-        </div>
-        <div class="user-text-name">Olá, Amanda</div>
-        <i class="fas fa-chevron-down" style="font-size: 0.75rem; color: #64748b;"></i>
-      </div>
-
-      <div class="profile-dropdown" id="profileDropdownMenu">
-        <a href="#" class="dropdown-item"><i class="far fa-user"></i> Meus dados</a>
-        <a href="#" class="dropdown-item"><i class="far fa-calendar-alt"></i> Minhas inscrições</a>
-        <a href="#" class="dropdown-item"><i class="fas fa-receipt"></i> Comprovantes</a>
-        <a href="#" class="dropdown-item"><i class="fas fa-medal"></i> Certificados</a>
-        <a href="#" class="dropdown-item"><i class="fas fa-sliders"></i> Configurações</a>
-        <div class="dropdown-divider"></div>
-        <a href="#" class="dropdown-item" style="color: #ef4444;"><i class="fas fa-sign-out-alt"></i> Sair</a>
-      </div>
+    <div class="search-wrapper">
+      <i class="fas fa-search"></i>
+      <input type="text" class="search-input" placeholder="Buscar nas minhas inscrições...">
     </div>
-  </header>
-
-  <div class="dashboard-layout">
-    <main class="main-content">
-      <h1 class="page-title">Minhas inscrições</h1>
-      <p class="page-subtitle">Acompanhe todas as inscrições que você realizou.</p>
-
-      <div class="tabs-container">
-        <button class="tab-button active">Todas</button>
-        <button class="tab-button">Próximas</button>
-        <button class="tab-button">Realizadas</button>
-        <button class="tab-button">Canceladas</button>
-      </div>
-
-      <div class="inscriptions-list">
-        
-        <!-- CARD 1 -->
-        <div class="inscription-card">
-          <div class="card-left-info">
-            <img src="palestra.jpeg" alt="Robô IA" class="event-thumbnail">
-            <div class="event-details-box">
-              <span class="event-badge-tag">Palestra</span>
-              <h2 class="event-main-title">O Futuro da Inteligência Artificial</h2>
-              <div class="event-meta-row">
-                <span><i class="far fa-calendar"></i> 20/08/2025</span>
-                <span><i class="far fa-clock"></i> 16:00</span>
-                <span><i class="fas fa-map-marker-alt"></i> Auditório Principal</span>
-              </div>
-            </div>
-          </div>
-          <div class="card-right-status">
-            <span class="status-pill confirmada">Confirmada</span>
-            <i class="fas fa-chevron-right arrow-action-icon"></i>
-          </div>
-        </div>
-
-        <div class="inscription-card">
-          <div class="card-left-info">
-            <img src="curso.jpeg" alt="Código Python" class="event-thumbnail">
-            <div class="event-details-box">
-              <span class="event-badge-tag curso">Curso</span>
-              <h2 class="event-main-title">Introdução ao Python</h2>
-              <div class="event-meta-row">
-                <span><i class="far fa-calendar"></i> 05/09/2025</span>
-                <span><i class="far fa-clock"></i> 19:00</span>
-                <span><i class="fas fa-map-marker-alt"></i> Sala 203</span>
-              </div>
-            </div>
-          </div>
-          <div class="card-right-status">
-            <span class="status-pill confirmada">Confirmada</span>
-            <i class="fas fa-chevron-right arrow-action-icon"></i>
-          </div>
-        </div>
-
-        <div class="inscription-card">
-          <div class="card-left-info">
-            <img src="empreendedorismo.jfif" alt="Reunião" class="event-thumbnail">
-            <div class="event-details-box">
-              <span class="event-badge-tag">Palestra</span>
-              <h2 class="event-main-title">Empreendedorismo Digital</h2>
-              <div class="event-meta-row">
-                <span><i class="far fa-calendar"></i> 15/10/2025</span>
-                <span><i class="far fa-clock"></i> 18:30</span>
-                <span><i class="fas fa-map-marker-alt"></i> Auditório Principal</span>
-              </div>
-            </div>
-          </div>
-          <div class="card-right-status">
-            <span class="status-pill cancelada">Cancelada</span>
-            <i class="fas fa-chevron-right arrow-action-icon"></i>
-          </div>
-        </div>
-
-      </div>
-    </main>
   </div>
 
-  <script>
+  <nav class="nav-menu">
+    <a href="dashboard.html" class="nav-link">Início</a>
+    <a href="eventos.html" class="nav-link active">Eventos</a>
+    <a href="categorias.html" class="nav-link">Categorias</a>
+    <a href="sobre.html" class="nav-link">Sobre</a>
+    <a href="contato.html" class="nav-link">Contato</a>
+  </nav>
 
-    const dropdownBtn = document.getElementById('profileDropdownBtn');
-    const dropdownMenu = document.getElementById('profileDropdownMenu');
+  <div class="user-profile-wrapper">
+    <a href="notificacoes.html" class="notification-icon">
+      <i class="far fa-bell"></i>
+      <div class="notification-badge">3</div>
+    </a>
 
-    dropdownBtn.addEventListener('click', function(event) {
-      event.stopPropagation();
-      dropdownMenu.classList.toggle('show');
-    });
+    <div class="user-info-box" id="profileDropdownBtn">
+      <div class="user-avatar-container" id="avatarInicial">U</div>
+      <div class="user-text-name">Olá</div>
+      <i class="fas fa-chevron-down" style="font-size:0.75rem;color:#64748b;"></i>
+    </div>
 
-    document.addEventListener('click', function(event) {
-      if (!dropdownBtn.contains(event.target) && !dropdownMenu.contains(event.target)) {
-        dropdownMenu.classList.remove('show');
+    <div class="profile-dropdown" id="profileDropdownMenu">
+      <a href="meus-dados.html" class="dropdown-item"><i class="far fa-user"></i> Meus dados</a>
+      <a href="minhas-inscricoes.html" class="dropdown-item"><i class="far fa-calendar-alt"></i> Minhas inscrições</a>
+      <a href="comprovantes.html" class="dropdown-item"><i class="fas fa-receipt"></i> Comprovantes</a>
+      <a href="certificados.html" class="dropdown-item"><i class="fas fa-medal"></i> Certificados</a>
+      <a href="configuracoes.html" class="dropdown-item"><i class="fas fa-sliders"></i> Configurações</a>
+      <div class="dropdown-divider"></div>
+      <a href="#" class="dropdown-item" onclick="sair()" style="color:#ef4444;">
+        <i class="fas fa-sign-out-alt"></i> Sair
+      </a>
+    </div>
+  </div>
+</header>
+
+<div class="dashboard-layout">
+  <main class="main-content">
+    <h1 class="page-title">Minhas inscrições</h1>
+    <p class="page-subtitle">Acompanhe todas as inscrições que você realizou.</p>
+
+    <div class="tabs-container">
+      <button class="tab-button active">Todas</button>
+      <button class="tab-button">Próximas</button>
+      <button class="tab-button">Realizadas</button>
+      <button class="tab-button">Canceladas</button>
+    </div>
+
+    <div class="inscriptions-list"></div>
+  </main>
+</div>
+
+<script>
+  const usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado"));
+
+  if (!usuarioLogado) {
+    window.location.href = "login.html";
+  }
+
+  const nomeUsuario = usuarioLogado.nome || "Usuário";
+  const emailUsuario = usuarioLogado.email || "";
+  const primeiroNome = nomeUsuario.split(" ")[0];
+
+  document.querySelector(".user-text-name").innerText = `Olá, ${primeiroNome}`;
+  document.getElementById("avatarInicial").innerText = primeiroNome.charAt(0).toUpperCase();
+
+  const dropdownBtn = document.getElementById("profileDropdownBtn");
+  const dropdownMenu = document.getElementById("profileDropdownMenu");
+
+  dropdownBtn.addEventListener("click", function(event) {
+    event.stopPropagation();
+    dropdownMenu.classList.toggle("show");
+  });
+
+  document.addEventListener("click", function(event) {
+    if (!dropdownBtn.contains(event.target) && !dropdownMenu.contains(event.target)) {
+      dropdownMenu.classList.remove("show");
+    }
+  });
+
+  function sair() {
+    localStorage.removeItem("usuarioLogado");
+    window.location.href = "login.html";
+  }
+
+  const listaContainer = document.querySelector(".inscriptions-list");
+  const botoesAbas = document.querySelectorAll(".tab-button");
+  const campoBusca = document.querySelector(".search-input");
+
+  const todasInscricoes = JSON.parse(localStorage.getItem("inscricoesConecta")) || [];
+
+  let minhasInscricoes = todasInscricoes.filter(inscricao =>
+    inscricao.emailUsuario === emailUsuario
+  );
+
+  function verificarStatus(inscricao) {
+    if (inscricao.status === "Cancelada") {
+      return "cancelada";
+    }
+
+    const hoje = new Date();
+    hoje.setHours(0, 0, 0, 0);
+
+    const partes = (inscricao.data || "").split("/");
+
+    if (partes.length === 3) {
+      const dataEvento = new Date(partes[2], partes[1] - 1, partes[0]);
+      dataEvento.setHours(0, 0, 0, 0);
+
+      if (dataEvento < hoje) {
+        return "realizada";
       }
+    }
+
+    return "proxima";
+  }
+
+  function abrirDetalhesInscricao(id) {
+    const inscricao = minhasInscricoes.find(item => Number(item.id) === Number(id));
+
+    if (!inscricao) {
+      alert("Inscrição não encontrada.");
+      return;
+    }
+
+    localStorage.setItem("inscricaoSelecionada", JSON.stringify(inscricao));
+    window.location.href = `detalhes-inscricao.html?id=${id}`;
+  }
+
+  function renderizarInscricoes(filtro = "Todas", listaBase = minhasInscricoes) {
+    listaContainer.innerHTML = "";
+
+    let listaFiltrada = listaBase;
+
+    if (filtro === "Próximas") {
+      listaFiltrada = listaBase.filter(item => verificarStatus(item) === "proxima");
+    }
+
+    if (filtro === "Realizadas") {
+      listaFiltrada = listaBase.filter(item => verificarStatus(item) === "realizada");
+    }
+
+    if (filtro === "Canceladas") {
+      listaFiltrada = listaBase.filter(item => item.status === "Cancelada");
+    }
+
+    if (listaFiltrada.length === 0) {
+      listaContainer.innerHTML = `
+        <div class="empty-message">
+          Nenhuma inscrição encontrada nesta categoria.
+        </div>
+      `;
+      return;
+    }
+
+    listaFiltrada.forEach(inscricao => {
+      const statusClasse = inscricao.status === "Cancelada" ? "cancelada" : "confirmada";
+      const statusTexto = inscricao.status || "Inscrição confirmada";
+
+      listaContainer.innerHTML += `
+        <div class="inscription-card" onclick="abrirDetalhesInscricao(${inscricao.id})">
+          <div class="card-left-info">
+            <img src="${inscricao.imagem || 'palestra.jpeg'}" alt="${inscricao.titulo}" class="event-thumbnail">
+
+            <div class="event-details-box">
+              <span class="event-badge-tag ${inscricao.categoria === 'Curso' ? 'curso' : ''}">
+                ${inscricao.categoria || "Evento"}
+              </span>
+
+              <h2 class="event-main-title">${inscricao.titulo || "Evento sem título"}</h2>
+
+              <div class="event-meta-row">
+                <span><i class="far fa-calendar"></i> ${inscricao.data || "Data não informada"}</span>
+                <span><i class="far fa-clock"></i> ${inscricao.horario || "Horário não informado"}</span>
+                <span><i class="fas fa-map-marker-alt"></i> ${inscricao.local || "Local não informado"}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-right-status">
+            <span class="status-pill ${statusClasse}">${statusTexto}</span>
+            <i class="fas fa-chevron-right arrow-action-icon"></i>
+          </div>
+        </div>
+      `;
     });
-  </script>
+  }
+
+  botoesAbas.forEach(botao => {
+    botao.addEventListener("click", function() {
+      botoesAbas.forEach(item => item.classList.remove("active"));
+      this.classList.add("active");
+
+      renderizarInscricoes(this.innerText);
+    });
+  });
+
+  campoBusca.addEventListener("input", function() {
+    const termo = this.value.toLowerCase();
+
+    const resultadoBusca = minhasInscricoes.filter(item =>
+      (item.titulo || "").toLowerCase().includes(termo) ||
+      (item.local || "").toLowerCase().includes(termo) ||
+      (item.categoria || "").toLowerCase().includes(termo)
+    );
+
+    const abaAtiva = document.querySelector(".tab-button.active").innerText;
+    renderizarInscricoes(abaAtiva, resultadoBusca);
+  });
+
+  renderizarInscricoes("Todas");
+</script>
 
 </body>
 </html>
-

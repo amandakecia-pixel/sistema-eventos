@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Conecta Eventos - Início</title>
+  <title>Conecta Eventos - Participante</title>
+
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
+
   <style>
-  
     * {
       margin: 0;
       padding: 0;
@@ -19,7 +19,6 @@
     body {
       background-color: #ffffff;
       color: #0f172a;
-      -webkit-font-smoothing: antialiased;
       display: flex;
       flex-direction: column;
       min-height: 100vh;
@@ -27,7 +26,6 @@
 
     a {
       text-decoration: none;
-      transition: all 0.2s;
     }
 
     .navbar {
@@ -87,7 +85,6 @@
       top: 50%;
       transform: translateY(-50%);
       color: #94a3b8;
-      font-size: 0.95rem;
     }
 
     .search-input {
@@ -97,7 +94,6 @@
       border-radius: 8px;
       padding: 12px 16px 12px 46px;
       font-size: 0.9rem;
-      color: #334155;
       outline: none;
     }
 
@@ -150,10 +146,8 @@
       align-items: center;
       gap: 10px;
       cursor: pointer;
-      user-select: none;
       padding: 6px 12px;
       border-radius: 8px;
-      transition: background 0.2s;
     }
 
     .user-info-box:hover {
@@ -165,29 +159,28 @@
       height: 36px;
       border-radius: 50%;
       overflow: hidden;
-    }
-
-    .user-avatar {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+      background: #eef2ff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #4f46e5;
+      font-weight: 700;
     }
 
     .user-text-name {
       font-size: 0.85rem;
       font-weight: 600;
-      color: #0f172a;
     }
 
     .profile-dropdown {
       position: absolute;
       top: 110%;
       right: 0;
-      width: 220px;
+      width: 230px;
       background-color: #ffffff;
       border: 1px solid #e2e8f0;
       border-radius: 12px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
       display: none;
       flex-direction: column;
       padding: 8px;
@@ -214,12 +207,6 @@
       color: #0f172a;
     }
 
-    .dropdown-item i {
-      font-size: 1rem;
-      width: 20px;
-      text-align: center;
-    }
-
     .dropdown-divider {
       height: 1px;
       background-color: #f1f5f9;
@@ -228,8 +215,7 @@
 
     .main-content {
       flex: 1;
-      padding: 40px 8% 60px 8%;
-      background-color: #ffffff;
+      padding: 40px 8% 60px;
       display: flex;
       flex-direction: column;
       gap: 40px;
@@ -238,7 +224,6 @@
     .welcome-header h1 {
       font-size: 1.8rem;
       font-weight: 700;
-      color: #0f172a;
       margin-bottom: 6px;
     }
 
@@ -258,11 +243,16 @@
       gap: 24px;
     }
 
-    .next-event-card {
+    .next-event-card,
+    .counter-block-card,
+    .recommendation-item-card {
       border: 1px solid #e2e8f0;
       border-radius: 16px;
+      background: #ffffff;
+    }
+
+    .next-event-card {
       padding: 24px;
-      position: relative;
     }
 
     .section-mini-title {
@@ -294,13 +284,6 @@
     .next-event-title {
       font-size: 1.15rem;
       font-weight: 700;
-      color: #0f172a;
-    }
-
-    .next-event-meta {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
     }
 
     .meta-row-item {
@@ -308,40 +291,30 @@
       gap: 10px;
       font-size: 0.85rem;
       color: #64748b;
-      align-items: flex-start;
+      margin-bottom: 8px;
     }
 
     .meta-row-item i {
       color: #6366f1;
-      font-size: 0.95rem;
-      margin-top: 2px;
       width: 16px;
     }
 
     .next-event-actions {
       display: flex;
+      flex-wrap: wrap;
       gap: 12px;
       margin-top: auto;
     }
 
     .btn-primary-sm {
-      background-color: #4f46e5;
-      color: #ffffff;
       padding: 8px 16px;
       border-radius: 6px;
       font-size: 0.85rem;
       font-weight: 600;
-    }
-
-    .btn-secondary-sm {
-      border: 1px solid #e2e8f0;
-      color: #4f46e5;
-      padding: 8px 16px;
-      border-radius: 6px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      background: none;
       cursor: pointer;
+      background-color: #4f46e5;
+      color: white;
+      border: none;
     }
 
     .counters-grid {
@@ -351,47 +324,26 @@
     }
 
     .counter-block-card {
-      border: 1px solid #e2e8f0;
-      border-radius: 12px;
       padding: 16px 20px;
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
-    }
-
-    .counter-left-side {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
     }
 
     .counter-label {
       font-size: 0.85rem;
       font-weight: 600;
-      color: #0f172a;
     }
 
     .counter-number {
+      display: block;
       font-size: 1.8rem;
       font-weight: 700;
-      color: #0f172a;
-      margin-bottom: 2px;
+      margin: 4px 0;
     }
 
     .counter-status-indicator {
       font-size: 0.75rem;
       color: #64748b;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .counter-status-indicator::before {
-      content: '';
-      width: 6px;
-      height: 6px;
-      background-color: #22c55e;
-      border-radius: 50%;
     }
 
     .counter-icon-box {
@@ -403,7 +355,6 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.1rem;
     }
 
     .section-header-row {
@@ -416,17 +367,12 @@
     .section-main-title {
       font-size: 1.1rem;
       font-weight: 700;
-      color: #0f172a;
     }
 
     .see-all-link {
       font-size: 0.85rem;
       font-weight: 600;
       color: #4f46e5;
-    }
-
-    .carousel-container-wrapper {
-      position: relative;
     }
 
     .recommendations-scroll-grid {
@@ -436,12 +382,9 @@
     }
 
     .recommendation-item-card {
-      border: 1px solid #e2e8f0;
-      border-radius: 12px;
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      background-color: #ffffff;
     }
 
     .rec-card-thumb {
@@ -461,8 +404,6 @@
     .rec-card-title {
       font-size: 0.85rem;
       font-weight: 700;
-      color: #0f172a;
-      line-height: 1.4;
       min-height: 38px;
     }
 
@@ -474,14 +415,7 @@
       color: #64748b;
     }
 
-    .rec-card-meta span {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
     .btn-subscribe-rec {
-      margin-top: auto;
       background-color: #ffffff;
       border: 1px solid #e2e8f0;
       color: #4f46e5;
@@ -490,38 +424,11 @@
       padding: 8px;
       border-radius: 6px;
       cursor: pointer;
-      text-align: center;
+      margin-top: auto;
     }
 
     .btn-subscribe-rec:hover {
       background-color: #f3f0ff;
-      border-color: #c7d2fe;
-    }
-
-    .btn-subscribe-rec:disabled {
-      background-color: #f1f5f9;
-      color: #94a3b8;
-      border-color: #e2e8f0;
-      cursor: not-allowed;
-    }
-
-    .carousel-next-btn {
-      position: absolute;
-      right: -20px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 40px;
-      height: 40px;
-      background-color: #ffffff;
-      border: 1px solid #e2e8f0;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #64748b;
-      cursor: pointer;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-      z-index: 10;
     }
 
     .email-alert-purple-box {
@@ -541,337 +448,429 @@
     .email-alert-text p {
       font-size: 0.85rem;
       color: #4f46e5;
-      line-height: 1.5;
       font-weight: 500;
     }
 
     .dashboard-footer {
       border-top: 1px solid #f1f5f9;
-      padding: 24px 0 0 0;
-      margin-top: 20px;
+      padding-top: 24px;
       display: flex;
       justify-content: space-between;
-      align-items: center;
       font-size: 0.8rem;
       color: #64748b;
     }
 
     .footer-left-links {
       display: flex;
+      gap: 18px;
       align-items: center;
-      gap: 20px;
+      flex-wrap: wrap;
     }
 
-    .footer-left-links a {
+    .footer-left-links a,
+    .footer-social-icons a {
       color: #64748b;
     }
 
     .footer-social-icons {
       display: flex;
       gap: 16px;
-      font-size: 0.95rem;
-    }
-
-    .footer-social-icons a {
-      color: #64748b;
     }
 
     @media (max-width: 1200px) {
       .top-overview-grid {
         grid-template-columns: 1fr;
       }
+
       .recommendations-scroll-grid {
         grid-template-columns: repeat(3, 1fr);
       }
     }
 
     @media (max-width: 768px) {
-      .main-content {
-        padding: 24px 4%;
-      }
-      .next-event-flex {
+      .navbar {
         flex-direction: column;
+        height: auto;
+        gap: 16px;
+        padding: 16px;
       }
-      .next-event-thumb {
+
+      .nav-left-box {
+        flex-direction: column;
         width: 100%;
-        height: 160px;
       }
-      .recommendations-scroll-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
+
       .nav-menu {
         display: none;
       }
+
+      .main-content {
+        padding: 24px 4%;
+      }
+
+      .next-event-flex {
+        flex-direction: column;
+      }
+
+      .next-event-thumb {
+        width: 100%;
+      }
+
+      .recommendations-scroll-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .counters-grid {
+        grid-template-columns: 1fr;
+      }
     }
-    </style>
+  </style>
 </head>
+
 <body>
 
-  <header class="navbar">
-    <div class="nav-left-box">
+<header class="navbar">
+  <div class="nav-left-box">
+    <div class="logo-container">
+      <img src="logo.png" alt="Logo Conecta Eventos" class="logo-image-src">
+      <div class="logo-brand">Conecta <span>Eventos</span></div>
+    </div>
+
+    <div class="search-wrapper">
+      <i class="fas fa-search"></i>
+      <input type="text" class="search-input" id="campoBusca" placeholder="Buscar eventos, palestras, cursos...">
+    </div>
+  </div>
+
+  <nav class="nav-menu">
+    <a href="dashboard.html" class="nav-link active">Início</a>
+    <a href="eventos.html" class="nav-link">Eventos</a>
+    <a href="categorias.html" class="nav-link">Categorias</a>
+    <a href="sobre.html" class="nav-link">Sobre</a>
+    <a href="contato.html" class="nav-link">Contato</a>
+  </nav>
+
+  <div class="user-profile-wrapper">
+    <a href="notificacoes.html" class="notification-icon">
+      <i class="far fa-bell"></i>
+      <div class="notification-badge">3</div>
+    </a>
+
+    <div class="user-info-box" id="profileDropdownBtn">
+      <div class="user-avatar-container" id="avatarInicial">U</div>
+      <div class="user-text-name">Olá</div>
+      <i class="fas fa-chevron-down" style="font-size: 0.75rem; color: #64748b;"></i>
+    </div>
+
+    <div class="profile-dropdown" id="profileDropdownMenu">
+      <a href="meus-dados.html" class="dropdown-item"><i class="far fa-user"></i> Meus dados</a>
+      <a href="minhas-inscricoes.html" class="dropdown-item"><i class="far fa-calendar-alt"></i> Minhas inscrições</a>
+      <a href="comprovantes.html" class="dropdown-item"><i class="fas fa-receipt"></i> Comprovantes</a>
+      <a href="certificados.html" class="dropdown-item"><i class="fas fa-medal"></i> Certificados</a>
+      <a href="notificacoes.html" class="dropdown-item"><i class="far fa-bell"></i> Notificações</a>
+      <a href="configuracoes.html" class="dropdown-item"><i class="fas fa-sliders"></i> Configurações</a>
+      <div class="dropdown-divider"></div>
+      <a href="#" class="dropdown-item" onclick="sair()" style="color:#ef4444;">
+        <i class="fas fa-sign-out-alt"></i> Sair
+      </a>
+    </div>
+  </div>
+</header>
+
+<main class="main-content">
+
+  <div class="welcome-header">
+    <h1>Olá!</h1>
+    <p id="resumoUsuario">Bem-vindo ao Conecta Eventos.</p>
+  </div>
+
+  <div class="top-overview-grid">
+    <div class="next-event-card">
+      <h2 class="section-mini-title">Próximo evento</h2>
+
+      <div class="next-event-flex">
+        <img src="palestra.jpeg" alt="Evento" class="next-event-thumb" id="proximoImagem">
+
+        <div class="next-event-info">
+          <h3 class="next-event-title" id="proximoTitulo">Nenhum evento encontrado</h3>
+
+          <div>
+            <div class="meta-row-item">
+              <i class="far fa-calendar-alt"></i>
+              <span>Data<br><strong id="proximoData">--</strong></span>
+            </div>
+
+            <div class="meta-row-item">
+              <i class="far fa-clock"></i>
+              <span>Horário<br><strong id="proximoHorario">--</strong></span>
+            </div>
+
+            <div class="meta-row-item">
+              <i class="fas fa-map-marker-alt"></i>
+              <span>Local<br><strong id="proximoLocal">--</strong></span>
+            </div>
+          </div>
+
+          <div class="next-event-actions">
+            <button class="btn-primary-sm" id="btnDetalhesProximo">Ver detalhes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="counters-grid">
+      <div class="counter-block-card">
+        <div>
+          <span class="counter-label">Inscrições</span>
+          <span class="counter-number" id="contadorInscricoes">0</span>
+          <span class="counter-status-indicator">Inscrições ativas</span>
+        </div>
+        <div class="counter-icon-box"><i class="far fa-calendar-alt"></i></div>
+      </div>
+
+      <div class="counter-block-card">
+        <div>
+          <span class="counter-label">Comprovantes</span>
+          <span class="counter-number" id="contadorComprovantes">0</span>
+          <span class="counter-status-indicator">Disponíveis</span>
+        </div>
+        <div class="counter-icon-box"><i class="fas fa-file-invoice"></i></div>
+      </div>
+
+      <div class="counter-block-card">
+        <div>
+          <span class="counter-label">Certificados</span>
+          <span class="counter-number" id="contadorCertificados">0</span>
+          <span class="counter-status-indicator">Certificados emitidos</span>
+        </div>
+        <div class="counter-icon-box"><i class="fas fa-award"></i></div>
+      </div>
+
+      <div class="counter-block-card">
+        <div>
+          <span class="counter-label">Notificações</span>
+          <span class="counter-number">3</span>
+          <span class="counter-status-indicator">Novas notificações</span>
+        </div>
+        <div class="counter-icon-box"><i class="far fa-bell"></i></div>
+      </div>
+    </div>
+  </div>
+
+  <section>
+    <div class="section-header-row">
+      <h2 class="section-main-title">Eventos recomendados</h2>
+      <a href="eventos.html" class="see-all-link">
+        Ver todos os eventos <i class="fas fa-chevron-right"></i>
+      </a>
+    </div>
+
+    <div class="recommendations-scroll-grid" id="listaEventos"></div>
+  </section>
+
+  <div class="email-alert-purple-box">
+    <i class="far fa-envelope"></i>
+    <div class="email-alert-text">
+      <p>Você receberá notificações por e-mail sempre que houver alterações em seus eventos, comprovantes ou certificados.</p>
+    </div>
+  </div>
+
+  <footer class="dashboard-footer">
+    <div class="footer-left-links">
       <div class="logo-container">
-        <img src="logo.png" alt="Logo Conecta Eventos" class="logo-image-src" >
-        <div class="logo-brand">Conecta <span>Eventos</span></div>
+        <img src="logo.png" alt="Logo" class="logo-image-src" style="width:24px;height:24px;">
+        <div class="logo-brand" style="font-size:1.1rem;">Conecta <span>Eventos</span></div>
       </div>
-      
-      <div class="search-wrapper">
-        <i class="fas fa-search"></i>
-        <input type="text" class="search-input" placeholder="Buscar eventos, palestras, cursos...">
-      </div>
+      <a href="sobre.html">Sobre</a>
+      <a href="privacidade.html">Política de Privacidade</a>
+      <a href="termos.html">Termos de Uso</a>
+      <a href="contato.html">Contato</a>
     </div>
 
-    <nav class="nav-menu">
-      <a href="#" class="nav-link active">Início</a>
-      <a href="#" class="nav-link">Eventos</a>
-      <a href="#" class="nav-link">Categorias</a>
-      <a href="#" class="nav-link">Sobre</a>
-      <a href="#" class="nav-link">Contato</a>
-    </nav>
-
-    <div class="user-profile-wrapper">
-      <div class="notification-icon">
-        <i class="far fa-bell"></i>
-        <div class="notification-badge">3</div>
-      </div>
-      
-      <div class="user-info-box" id="profileDropdownBtn">
-        <div class="user-avatar-container">
-          <img src="foto-amanda.jpeg" alt="Foto da Amanda" class="user-avatar" >
-        </div>
-        <div class="user-text-name">Olá, Amanda</div>
-        <i class="fas fa-chevron-down" style="font-size: 0.75rem; color: #64748b;"></i>
-      </div>
-
-      <div class="profile-dropdown" id="profileDropdownMenu">
-        <a href="#" class="dropdown-item">
-          <i class="far fa-user"></i> Meus dados
-        </a>
-        <a href="#" class="dropdown-item">
-          <i class="far fa-calendar-alt"></i> Minhas inscrições
-        </a>
-        <a href="#" class="dropdown-item">
-          <i class="fas fa-receipt"></i> Comprovantes
-        </a>
-        <a href="#" class="dropdown-item">
-          <i class="fas fa-medal"></i> Certificados
-        </a>
-        <a href="#" class="dropdown-item">
-          <i class="far fa-bell"></i> Notificações
-        </a>
-        <a href="#" class="dropdown-item">
-          <i class="fas fa-sliders"></i> Configurações
-        </a>
-        <div class="dropdown-divider"></div>
-        <a href="#" class="dropdown-item" style="color: #ef4444;">
-          <i class="fas fa-sign-out-alt"></i> Sair
-        </a>
-      </div>
+    <div class="footer-social-icons">
+      <a href="#"><i class="fab fa-linkedin"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fab fa-facebook"></i></a>
+      <a href="#"><i class="fab fa-youtube"></i></a>
     </div>
-  </header>
+  </footer>
 
-  <main class="main-content">
-    
-    <div class="welcome-header">
-      <h1>Olá, Amanda! </h1>
-      <p>Bem-vinda ao Conecta Eventos. Você possui <span>3 inscrições ativas</span> e <span>1 evento</span> acontecendo nesta semana.</p>
-    </div>
+</main>
 
-    <div class="top-overview-grid">
-      
-      <div class="next-event-card">
-        <h2 class="section-mini-title">Próximo evento</h2>
-        <div class="next-event-flex">
-          <img src="palestra.jpeg" alt="Robô IA" class="next-event-thumb">
-          
-          <div class="next-event-info">
-            <h3 class="next-event-title">O Futuro da Inteligência Artificial</h3>
-            
-            <div class="next-event-meta">
-              <div class="meta-row-item">
-                <i class="far fa-calendar-alt"></i>
-                <span>Data<br><strong>20/08/2025 (quarta-feira)</strong></span>
-              </div>
-              <div class="meta-row-item">
-                <i class="far fa-clock"></i>
-                <span>Horário<br><strong>16h00 às 18h00</strong></span>
-              </div>
-              <div class="meta-row-item">
-                <i class="fas fa-map-marker-alt"></i>
-                <span>Local<br><strong>Auditório Principal<br>Campus Central - São Paulo, SP</strong></span>
-              </div>
+<script>
+  const usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado"));
+
+  if (!usuarioLogado) {
+    window.location.href = "login.html";
+  }
+
+  const nomeUsuario = usuarioLogado?.nome || "Usuário";
+  const emailUsuario = usuarioLogado?.email || "";
+  const primeiroNome = nomeUsuario.split(" ")[0];
+
+  document.querySelector(".user-text-name").innerText = `Olá, ${primeiroNome}`;
+  document.querySelector(".welcome-header h1").innerText = `Olá, ${primeiroNome}!`;
+  document.getElementById("avatarInicial").innerText = primeiroNome.charAt(0).toUpperCase();
+
+  const eventosPadrao = [
+    {
+      id: 1,
+      titulo: "O Futuro da Inteligência Artificial",
+      data: "20/08/2025",
+      horario: "16h00 às 18h00",
+      local: "Auditório Principal - IF Sertão, Floresta-PE",
+      vagas: 45,
+      imagem: "palestra.jpeg"
+    },
+    {
+      id: 2,
+      titulo: "Introdução à Inteligência Artificial",
+      data: "22/08/2025",
+      horario: "14h00 às 16h00",
+      local: "Online",
+      vagas: 30,
+      imagem: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=400"
+    },
+    {
+      id: 3,
+      titulo: "Desenvolvimento Web Moderno",
+      data: "28/08/2025",
+      horario: "19h00 às 21h00",
+      local: "Online",
+      vagas: 12,
+      imagem: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&q=80&w=400"
+    },
+    {
+      id: 4,
+      titulo: "Cibersegurança na Prática",
+      data: "03/09/2025",
+      horario: "15h00 às 17h00",
+      local: "Auditório B",
+      vagas: 0,
+      imagem: "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&q=80&w=400"
+    },
+    {
+      id: 5,
+      titulo: "Banco de Dados com SQL",
+      data: "10/09/2025",
+      horario: "13h00 às 15h00",
+      local: "Laboratório 01",
+      vagas: 8,
+      imagem: "https://images.unsplash.com/photo-1544383835-bda2bc66a55d?auto=format&fit=crop&q=80&w=400"
+    }
+  ];
+
+  const eventosAdmin = JSON.parse(localStorage.getItem("eventosCadastrados")) || [];
+  const todosEventos = [...eventosPadrao, ...eventosAdmin];
+
+  localStorage.setItem("eventosConecta", JSON.stringify(todosEventos));
+
+  const inscricoes = JSON.parse(localStorage.getItem("inscricoesConecta")) || [];
+
+  const minhasInscricoes = inscricoes.filter(item => item.emailUsuario === emailUsuario);
+
+  document.getElementById("contadorInscricoes").innerText = minhasInscricoes.length;
+  document.getElementById("contadorComprovantes").innerText = minhasInscricoes.length;
+  document.getElementById("contadorCertificados").innerText =
+    minhasInscricoes.length > 0 ? Math.max(1, minhasInscricoes.length - 1) : 0;
+
+  document.getElementById("resumoUsuario").innerHTML =
+    `Bem-vindo ao Conecta Eventos. Você possui <span>${minhasInscricoes.length} inscrição(ões) ativa(s)</span> e pode acompanhar seus eventos por aqui.`;
+
+  function renderizarProximoEvento() {
+    const proximo = minhasInscricoes.length > 0
+      ? todosEventos.find(e => Number(e.id) === Number(minhasInscricoes[0].eventoId))
+      : todosEventos[0];
+
+    if (!proximo) return;
+
+    document.getElementById("proximoImagem").src = proximo.imagem || "palestra.jpeg";
+    document.getElementById("proximoTitulo").innerText = proximo.titulo;
+    document.getElementById("proximoData").innerText = proximo.data;
+    document.getElementById("proximoHorario").innerText = proximo.horario;
+    document.getElementById("proximoLocal").innerText = proximo.local;
+
+    document.getElementById("btnDetalhesProximo").onclick = () => verDetalhes(proximo.id);
+  }
+
+  function renderizarEventos(lista = todosEventos) {
+    const container = document.getElementById("listaEventos");
+    container.innerHTML = "";
+
+    lista.forEach(evento => {
+      const semVagas = Number(evento.vagas) <= 0;
+
+      container.innerHTML += `
+        <div class="recommendation-item-card" ${semVagas ? 'style="border-color:#fca5a5;"' : ''}>
+          <img src="${evento.imagem || 'palestra.jpeg'}" class="rec-card-thumb" alt="${evento.titulo}">
+
+          <div class="rec-card-body" ${semVagas ? 'style="background-color:#fff5f5;"' : ''}>
+            <h3 class="rec-card-title">${evento.titulo}</h3>
+
+            <div class="rec-card-meta">
+              <span><i class="far fa-calendar"></i> ${evento.data}</span>
+              <span><i class="far fa-clock"></i> ${evento.horario}</span>
+              <span><i class="fas fa-map-marker-alt"></i> ${evento.local}</span>
+              <span style="color:${semVagas ? '#dc2626' : '#16a34a'}; font-weight:700;">
+                <i class="fas fa-users"></i>
+                ${semVagas ? "Sem vagas disponíveis" : `Vagas: ${evento.vagas} restantes`}
+              </span>
             </div>
 
-            <div class="next-event-actions">
-              <a href="#" class="btn-primary-sm">Ver detalhes</a>
-              <button class="btn-secondary-sm"><i class="far fa-calendar-plus"></i> Adicionar ao calendário</button>
-            </div>
+            <button class="btn-subscribe-rec" onclick="verDetalhes(${evento.id})">
+              Ver detalhes
+            </button>
           </div>
         </div>
-      </div>
-
-      <div class="counters-grid">
-        
-        <div class="counter-block-card">
-          <div class="counter-left-side">
-            <span class="counter-label">Inscrições</span>
-            <span class="counter-number">3</span>
-            <span class="counter-status-indicator">Inscrições ativas</span>
-          </div>
-          <div class="counter-icon-box"><i class="far fa-calendar-alt"></i></div>
-        </div>
-
-        <div class="counter-block-card">
-          <div class="counter-left-side">
-            <span class="counter-label">Comprovantes</span>
-            <span class="counter-number">3</span>
-            <span class="counter-status-indicator" style="color: #64748b;">Disponíveis para download</span>
-          </div>
-          <div class="counter-icon-box"><i class="fas fa-file-invoice"></i></div>
-        </div>
-
-        <div class="counter-block-card">
-          <div class="counter-left-side">
-            <span class="counter-label">Certificados</span>
-            <span class="counter-number">2</span>
-            <span class="counter-status-indicator">Certificados emitidos</span>
-          </div>
-          <div class="counter-icon-box"><i class="fas fa-award"></i></div>
-        </div>
-
-        <div class="counter-block-card">
-          <div class="counter-left-side">
-            <span class="counter-label">Notificações</span>
-            <span class="counter-number">3</span>
-            <span class="counter-status-indicator">Novas notificações</span>
-          </div>
-          <div class="counter-icon-box"><i class="far fa-bell"></i></div>
-        </div>
-
-      </div>
-    </div>
-
-    <div>
-      <div class="section-header-row">
-        <h2 class="section-main-title">Eventos recomendados</h2>
-        <a href="#" class="see-all-link">Ver todos os eventos <i class="fas fa-chevron-right" style="font-size: 0.75rem;"></i></a>
-      </div>
-
-      <div class="carousel-container-wrapper">
-        <div class="recommendations-scroll-grid">
-          
-          <div class="recommendation-item-card">
-            <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=200" class="rec-card-thumb" alt="Tecnologia">
-            <div class="rec-card-body">
-              <h3 class="rec-card-title">Introdução à Inteligência Artificial</h3>
-              <div class="rec-card-meta">
-                <span><i class="far fa-calendar"></i> 22/08/2025</span>
-                <span><i class="fas fa-map-marker-alt"></i> Online</span>
-                <span style="color: #16a34a; font-weight: 600;"><i class="fas fa-users"></i> Vagas: 45 restantes</span>
-              </div>
-              <button class="btn-subscribe-rec">ver detalhe</button>
-            </div>
-          </div>
-
-          <div class="recommendation-item-card">
-            <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&q=80&w=200" class="rec-card-thumb" alt="Web">
-            <div class="rec-card-body">
-              <h3 class="rec-card-title">Desenvolvimento Web Moderno</h3>
-              <div class="rec-card-meta">
-                <span><i class="far fa-calendar"></i> 28/08/2025</span>
-                <span><i class="fas fa-map-marker-alt"></i> Online</span>
-                <span style="color: #16a34a; font-weight: 600;"><i class="fas fa-users"></i> Vagas: 12 restantes</span>
-              </div>
-              <button class="btn-subscribe-rec">ver detalhes</button>
-            </div>
-          </div>
-
-          <div class="recommendation-item-card" style="border-color: #fca5a5;">
-            <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&q=80&w=200" class="rec-card-thumb" alt="Segurança">
-            <div class="rec-card-body" style="background-color: #fff5f5;">
-              <h3 class="rec-card-title">Cibersegurança na Prática</h3>
-              <div class="rec-card-meta">
-                <span><i class="far fa-calendar"></i> 03/09/2025</span>
-                <span><i class="fas fa-map-marker-alt"></i> Auditório B</span>
-                <span style="color: #dc2626; font-weight: 700;"><i class="fas fa-ban"></i> Sem vagas disponíveis</span>
-              </div>
-              <button class="btn-subscribe-rec" disabled style="background-color: #fee2e2; color: #991b1b; border-color: #fca5a5;">Esgotado</button>
-            </div>
-          </div>
-
-          <div class="recommendation-item-card">
-            <img src="https://images.unsplash.com/photo-1544383835-bda2bc66a55d?auto=format&fit=crop&q=80&w=200" class="rec-card-thumb" alt="Dados">
-            <div class="rec-card-body">
-              <h3 class="rec-card-title">Banco de Dados com SQL</h3>
-              <div class="rec-card-meta">
-                <span><i class="far fa-calendar"></i> 10/09/2025</span>
-                <span><i class="fas fa-map-marker-alt"></i> Lab 01</span>
-                <span style="color: #16a34a; font-weight: 600;"><i class="fas fa-users"></i> Vagas: 8 restantes</span>
-              </div>
-              <button class="btn-subscribe-rec">ver detalhes</button>
-            </div>
-          </div>
-
-          <div class="recommendation-item-card">
-            <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&q=80&w=200" class="rec-card-thumb" alt="Cloud">
-            <div class="rec-card-body">
-              <h3 class="rec-card-title">Cloud Computing Fundamentos</h3>
-              <div class="rec-card-meta">
-                <span><i class="far fa-calendar"></i> 15/09/2025</span>
-                <span><i class="fas fa-map-marker-alt"></i> Online</span>
-                <span style="color: #ea580c; font-weight: 600;"><i class="fas fa-users"></i> Vagas: Últimas 3!</span>
-              </div>
-              <button class="btn-subscribe-rec" style="background-color: #f3f0ff; border-color: #4f46e5;">ver detalhes</button>
-            </div>
-          </div>
-
-        </div>
-        <div class="carousel-next-btn"><i class="fas fa-chevron-right"></i></div>
-      </div>
-    </div>
-
-    <div class="email-alert-purple-box">
-      <i class="far fa-envelope"></i>
-      <div class="email-alert-text">
-        <p>Você receberá notificações por e-mail sempre que houver alterações em seus eventos ou emissão de certificados.</p>
-      </div>
-    </div>
-
-    <footer class="dashboard-footer">
-      <div class="footer-left-links">
-        <div class="logo-container" style="gap: 8px;">
-          <img src="logo.png" alt="Logo Conecta Eventos" class="logo-image-src" style="width: 24px; height: 24px;" >
-          <div class="logo-brand" style="font-size: 1.1rem;">Conecta <span>Eventos</span></div>
-        </div>
-        <a href="#" style="margin-left: 12px;">Sobre</a>
-        <a href="#">Política de Privacidade</a>
-        <a href="#">Termos de Uso</a>
-        <a href="#">Contato</a>
-      </div>
-      <div class="footer-social-icons">
-        <a href="#"><i class="fab fa-linkedin"></i></a>
-        <a href="#"><i class="fab fa-instagram"></i></a>
-        <a href="#"><i class="fab fa-facebook"></i></a>
-        <a href="#"><i class="fab fa-youtube"></i></a>
-      </div>
-    </footer>
-
-  </main>
-
-  <script>
-    const dropdownBtn = document.getElementById('profileDropdownBtn');
-    const dropdownMenu = document.getElementById('profileDropdownMenu');
-
-    dropdownBtn.addEventListener('click', function(event) {
-      event.stopPropagation();
-      dropdownMenu.classList.toggle('show');
+      `;
     });
+  }
 
-    document.addEventListener('click', function(event) {
-      if (!dropdownBtn.contains(event.target) && !dropdownMenu.contains(event.target)) {
-        dropdownMenu.classList.remove('show');
-      }
-    });
-  </script>
+  function verDetalhes(id) {
+    const evento = todosEventos.find(e => Number(e.id) === Number(id));
+
+    if (!evento) {
+      alert("Evento não encontrado.");
+      return;
+    }
+
+    localStorage.setItem("eventoSelecionado", JSON.stringify(evento));
+    window.location.href = `evento.html?id=${id}`;
+  }
+
+  function sair() {
+    localStorage.removeItem("usuarioLogado");
+    window.location.href = "login.html";
+  }
+
+  document.getElementById("campoBusca").addEventListener("input", function() {
+    const termo = this.value.toLowerCase();
+
+    const filtrados = todosEventos.filter(evento =>
+      evento.titulo.toLowerCase().includes(termo) ||
+      evento.local.toLowerCase().includes(termo)
+    );
+
+    renderizarEventos(filtrados);
+  });
+
+  const dropdownBtn = document.getElementById("profileDropdownBtn");
+  const dropdownMenu = document.getElementById("profileDropdownMenu");
+
+  dropdownBtn.addEventListener("click", function(event) {
+    event.stopPropagation();
+    dropdownMenu.classList.toggle("show");
+  });
+
+  document.addEventListener("click", function(event) {
+    if (!dropdownBtn.contains(event.target) && !dropdownMenu.contains(event.target)) {
+      dropdownMenu.classList.remove("show");
+    }
+  });
+
+  renderizarProximoEvento();
+  renderizarEventos();
+</script>
 
 </body>
 </html>
