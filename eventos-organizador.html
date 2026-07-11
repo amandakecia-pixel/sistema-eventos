@@ -1,0 +1,1899 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Conecta Eventos - Eventos do Organizador</title>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  >
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Inter", sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #f8fafc;
+      color: #0f172a;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    select {
+      font-family: inherit;
+    }
+
+    .topbar {
+      height: 80px;
+      padding: 0 40px;
+      background: #ffffff;
+      border-bottom: 1px solid #e2e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      z-index: 100;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-img {
+      width: 45px;
+      height: 45px;
+      object-fit: contain;
+    }
+
+    .logo-brand {
+      color: #1e1b4b;
+      font-size: 1.35rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .logo-brand span {
+      color: #6366f1;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+
+    .profile {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      position: relative;
+    }
+
+    .notification {
+      position: relative;
+      color: #64748b;
+      font-size: 22px;
+      padding: 8px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .notification:hover {
+      background: #f8fafc;
+    }
+
+    .notification span {
+      position: absolute;
+      top: 0;
+      right: -1px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #5b21f6;
+      color: #ffffff;
+      font-size: 11px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .user {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 6px 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .user:hover {
+      background: #f8fafc;
+    }
+
+    .user-avatar {
+      width: 45px;
+      height: 45px;
+      overflow: hidden;
+      border-radius: 50%;
+      border: 2px solid #5b21f6;
+      background: #ede9fe;
+      color: #5b21f6;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .user-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .user-info strong {
+      display: block;
+      font-size: 14px;
+    }
+
+    .user-info p {
+      margin-top: 2px;
+      color: #64748b;
+      font-size: 12px;
+    }
+
+    .dropdown {
+      position: absolute;
+      top: 68px;
+      right: 0;
+      width: 260px;
+      padding: 8px;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      background: #ffffff;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+      display: none;
+      z-index: 999;
+    }
+
+    .dropdown.show {
+      display: block;
+    }
+
+    .dropdown a {
+      padding: 12px;
+      border-radius: 8px;
+      color: #334155;
+      font-size: 15px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .dropdown a:hover {
+      background: #f3f4f6;
+      color: #5b21f6;
+    }
+
+    .dropdown a.active {
+      background: #ede9fe;
+      color: #5b21f6;
+    }
+
+    .dropdown hr {
+      margin: 8px 0;
+      border: none;
+      border-top: 1px solid #e2e8f0;
+    }
+
+    .dropdown .logout {
+      color: #ef4444;
+    }
+
+    .main {
+      width: 100%;
+      max-width: 1500px;
+      margin: 0 auto;
+      padding: 35px;
+    }
+
+    .page-header {
+      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .page-header h1 {
+      margin-bottom: 6px;
+      font-size: 32px;
+    }
+
+    .page-header p {
+      color: #64748b;
+    }
+
+    .btn-primary {
+      padding: 14px 22px;
+      border: none;
+      border-radius: 10px;
+      background: #5b21f6;
+      color: #ffffff;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      transition: 0.2s;
+    }
+
+    .btn-primary:hover {
+      background: #4c1d95;
+    }
+
+    .summary-grid {
+      margin-bottom: 24px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+
+    .summary-card {
+      padding: 20px;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .summary-icon {
+      width: 54px;
+      height: 54px;
+      flex-shrink: 0;
+      border-radius: 12px;
+      background: #ede9fe;
+      color: #5b21f6;
+      font-size: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .summary-card span {
+      color: #64748b;
+      font-size: 13px;
+    }
+
+    .summary-card strong {
+      margin-top: 4px;
+      display: block;
+      font-size: 25px;
+    }
+
+    .toolbar {
+      margin-bottom: 22px;
+      padding: 18px;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      background: #ffffff;
+      display: grid;
+      grid-template-columns: 1fr 190px 190px;
+      gap: 14px;
+    }
+
+    .search-box {
+      position: relative;
+    }
+
+    .search-box i {
+      position: absolute;
+      top: 50%;
+      left: 15px;
+      color: #94a3b8;
+      transform: translateY(-50%);
+    }
+
+    .search-box input,
+    .toolbar select {
+      width: 100%;
+      height: 44px;
+      border: 1px solid #e2e8f0;
+      border-radius: 9px;
+      background: #ffffff;
+      color: #334155;
+      outline: none;
+    }
+
+    .search-box input {
+      padding: 0 15px 0 43px;
+    }
+
+    .toolbar select {
+      padding: 0 12px;
+      cursor: pointer;
+    }
+
+    .search-box input:focus,
+    .toolbar select:focus {
+      border-color: #7c3aed;
+      box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.08);
+    }
+
+    .events-container {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .event-card {
+      padding: 18px;
+      border: 1px solid #e2e8f0;
+      border-radius: 15px;
+      background: #ffffff;
+      display: grid;
+      grid-template-columns: 150px 1fr auto;
+      align-items: center;
+      gap: 20px;
+      transition: 0.2s;
+    }
+
+    .event-card:hover {
+      border-color: #c4b5fd;
+      box-shadow: 0 8px 22px rgba(15, 23, 42, 0.06);
+    }
+
+    .event-image {
+      width: 150px;
+      height: 105px;
+      overflow: hidden;
+      border-radius: 11px;
+      background: linear-gradient(135deg, #4338ca, #06b6d4);
+      color: #ffffff;
+      font-size: 34px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .event-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .event-content {
+      min-width: 0;
+    }
+
+    .event-top {
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      flex-wrap: wrap;
+    }
+
+    .category-badge {
+      padding: 4px 10px;
+      border-radius: 99px;
+      background: #ede9fe;
+      color: #5b21f6;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .status-badge {
+      padding: 4px 10px;
+      border-radius: 99px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .status-aberto {
+      background: #dcfce7;
+      color: #15803d;
+    }
+
+    .status-poucas {
+      background: #ffedd5;
+      color: #c2410c;
+    }
+
+    .status-esgotado {
+      background: #fee2e2;
+      color: #b91c1c;
+    }
+
+    .status-encerrado {
+      background: #e2e8f0;
+      color: #475569;
+    }
+
+    .status-rascunho {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .event-title {
+      margin-bottom: 11px;
+      font-size: 18px;
+    }
+
+    .event-meta {
+      color: #64748b;
+      font-size: 13px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .event-meta span {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .occupancy {
+      margin-top: 13px;
+      max-width: 500px;
+    }
+
+    .occupancy-info {
+      margin-bottom: 6px;
+      color: #64748b;
+      font-size: 12px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .progress {
+      width: 100%;
+      height: 7px;
+      overflow: hidden;
+      border-radius: 99px;
+      background: #e2e8f0;
+    }
+
+    .progress-bar {
+      height: 100%;
+      border-radius: 99px;
+      background: #5b21f6;
+    }
+
+    .event-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      min-width: 145px;
+    }
+
+    .action-button {
+      width: 100%;
+      padding: 9px 12px;
+      border-radius: 8px;
+      background: #ffffff;
+      color: #334155;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+    }
+
+    .action-view {
+      border: 1px solid #c4b5fd;
+      color: #5b21f6;
+    }
+
+    .action-edit {
+      border: 1px solid #e2e8f0;
+    }
+
+    .action-status {
+      border: 1px solid #bfdbfe;
+      color: #1d4ed8;
+    }
+
+    .action-delete {
+      border: 1px solid #fecaca;
+      color: #dc2626;
+    }
+
+    .action-button:hover {
+      background: #f8fafc;
+    }
+
+    .empty-state {
+      padding: 60px 25px;
+      border: 1px solid #e2e8f0;
+      border-radius: 15px;
+      background: #ffffff;
+      color: #64748b;
+      text-align: center;
+    }
+
+    .empty-state i {
+      margin-bottom: 15px;
+      color: #c4b5fd;
+      font-size: 45px;
+    }
+
+    .empty-state h3 {
+      margin-bottom: 7px;
+      color: #334155;
+    }
+
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      padding: 20px;
+      background: rgba(15, 23, 42, 0.55);
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-overlay.show {
+      display: flex;
+    }
+
+    .modal {
+      width: 100%;
+      max-width: 430px;
+      padding: 25px;
+      border-radius: 16px;
+      background: #ffffff;
+    }
+
+    .modal h2 {
+      margin-bottom: 9px;
+      font-size: 20px;
+    }
+
+    .modal p {
+      margin-bottom: 20px;
+      color: #64748b;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    .modal-button {
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .modal-cancel {
+      border: 1px solid #e2e8f0;
+      background: #ffffff;
+      color: #334155;
+    }
+
+    .modal-confirm {
+      border: none;
+      background: #dc2626;
+      color: #ffffff;
+    }
+
+    @media (max-width: 1100px) {
+      .summary-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .event-card {
+        grid-template-columns: 130px 1fr;
+      }
+
+      .event-image {
+        width: 130px;
+      }
+
+      .event-actions {
+        grid-column: 1 / -1;
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+
+      .action-button {
+        width: auto;
+        flex: 1;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .topbar {
+        padding: 0 18px;
+      }
+
+      .main {
+        padding: 22px 16px;
+      }
+
+      .page-header {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .summary-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .toolbar {
+        grid-template-columns: 1fr;
+      }
+
+      .event-card {
+        grid-template-columns: 1fr;
+      }
+
+      .event-image {
+        width: 100%;
+        height: 180px;
+      }
+
+      .event-actions {
+        grid-column: auto;
+        flex-direction: column;
+      }
+
+      .action-button {
+        width: 100%;
+      }
+
+      .user-info {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header class="topbar">
+  <div class="logo">
+    <img
+      src="logo.png"
+      class="logo-img"
+      alt="Logo Conecta Eventos"
+    >
+
+    <div class="logo-brand">
+      Conecta <span>Eventos</span>
+    </div>
+  </div>
+
+  <div class="profile">
+    <div class="notification" id="btnNotificacoes">
+      <i class="fa-regular fa-bell"></i>
+      <span id="contadorNotificacoes">0</span>
+    </div>
+
+    <div class="user" id="profileBtn">
+      <div class="user-avatar" id="avatarOrganizador">
+        <span id="avatarInicial">O</span>
+      </div>
+
+      <div class="user-info">
+        <strong id="nomeOrganizador">Olá, Organizador</strong>
+        <p>Organizador</p>
+      </div>
+
+      <i class="fa-solid fa-chevron-down"></i>
+    </div>
+
+    <div class="dropdown" id="dropdown">
+      <a href="organizador.html">
+        <i class="fa-solid fa-house"></i>
+        Início
+      </a>
+
+      <a href="eventos-organizador.html" class="active">
+        <i class="fa-regular fa-calendar-days"></i>
+        Eventos
+      </a>
+
+      <a href="participantes.html">
+        <i class="fa-solid fa-users"></i>
+        Participantes
+      </a>
+
+      <a href="controle-vagas.html">
+        <i class="fa-regular fa-calendar-check"></i>
+        Controle de Vagas
+      </a>
+
+      <a href="comprovantes-organizador.html">
+        <i class="fa-regular fa-file-lines"></i>
+        Comprovantes
+      </a>
+
+      <a href="configuracoes.html">
+        <i class="fa-solid fa-gear"></i>
+        Configurações
+      </a>
+
+      <hr>
+
+      <a href="#" class="logout" id="btnSair">
+        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+        Sair
+      </a>
+    </div>
+  </div>
+</header>
+
+<main class="main">
+
+  <section class="page-header">
+    <div>
+      <h1>Meus eventos</h1>
+
+      <p>
+        Cadastre, acompanhe e gerencie os eventos publicados.
+      </p>
+    </div>
+
+    <button class="btn-primary" id="btnNovoEvento">
+      <i class="fa-solid fa-plus"></i>
+      Novo evento
+    </button>
+  </section>
+
+  <section class="summary-grid">
+
+    <div class="summary-card">
+      <div class="summary-icon">
+        <i class="fa-regular fa-calendar-check"></i>
+      </div>
+
+      <div>
+        <span>Total de eventos</span>
+        <strong id="resumoTotal">0</strong>
+      </div>
+    </div>
+
+    <div class="summary-card">
+      <div class="summary-icon">
+        <i class="fa-solid fa-circle-check"></i>
+      </div>
+
+      <div>
+        <span>Eventos abertos</span>
+        <strong id="resumoAbertos">0</strong>
+      </div>
+    </div>
+
+    <div class="summary-card">
+      <div class="summary-icon">
+        <i class="fa-solid fa-users"></i>
+      </div>
+
+      <div>
+        <span>Total de inscrições</span>
+        <strong id="resumoInscricoes">0</strong>
+      </div>
+    </div>
+
+    <div class="summary-card">
+      <div class="summary-icon">
+        <i class="fa-solid fa-chair"></i>
+      </div>
+
+      <div>
+        <span>Vagas disponíveis</span>
+        <strong id="resumoVagas">0</strong>
+      </div>
+    </div>
+
+  </section>
+
+  <section class="toolbar">
+    <div class="search-box">
+      <i class="fa-solid fa-magnifying-glass"></i>
+
+      <input
+        type="search"
+        id="campoBusca"
+        placeholder="Buscar por título, local ou categoria..."
+      >
+    </div>
+
+    <select id="filtroStatus">
+      <option value="todos">Todos os status</option>
+      <option value="aberto">Aberto</option>
+      <option value="poucas vagas">Poucas vagas</option>
+      <option value="esgotado">Esgotado</option>
+      <option value="rascunho">Rascunho</option>
+      <option value="encerrado">Encerrado</option>
+    </select>
+
+    <select id="filtroCategoria">
+      <option value="todas">Todas as categorias</option>
+    </select>
+  </section>
+
+  <section
+    class="events-container"
+    id="listaEventos"
+  ></section>
+
+</main>
+
+<div
+  class="modal-overlay"
+  id="modalExcluir"
+>
+  <div class="modal">
+    <h2>Excluir evento</h2>
+
+    <p id="textoModalExcluir">
+      Tem certeza de que deseja excluir este evento?
+    </p>
+
+    <div class="modal-actions">
+      <button
+        class="modal-button modal-cancel"
+        id="btnCancelarExclusao"
+      >
+        Cancelar
+      </button>
+
+      <button
+        class="modal-button modal-confirm"
+        id="btnConfirmarExclusao"
+      >
+        Excluir
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const usuarioLogado =
+    JSON.parse(localStorage.getItem("usuarioLogado"));
+
+  if (!usuarioLogado) {
+    window.location.href = "login.html";
+  }
+
+  const tipoUsuario = String(
+    usuarioLogado?.tipoPerfil ||
+    usuarioLogado?.tipo ||
+    usuarioLogado?.perfil ||
+    ""
+  ).toLowerCase();
+
+  if (
+    tipoUsuario &&
+    tipoUsuario !== "organizador" &&
+    tipoUsuario !== "administrador"
+  ) {
+    alert("Esta página é exclusiva para organizadores.");
+    window.location.href = "dashboard.html";
+  }
+
+  function formatarNome(nome) {
+    return String(nome || "")
+      .trim()
+      .toLowerCase()
+      .split(/\s+/)
+      .map((palavra, indice) => {
+        const conectivos = [
+          "da",
+          "de",
+          "do",
+          "das",
+          "dos",
+          "e"
+        ];
+
+        if (
+          indice > 0 &&
+          conectivos.includes(palavra)
+        ) {
+          return palavra;
+        }
+
+        return (
+          palavra.charAt(0).toUpperCase() +
+          palavra.slice(1)
+        );
+      })
+      .join(" ");
+  }
+
+  const nomeCompleto = formatarNome(
+    usuarioLogado?.nome || "Organizador"
+  );
+
+  const primeiroNome =
+    nomeCompleto.split(" ")[0];
+
+  const emailOrganizador =
+    usuarioLogado?.email || "";
+
+  document.getElementById(
+    "nomeOrganizador"
+  ).innerText = `Olá, ${primeiroNome}`;
+
+  document.getElementById(
+    "avatarInicial"
+  ).innerText = primeiroNome
+    .charAt(0)
+    .toUpperCase();
+
+  if (usuarioLogado?.foto) {
+    document.getElementById(
+      "avatarOrganizador"
+    ).innerHTML = `
+      <img
+        src="${usuarioLogado.foto}"
+        alt="${nomeCompleto}"
+      >
+    `;
+  }
+
+  const profileBtn =
+    document.getElementById("profileBtn");
+
+  const dropdown =
+    document.getElementById("dropdown");
+
+  profileBtn.addEventListener(
+    "click",
+    function(event) {
+      event.stopPropagation();
+      dropdown.classList.toggle("show");
+    }
+  );
+
+  document.addEventListener(
+    "click",
+    function(event) {
+      if (
+        !profileBtn.contains(event.target) &&
+        !dropdown.contains(event.target)
+      ) {
+        dropdown.classList.remove("show");
+      }
+    }
+  );
+
+  document.getElementById(
+    "btnSair"
+  ).addEventListener(
+    "click",
+    function(event) {
+      event.preventDefault();
+
+      localStorage.removeItem("usuarioLogado");
+
+      window.location.href = "login.html";
+    }
+  );
+
+  document.getElementById(
+    "btnNovoEvento"
+  ).addEventListener(
+    "click",
+    function() {
+      localStorage.removeItem(
+        "eventoEmEdicao"
+      );
+
+      window.location.href =
+        "cadastrar-evento.html";
+    }
+  );
+
+  document.getElementById(
+    "btnNotificacoes"
+  ).addEventListener(
+    "click",
+    function() {
+      window.location.href =
+        "notificacoes-organizador.html";
+    }
+  );
+
+  const eventosPadrao = [
+    {
+      id: 101,
+      titulo: "Curso de HTML e CSS",
+      descricao:
+        "Curso introdutório de desenvolvimento web.",
+      categoria: "Curso",
+      data: "15/06/2026",
+      horario: "09:00",
+      local: "Laboratório 01",
+      vagasTotais: 60,
+      status: "Aberto",
+      imagem: "",
+      organizadorEmail: ""
+    },
+    {
+      id: 102,
+      titulo:
+        "Oficina de Inteligência Artificial",
+      descricao:
+        "Oficina prática sobre ferramentas de inteligência artificial.",
+      categoria: "Oficina",
+      data: "20/06/2026",
+      horario: "14:00",
+      local: "Auditório Principal",
+      vagasTotais: 50,
+      status: "Aberto",
+      imagem: "",
+      organizadorEmail: ""
+    },
+    {
+      id: 103,
+      titulo: "Workshop Java",
+      descricao:
+        "Workshop sobre programação orientada a objetos com Java.",
+      categoria: "Workshop",
+      data: "05/07/2026",
+      horario: "09:00",
+      local: "Sala 203",
+      vagasTotais: 20,
+      status: "Aberto",
+      imagem: "",
+      organizadorEmail: ""
+    }
+  ];
+
+  function prepararEventosIniciais() {
+    const salvos =
+      JSON.parse(
+        localStorage.getItem(
+          "eventosCadastrados"
+        )
+      ) || [];
+
+    let houveAlteracao = false;
+
+    eventosPadrao.forEach(
+      eventoPadrao => {
+        const existe = salvos.some(
+          evento =>
+            Number(evento.id) ===
+            Number(eventoPadrao.id)
+        );
+
+        if (!existe) {
+          salvos.push(eventoPadrao);
+          houveAlteracao = true;
+        }
+      }
+    );
+
+    if (houveAlteracao) {
+      localStorage.setItem(
+        "eventosCadastrados",
+        JSON.stringify(salvos)
+      );
+    }
+  }
+
+  prepararEventosIniciais();
+
+  let todosEventos =
+    JSON.parse(
+      localStorage.getItem(
+        "eventosCadastrados"
+      )
+    ) || [];
+
+  let inscricoes =
+    JSON.parse(
+      localStorage.getItem(
+        "inscricoesConecta"
+      )
+    ) || [];
+
+  let eventoParaExcluirId = null;
+
+  function eventosPermitidos() {
+    return todosEventos.filter(
+      evento => {
+        const emailEvento =
+          evento.organizadorEmail ||
+          evento.emailOrganizador ||
+          evento.emailCriador ||
+          "";
+
+        if (!emailEvento) {
+          return true;
+        }
+
+        return (
+          emailEvento === emailOrganizador
+        );
+      }
+    );
+  }
+
+  function obterVagasTotais(evento) {
+    return Number(
+      evento.vagasTotais ??
+      evento.totalVagas ??
+      evento.quantidadeVagas ??
+      evento.vagas ??
+      0
+    );
+  }
+
+  function obterInscricoesAtivas(eventoId) {
+    return inscricoes.filter(
+      inscricao =>
+        Number(inscricao.eventoId) ===
+          Number(eventoId) &&
+        inscricao.status !== "Cancelada"
+    );
+  }
+
+  function obterQuantidadeInscritos(
+    eventoId
+  ) {
+    return obterInscricoesAtivas(
+      eventoId
+    ).length;
+  }
+
+  function obterVagasDisponiveis(evento) {
+    const total =
+      obterVagasTotais(evento);
+
+    const inscritos =
+      obterQuantidadeInscritos(
+        evento.id
+      );
+
+    return Math.max(
+      total - inscritos,
+      0
+    );
+  }
+
+  function obterTaxaOcupacao(evento) {
+    const total =
+      obterVagasTotais(evento);
+
+    const inscritos =
+      obterQuantidadeInscritos(
+        evento.id
+      );
+
+    if (total <= 0) {
+      return 0;
+    }
+
+    return Math.min(
+      Math.round(
+        (inscritos / total) * 100
+      ),
+      100
+    );
+  }
+
+  function normalizarTexto(texto) {
+    return String(texto || "")
+      .normalize("NFD")
+      .replace(
+        /[\u0300-\u036f]/g,
+        ""
+      )
+      .toLowerCase();
+  }
+
+  function obterStatusReal(evento) {
+    const statusSalvo =
+      String(
+        evento.status || "Aberto"
+      ).trim();
+
+    const statusNormalizado =
+      normalizarTexto(statusSalvo);
+
+    if (
+      statusNormalizado ===
+        "encerrado" ||
+      statusNormalizado ===
+        "cancelado" ||
+      statusNormalizado ===
+        "rascunho"
+    ) {
+      return statusSalvo;
+    }
+
+    const vagas =
+      obterVagasDisponiveis(evento);
+
+    if (vagas <= 0) {
+      return "Esgotado";
+    }
+
+    if (vagas <= 3) {
+      return "Poucas vagas";
+    }
+
+    return "Aberto";
+  }
+
+  function obterClasseStatus(status) {
+    const normalizado =
+      normalizarTexto(status);
+
+    if (
+      normalizado === "aberto"
+    ) {
+      return "status-aberto";
+    }
+
+    if (
+      normalizado ===
+      "poucas vagas"
+    ) {
+      return "status-poucas";
+    }
+
+    if (
+      normalizado === "esgotado"
+    ) {
+      return "status-esgotado";
+    }
+
+    if (
+      normalizado === "rascunho"
+    ) {
+      return "status-rascunho";
+    }
+
+    return "status-encerrado";
+  }
+
+  function obterIconeCategoria(
+    categoria
+  ) {
+    const nome =
+      normalizarTexto(categoria);
+
+    if (nome.includes("curso")) {
+      return "fa-solid fa-code";
+    }
+
+    if (
+      nome.includes("oficina")
+    ) {
+      return "fa-solid fa-robot";
+    }
+
+    if (
+      nome.includes("workshop")
+    ) {
+      return "fa-solid fa-laptop-code";
+    }
+
+    if (
+      nome.includes("palestra")
+    ) {
+      return "fa-solid fa-microphone";
+    }
+
+    return "fa-regular fa-calendar";
+  }
+
+  function carregarCategorias() {
+    const select =
+      document.getElementById(
+        "filtroCategoria"
+      );
+
+    const categorias = [
+      ...new Set(
+        eventosPermitidos()
+          .map(
+            evento =>
+              evento.categoria
+          )
+          .filter(Boolean)
+      )
+    ].sort();
+
+    select.innerHTML = `
+      <option value="todas">
+        Todas as categorias
+      </option>
+    `;
+
+    categorias.forEach(
+      categoria => {
+        select.innerHTML += `
+          <option value="${normalizarTexto(categoria)}">
+            ${categoria}
+          </option>
+        `;
+      }
+    );
+  }
+
+  function atualizarResumo() {
+    const eventos =
+      eventosPermitidos();
+
+    const totalEventos =
+      eventos.length;
+
+    const eventosAbertos =
+      eventos.filter(
+        evento =>
+          normalizarTexto(
+            obterStatusReal(evento)
+          ) === "aberto"
+      ).length;
+
+    const idsEventos =
+      eventos.map(
+        evento => Number(evento.id)
+      );
+
+    const inscricoesAtivas =
+      inscricoes.filter(
+        inscricao =>
+          idsEventos.includes(
+            Number(
+              inscricao.eventoId
+            )
+          ) &&
+          inscricao.status !==
+            "Cancelada"
+      );
+
+    const vagasDisponiveis =
+      eventos.reduce(
+        (soma, evento) =>
+          soma +
+          obterVagasDisponiveis(
+            evento
+          ),
+        0
+      );
+
+    document.getElementById(
+      "resumoTotal"
+    ).innerText = totalEventos;
+
+    document.getElementById(
+      "resumoAbertos"
+    ).innerText = eventosAbertos;
+
+    document.getElementById(
+      "resumoInscricoes"
+    ).innerText =
+      inscricoesAtivas.length;
+
+    document.getElementById(
+      "resumoVagas"
+    ).innerText =
+      vagasDisponiveis;
+  }
+
+  function filtrarEventos() {
+    const busca =
+      normalizarTexto(
+        document.getElementById(
+          "campoBusca"
+        ).value
+      );
+
+    const statusSelecionado =
+      normalizarTexto(
+        document.getElementById(
+          "filtroStatus"
+        ).value
+      );
+
+    const categoriaSelecionada =
+      normalizarTexto(
+        document.getElementById(
+          "filtroCategoria"
+        ).value
+      );
+
+    return eventosPermitidos()
+      .filter(evento => {
+        const textoEvento =
+          normalizarTexto(
+            [
+              evento.titulo,
+              evento.local,
+              evento.categoria,
+              evento.descricao
+            ].join(" ")
+          );
+
+        const statusEvento =
+          normalizarTexto(
+            obterStatusReal(evento)
+          );
+
+        const categoriaEvento =
+          normalizarTexto(
+            evento.categoria
+          );
+
+        const correspondeBusca =
+          !busca ||
+          textoEvento.includes(
+            busca
+          );
+
+        const correspondeStatus =
+          statusSelecionado ===
+            "todos" ||
+          statusEvento ===
+            statusSelecionado;
+
+        const correspondeCategoria =
+          categoriaSelecionada ===
+            "todas" ||
+          categoriaEvento ===
+            categoriaSelecionada;
+
+        return (
+          correspondeBusca &&
+          correspondeStatus &&
+          correspondeCategoria
+        );
+      })
+      .sort(
+        (a, b) =>
+          Number(b.id) -
+          Number(a.id)
+      );
+  }
+
+  function renderizarEventos() {
+    const container =
+      document.getElementById(
+        "listaEventos"
+      );
+
+    const eventos =
+      filtrarEventos();
+
+    if (eventos.length === 0) {
+      container.innerHTML = `
+        <div class="empty-state">
+          <i class="fa-regular fa-calendar-xmark"></i>
+
+          <h3>
+            Nenhum evento encontrado
+          </h3>
+
+          <p>
+            Altere os filtros ou cadastre
+            um novo evento.
+          </p>
+        </div>
+      `;
+
+      return;
+    }
+
+    container.innerHTML =
+      eventos.map(evento => {
+        const inscritos =
+          obterQuantidadeInscritos(
+            evento.id
+          );
+
+        const vagasTotais =
+          obterVagasTotais(evento);
+
+        const vagasDisponiveis =
+          obterVagasDisponiveis(
+            evento
+          );
+
+        const ocupacao =
+          obterTaxaOcupacao(evento);
+
+        const status =
+          obterStatusReal(evento);
+
+        const imagemOuIcone =
+          evento.imagem
+            ? `
+              <img
+                src="${evento.imagem}"
+                alt="${evento.titulo}"
+              >
+            `
+            : `
+              <i class="${obterIconeCategoria(evento.categoria)}"></i>
+            `;
+
+        return `
+          <article class="event-card">
+
+            <div class="event-image">
+              ${imagemOuIcone}
+            </div>
+
+            <div class="event-content">
+
+              <div class="event-top">
+                <span class="category-badge">
+                  ${evento.categoria || "Evento"}
+                </span>
+
+                <span class="status-badge ${obterClasseStatus(status)}">
+                  ${status}
+                </span>
+              </div>
+
+              <h2 class="event-title">
+                ${evento.titulo || "Evento sem título"}
+              </h2>
+
+              <div class="event-meta">
+
+                <span>
+                  <i class="fa-regular fa-calendar"></i>
+                  ${evento.data || "Data não informada"}
+                </span>
+
+                <span>
+                  <i class="fa-regular fa-clock"></i>
+                  ${evento.horario || "Horário não informado"}
+                </span>
+
+                <span>
+                  <i class="fa-solid fa-location-dot"></i>
+                  ${evento.local || "Local não informado"}
+                </span>
+
+              </div>
+
+              <div class="occupancy">
+                <div class="occupancy-info">
+                  <span>
+                    ${inscritos} inscrito(s)
+                  </span>
+
+                  <span>
+                    ${vagasDisponiveis} de ${vagasTotais} vaga(s) disponíveis
+                  </span>
+                </div>
+
+                <div class="progress">
+                  <div
+                    class="progress-bar"
+                    style="width:${ocupacao}%"
+                  ></div>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="event-actions">
+
+              <button
+                class="action-button action-view"
+                onclick="visualizarEvento(${evento.id})"
+              >
+                <i class="fa-regular fa-eye"></i>
+                Detalhes
+              </button>
+
+              <button
+                class="action-button action-edit"
+                onclick="editarEvento(${evento.id})"
+              >
+                <i class="fa-regular fa-pen-to-square"></i>
+                Editar
+              </button>
+
+              <button
+                class="action-button action-status"
+                onclick="alterarStatusEvento(${evento.id})"
+              >
+                <i class="fa-solid fa-arrows-rotate"></i>
+                Alterar status
+              </button>
+
+              <button
+                class="action-button action-delete"
+                onclick="solicitarExclusao(${evento.id})"
+              >
+                <i class="fa-regular fa-trash-can"></i>
+                Excluir
+              </button>
+
+            </div>
+
+          </article>
+        `;
+      }).join("");
+  }
+
+  function localizarEvento(id) {
+    return todosEventos.find(
+      evento =>
+        Number(evento.id) ===
+        Number(id)
+    );
+  }
+
+  function visualizarEvento(id) {
+    const evento =
+      localizarEvento(id);
+
+    if (!evento) {
+      alert("Evento não encontrado.");
+      return;
+    }
+
+    localStorage.setItem(
+      "eventoSelecionadoAdmin",
+      JSON.stringify(evento)
+    );
+
+    localStorage.setItem(
+      "eventoSelecionado",
+      JSON.stringify(evento)
+    );
+
+    window.location.href =
+      `detalhes-evento-organizador.html?id=${id}`;
+  }
+
+  function editarEvento(id) {
+    const evento =
+      localizarEvento(id);
+
+    if (!evento) {
+      alert("Evento não encontrado.");
+      return;
+    }
+
+    localStorage.setItem(
+      "eventoEmEdicao",
+      JSON.stringify(evento)
+    );
+
+    window.location.href =
+      `editar-evento.html?id=${id}`;
+  }
+
+  function alterarStatusEvento(id) {
+    const evento =
+      localizarEvento(id);
+
+    if (!evento) {
+      alert("Evento não encontrado.");
+      return;
+    }
+
+    const statusAtual =
+      normalizarTexto(
+        evento.status || "Aberto"
+      );
+
+    let novoStatus = "Aberto";
+
+    if (statusAtual === "aberto") {
+      novoStatus = "Rascunho";
+    } else if (
+      statusAtual === "rascunho"
+    ) {
+      novoStatus = "Encerrado";
+    } else {
+      novoStatus = "Aberto";
+    }
+
+    todosEventos =
+      todosEventos.map(item => {
+        if (
+          Number(item.id) ===
+          Number(id)
+        ) {
+          return {
+            ...item,
+            status: novoStatus
+          };
+        }
+
+        return item;
+      });
+
+    localStorage.setItem(
+      "eventosCadastrados",
+      JSON.stringify(todosEventos)
+    );
+
+    atualizarResumo();
+    renderizarEventos();
+
+    alert(
+      `Status alterado para ${novoStatus}.`
+    );
+  }
+
+  function solicitarExclusao(id) {
+    const evento =
+      localizarEvento(id);
+
+    if (!evento) {
+      return;
+    }
+
+    eventoParaExcluirId = id;
+
+    document.getElementById(
+      "textoModalExcluir"
+    ).innerText =
+      `Tem certeza de que deseja excluir o evento “${evento.titulo}”?`;
+
+    document.getElementById(
+      "modalExcluir"
+    ).classList.add("show");
+  }
+
+  function fecharModalExclusao() {
+    eventoParaExcluirId = null;
+
+    document.getElementById(
+      "modalExcluir"
+    ).classList.remove("show");
+  }
+
+  function excluirEvento() {
+    if (
+      eventoParaExcluirId === null
+    ) {
+      return;
+    }
+
+    const possuiInscricoes =
+      obterInscricoesAtivas(
+        eventoParaExcluirId
+      ).length > 0;
+
+    if (possuiInscricoes) {
+      const continuar = confirm(
+        "Este evento possui inscrições. Ao excluir, as inscrições continuarão armazenadas, mas o evento deixará de aparecer. Deseja continuar?"
+      );
+
+      if (!continuar) {
+        return;
+      }
+    }
+
+    todosEventos =
+      todosEventos.filter(
+        evento =>
+          Number(evento.id) !==
+          Number(eventoParaExcluirId)
+      );
+
+    localStorage.setItem(
+      "eventosCadastrados",
+      JSON.stringify(todosEventos)
+    );
+
+    fecharModalExclusao();
+    carregarCategorias();
+    atualizarResumo();
+    renderizarEventos();
+
+    alert("Evento excluído com sucesso.");
+  }
+
+  document.getElementById(
+    "btnCancelarExclusao"
+  ).addEventListener(
+    "click",
+    fecharModalExclusao
+  );
+
+  document.getElementById(
+    "btnConfirmarExclusao"
+  ).addEventListener(
+    "click",
+    excluirEvento
+  );
+
+  document.getElementById(
+    "modalExcluir"
+  ).addEventListener(
+    "click",
+    function(event) {
+      if (
+        event.target === this
+      ) {
+        fecharModalExclusao();
+      }
+    }
+  );
+
+  document.getElementById(
+    "campoBusca"
+  ).addEventListener(
+    "input",
+    renderizarEventos
+  );
+
+  document.getElementById(
+    "filtroStatus"
+  ).addEventListener(
+    "change",
+    renderizarEventos
+  );
+
+  document.getElementById(
+    "filtroCategoria"
+  ).addEventListener(
+    "change",
+    renderizarEventos
+  );
+
+  const notificacoes =
+    JSON.parse(
+      localStorage.getItem(
+        "notificacoesOrganizador"
+      )
+    ) || [];
+
+  const naoLidas =
+    notificacoes.filter(
+      notificacao =>
+        !notificacao.lida
+    ).length;
+
+  document.getElementById(
+    "contadorNotificacoes"
+  ).innerText = naoLidas;
+
+  carregarCategorias();
+  atualizarResumo();
+  renderizarEventos();
+</script>
+
+</body>
+</html>

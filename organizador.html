@@ -1,0 +1,1342 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Conecta Eventos - Organizador</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background: #f8fafc;
+      color: #0f172a;
+      min-height: 100vh;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    button,
+    select {
+      font-family: inherit;
+    }
+
+    .topbar {
+      height: 80px;
+      background: #ffffff;
+      border-bottom: 1px solid #e2e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      position: relative;
+      z-index: 100;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-img {
+      width: 45px;
+      height: 45px;
+      object-fit: contain;
+    }
+
+    .logo-brand {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #1e1b4b;
+      white-space: nowrap;
+    }
+
+    .logo-brand span {
+      color: #6366f1;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+
+    .profile {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      position: relative;
+    }
+
+    .notification {
+      position: relative;
+      font-size: 22px;
+      color: #64748b;
+      cursor: pointer;
+      padding: 8px;
+      border-radius: 8px;
+    }
+
+    .notification:hover {
+      background: #f8fafc;
+    }
+
+    .notification span {
+      position: absolute;
+      top: 0;
+      right: -1px;
+      width: 18px;
+      height: 18px;
+      background: #5b21f6;
+      color: #ffffff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+    }
+
+    .user {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      padding: 6px 10px;
+      border-radius: 8px;
+      user-select: none;
+    }
+
+    .user:hover {
+      background: #f8fafc;
+    }
+
+    .user-avatar {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2px solid #5b21f6;
+      background: #ede9fe;
+      color: #5b21f6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+    }
+
+    .user-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .user-info strong {
+      font-size: 14px;
+      display: block;
+    }
+
+    .user-info p {
+      font-size: 12px;
+      color: #64748b;
+      margin-top: 2px;
+    }
+
+    .dropdown {
+      position: absolute;
+      top: 68px;
+      right: 0;
+      width: 260px;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+      display: none;
+      padding: 8px;
+      z-index: 999;
+    }
+
+    .dropdown.show {
+      display: block;
+    }
+
+    .dropdown a {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      border-radius: 8px;
+      color: #334155;
+      font-size: 15px;
+      font-weight: 500;
+    }
+
+    .dropdown a:hover {
+      background: #f3f4f6;
+      color: #5b21f6;
+    }
+
+    .dropdown hr {
+      margin: 8px 0;
+      border: none;
+      border-top: 1px solid #e2e8f0;
+    }
+
+    .dropdown .logout {
+      color: #ef4444;
+    }
+
+    .main {
+      padding: 35px;
+      max-width: 1500px;
+      margin: 0 auto;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      gap: 20px;
+    }
+
+    .header h1 {
+      font-size: 32px;
+      margin-bottom: 6px;
+    }
+
+    .header p {
+      color: #64748b;
+    }
+
+    .btn {
+      background: #5b21f6;
+      color: #ffffff;
+      border: none;
+      padding: 14px 22px;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn:hover {
+      background: #4c1d95;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      margin-bottom: 25px;
+    }
+
+    .card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 22px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      transition: 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    .icon-box {
+      width: 65px;
+      height: 65px;
+      background: #ede9fe;
+      color: #5b21f6;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      flex-shrink: 0;
+    }
+
+    .card h3 {
+      font-size: 15px;
+      margin-bottom: 5px;
+    }
+
+    .card strong {
+      font-size: 30px;
+      display: block;
+    }
+
+    .card p {
+      font-size: 13px;
+      color: #64748b;
+      margin-top: 3px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 22px;
+      margin-bottom: 25px;
+    }
+
+    .panel {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 22px;
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+      gap: 12px;
+    }
+
+    .panel-header h2 {
+      font-size: 19px;
+    }
+
+    .panel-header a {
+      color: #5b21f6;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    select {
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 8px 12px;
+      background: #ffffff;
+      outline: none;
+    }
+
+    .chart {
+      height: 240px;
+      position: relative;
+    }
+
+    .chart svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .chart-empty {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #64748b;
+      font-size: 14px;
+    }
+
+    .event-list {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .event-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 8px;
+      border-radius: 10px;
+      transition: 0.2s;
+    }
+
+    .event-item:hover {
+      background: #f8fafc;
+    }
+
+    .thumb {
+      width: 72px;
+      height: 52px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #4338ca, #06b6d4);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #ffffff;
+      font-size: 22px;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+
+    .thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .event-info {
+      flex: 1;
+    }
+
+    .event-info h3 {
+      font-size: 15px;
+      margin-bottom: 5px;
+    }
+
+    .event-info span {
+      font-size: 13px;
+      color: #64748b;
+    }
+
+    .status {
+      background: #dcfce7;
+      color: #15803d;
+      padding: 7px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .status.warning {
+      background: #ffedd5;
+      color: #c2410c;
+    }
+
+    .status.danger {
+      background: #fee2e2;
+      color: #b91c1c;
+    }
+
+    .status.closed {
+      background: #e2e8f0;
+      color: #475569;
+    }
+
+    .activity {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 0;
+      border-bottom: 1px solid #e2e8f0;
+      gap: 20px;
+    }
+
+    .activity:last-child {
+      border-bottom: none;
+    }
+
+    .activity strong {
+      font-size: 14px;
+    }
+
+    .activity span {
+      font-size: 13px;
+      color: #64748b;
+    }
+
+    .activity small {
+      color: #94a3b8;
+      white-space: nowrap;
+    }
+
+    .category {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    .category:last-child {
+      border-bottom: none;
+    }
+
+    .category span {
+      color: #475569;
+    }
+
+    .category strong {
+      color: #5b21f6;
+    }
+
+    .empty-state {
+      color: #64748b;
+      font-size: 14px;
+      padding: 20px 0;
+      text-align: center;
+    }
+
+    @media (max-width: 1100px) {
+      .cards {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      .topbar {
+        padding: 0 20px;
+      }
+
+      .main {
+        padding: 20px;
+      }
+
+      .header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+      }
+
+      .logo-brand {
+        font-size: 20px;
+      }
+
+      .user-info {
+        display: none;
+      }
+
+      .event-item {
+        align-items: flex-start;
+        flex-wrap: wrap;
+      }
+
+      .status {
+        margin-left: 86px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header class="topbar">
+  <div class="logo">
+    <img src="logo.png" class="logo-img" alt="Logo Conecta Eventos">
+
+    <div class="logo-brand">
+      Conecta <span>Eventos</span>
+    </div>
+  </div>
+
+  <div class="profile">
+    <div class="notification" id="btnNotificacoes">
+      <i class="fa-regular fa-bell"></i>
+      <span id="contadorNotificacoes">0</span>
+    </div>
+
+    <div class="user" id="profileBtn">
+      <div class="user-avatar" id="avatarOrganizador">
+        <span id="avatarInicial">O</span>
+      </div>
+
+      <div class="user-info">
+        <strong id="nomeOrganizador">Olá, Organizador</strong>
+        <p id="tipoPerfil">Organizador</p>
+      </div>
+
+      <i class="fa-solid fa-chevron-down"></i>
+    </div>
+
+    <div class="dropdown" id="dropdown">
+      <a href="organizador.html">
+        <i class="fa-solid fa-house"></i>
+        Início
+      </a>
+
+      <a href="eventos-organizador.html">
+        <i class="fa-regular fa-calendar-days"></i>
+        Eventos
+      </a>
+
+      <a href="participantes.html">
+        <i class="fa-solid fa-users"></i>
+        Participantes
+      </a>
+
+      <a href="controle-vagas.html">
+        <i class="fa-regular fa-calendar-check"></i>
+        Controle de Vagas
+      </a>
+
+      <a href="comprovantes-organizador.html">
+        <i class="fa-regular fa-file-lines"></i>
+        Comprovantes
+      </a>
+
+      <a href="configuracoes.html">
+        <i class="fa-solid fa-gear"></i>
+        Configurações
+      </a>
+
+      <hr>
+
+      <a href="#" class="logout" id="btnSair">
+        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+        Sair
+      </a>
+    </div>
+  </div>
+</header>
+
+<main class="main">
+
+  <div class="header">
+    <div>
+      <h1 id="tituloBoasVindas">Bem-vindo, Organizador</h1>
+      <p>Gerencie eventos, participantes e acompanhe os resultados.</p>
+    </div>
+
+    <button class="btn" id="btnNovoEvento">
+      <i class="fa-solid fa-plus"></i>
+      Novo Evento
+    </button>
+  </div>
+
+  <div class="cards">
+
+    <div class="card">
+      <div class="icon-box">
+        <i class="fa-regular fa-calendar-check"></i>
+      </div>
+
+      <div>
+        <h3>Eventos Ativos</h3>
+        <strong id="totalEventos">0</strong>
+        <p>Eventos publicados</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="icon-box">
+        <i class="fa-solid fa-users"></i>
+      </div>
+
+      <div>
+        <h3>Participantes</h3>
+        <strong id="totalParticipantes">0</strong>
+        <p>Total de inscritos</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="icon-box">
+        <i class="fa-solid fa-chair"></i>
+      </div>
+
+      <div>
+        <h3>Vagas</h3>
+        <strong id="totalVagas">0</strong>
+        <p>Disponíveis</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="icon-box">
+        <i class="fa-solid fa-chart-line"></i>
+      </div>
+
+      <div>
+        <h3>Taxa de Ocupação</h3>
+        <strong id="taxaOcupacao">0%</strong>
+        <p>Eventos cadastrados</p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="grid">
+
+    <div class="panel">
+      <div class="panel-header">
+        <h2>Inscrições nos últimos 7 dias</h2>
+
+        <select id="filtroGrafico">
+          <option value="7">Últimos 7 dias</option>
+          <option value="15">Últimos 15 dias</option>
+          <option value="30">Últimos 30 dias</option>
+        </select>
+      </div>
+
+      <div class="chart" id="graficoInscricoes"></div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-header">
+        <h2>Próximos Eventos</h2>
+        <a href="eventos-organizador.html">Ver todos</a>
+      </div>
+
+      <div class="event-list" id="listaProximosEventos"></div>
+    </div>
+
+  </div>
+
+  <div class="grid">
+
+    <div class="panel">
+      <div class="panel-header">
+        <h2>Atividades Recentes</h2>
+        <a href="atividades-organizador.html">Ver todas</a>
+      </div>
+
+      <div id="listaAtividades"></div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-header">
+        <h2>Eventos por Categoria</h2>
+      </div>
+
+      <div id="listaCategorias"></div>
+    </div>
+
+  </div>
+
+</main>
+
+<script>
+  const usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado"));
+
+  if (!usuarioLogado) {
+    window.location.href = "login.html";
+  }
+
+  const tipoUsuario = String(
+    usuarioLogado?.tipoPerfil ||
+    usuarioLogado?.tipo ||
+    usuarioLogado?.perfil ||
+    ""
+  ).toLowerCase();
+
+  if (
+    tipoUsuario &&
+    tipoUsuario !== "organizador" &&
+    tipoUsuario !== "administrador"
+  ) {
+    alert("Esta página é exclusiva para organizadores.");
+    window.location.href = "dashboard.html";
+  }
+
+  function formatarNome(nome) {
+    return String(nome || "")
+      .trim()
+      .toLowerCase()
+      .split(/\s+/)
+      .map((palavra, indice) => {
+        const conectivos = ["da", "de", "do", "das", "dos", "e"];
+
+        if (indice > 0 && conectivos.includes(palavra)) {
+          return palavra;
+        }
+
+        return palavra.charAt(0).toUpperCase() + palavra.slice(1);
+      })
+      .join(" ");
+  }
+
+  const nomeCompleto = formatarNome(usuarioLogado?.nome || "Organizador");
+  const primeiroNome = nomeCompleto.split(" ")[0];
+  const emailOrganizador = usuarioLogado?.email || "";
+
+  document.getElementById("nomeOrganizador").innerText =
+    `Olá, ${primeiroNome}`;
+
+  document.getElementById("tituloBoasVindas").innerText =
+    `Bem-vindo, ${primeiroNome}`;
+
+  document.getElementById("tipoPerfil").innerText =
+    "Organizador";
+
+  document.getElementById("avatarInicial").innerText =
+    primeiroNome.charAt(0).toUpperCase();
+
+  if (usuarioLogado?.foto) {
+    document.getElementById("avatarOrganizador").innerHTML = `
+      <img src="${usuarioLogado.foto}" alt="${nomeCompleto}">
+    `;
+  }
+
+  const profileBtn = document.getElementById("profileBtn");
+  const dropdown = document.getElementById("dropdown");
+
+  profileBtn.addEventListener("click", function(event) {
+    event.stopPropagation();
+    dropdown.classList.toggle("show");
+  });
+
+  document.addEventListener("click", function(event) {
+    if (
+      !profileBtn.contains(event.target) &&
+      !dropdown.contains(event.target)
+    ) {
+      dropdown.classList.remove("show");
+    }
+  });
+
+  document.getElementById("btnSair").addEventListener("click", function(event) {
+    event.preventDefault();
+
+    localStorage.removeItem("usuarioLogado");
+    window.location.href = "login.html";
+  });
+
+  document.getElementById("btnNovoEvento").addEventListener("click", function() {
+    window.location.href = "cadastrar-evento.html";
+  });
+
+  document.getElementById("btnNotificacoes").addEventListener("click", function() {
+    window.location.href = "notificacoes-organizador.html";
+  });
+
+  const eventosPadrao = [
+    {
+      id: 101,
+      titulo: "Curso de HTML e CSS",
+      categoria: "Curso",
+      data: "15/06/2026",
+      horario: "09:00",
+      local: "Laboratório 01",
+      vagasTotais: 60,
+      vagasDisponiveis: 15,
+      status: "Aberto",
+      imagem: "",
+      organizadorEmail: ""
+    },
+    {
+      id: 102,
+      titulo: "Oficina de Inteligência Artificial",
+      categoria: "Oficina",
+      data: "20/06/2026",
+      horario: "14:00",
+      local: "Auditório Principal",
+      vagasTotais: 50,
+      vagasDisponiveis: 20,
+      status: "Aberto",
+      imagem: "",
+      organizadorEmail: ""
+    },
+    {
+      id: 103,
+      titulo: "Workshop Java",
+      categoria: "Workshop",
+      data: "05/07/2026",
+      horario: "09:00",
+      local: "Sala 203",
+      vagasTotais: 20,
+      vagasDisponiveis: 2,
+      status: "Poucas vagas",
+      imagem: "",
+      organizadorEmail: ""
+    }
+  ];
+
+  const eventosCadastrados =
+    JSON.parse(localStorage.getItem("eventosCadastrados")) || [];
+
+  const eventosDoOrganizador = eventosCadastrados.filter(evento => {
+    const emailEvento =
+      evento.organizadorEmail ||
+      evento.emailOrganizador ||
+      evento.emailCriador ||
+      "";
+
+    if (!emailEvento) {
+      return true;
+    }
+
+    return emailEvento === emailOrganizador;
+  });
+
+  const todosEventos = [...eventosPadrao, ...eventosDoOrganizador];
+
+  const inscricoes =
+    JSON.parse(localStorage.getItem("inscricoesConecta")) || [];
+
+  const idsEventos = todosEventos.map(evento => Number(evento.id));
+
+  const inscricoesOrganizador = inscricoes.filter(inscricao =>
+    idsEventos.includes(Number(inscricao.eventoId))
+  );
+
+  function obterVagasTotais(evento) {
+    return Number(
+      evento.vagasTotais ??
+      evento.totalVagas ??
+      evento.quantidadeVagas ??
+      evento.vagas ??
+      0
+    );
+  }
+
+  function obterInscritosEvento(eventoId) {
+    return inscricoesOrganizador.filter(inscricao =>
+      Number(inscricao.eventoId) === Number(eventoId) &&
+      inscricao.status !== "Cancelada"
+    ).length;
+  }
+
+  function obterVagasDisponiveis(evento) {
+    if (
+      evento.vagasDisponiveis !== undefined &&
+      evento.vagasDisponiveis !== null &&
+      evento.vagasDisponiveis !== ""
+    ) {
+      return Math.max(Number(evento.vagasDisponiveis), 0);
+    }
+
+    const total = obterVagasTotais(evento);
+    const inscritos = obterInscritosEvento(evento.id);
+
+    return Math.max(total - inscritos, 0);
+  }
+
+  function converterData(dataTexto) {
+    if (!dataTexto) {
+      return new Date(8640000000000000);
+    }
+
+    const partes = String(dataTexto).split("/");
+
+    if (partes.length === 3) {
+      return new Date(
+        Number(partes[2]),
+        Number(partes[1]) - 1,
+        Number(partes[0])
+      );
+    }
+
+    const data = new Date(dataTexto);
+
+    if (Number.isNaN(data.getTime())) {
+      return new Date(8640000000000000);
+    }
+
+    return data;
+  }
+
+  function calcularResumo() {
+    const eventosAtivos = todosEventos.filter(evento => {
+      const status = String(evento.status || "").toLowerCase();
+
+      return (
+        status !== "encerrado" &&
+        status !== "cancelado" &&
+        status !== "cancelada"
+      );
+    }).length;
+
+    const participantesAtivos = inscricoesOrganizador.filter(
+      inscricao => inscricao.status !== "Cancelada"
+    );
+
+    const emailsUnicos = new Set(
+      participantesAtivos.map(inscricao =>
+        inscricao.emailUsuario ||
+        inscricao.emailFormulario ||
+        inscricao.email ||
+        inscricao.id
+      )
+    );
+
+    const totalVagas = todosEventos.reduce(
+      (soma, evento) => soma + obterVagasTotais(evento),
+      0
+    );
+
+    const vagasDisponiveis = todosEventos.reduce(
+      (soma, evento) => soma + obterVagasDisponiveis(evento),
+      0
+    );
+
+    const vagasOcupadas = Math.max(totalVagas - vagasDisponiveis, 0);
+
+    const ocupacao = totalVagas > 0
+      ? Math.round((vagasOcupadas / totalVagas) * 100)
+      : 0;
+
+    document.getElementById("totalEventos").innerText = eventosAtivos;
+    document.getElementById("totalParticipantes").innerText = emailsUnicos.size;
+    document.getElementById("totalVagas").innerText = vagasDisponiveis;
+    document.getElementById("taxaOcupacao").innerText = `${ocupacao}%`;
+  }
+
+  function abrirEvento(id) {
+    const evento = todosEventos.find(item =>
+      Number(item.id) === Number(id)
+    );
+
+    if (!evento) {
+      alert("Evento não encontrado.");
+      return;
+    }
+
+    localStorage.setItem(
+      "eventoSelecionadoAdmin",
+      JSON.stringify(evento)
+    );
+
+    localStorage.setItem(
+      "eventoSelecionado",
+      JSON.stringify(evento)
+    );
+
+    window.location.href =
+      `detalhes-evento-organizador.html?id=${evento.id}`;
+  }
+
+  function obterIconeCategoria(categoria) {
+    const nome = String(categoria || "").toLowerCase();
+
+    if (nome.includes("curso")) return "fa-solid fa-code";
+    if (nome.includes("oficina")) return "fa-solid fa-robot";
+    if (nome.includes("workshop")) return "fa-solid fa-laptop-code";
+    if (nome.includes("palestra")) return "fa-solid fa-microphone";
+
+    return "fa-regular fa-calendar";
+  }
+
+  function renderizarProximosEventos() {
+    const container = document.getElementById("listaProximosEventos");
+
+    const hoje = new Date();
+    hoje.setHours(0, 0, 0, 0);
+
+    let eventosOrdenados = [...todosEventos]
+      .filter(evento => {
+        const dataEvento = converterData(evento.data);
+
+        if (dataEvento.getFullYear() > 2500) {
+          return true;
+        }
+
+        return dataEvento >= hoje;
+      })
+      .sort((a, b) => converterData(a.data) - converterData(b.data))
+      .slice(0, 5);
+
+    if (eventosOrdenados.length === 0) {
+      eventosOrdenados = [...todosEventos]
+        .sort((a, b) => converterData(a.data) - converterData(b.data))
+        .slice(0, 5);
+    }
+
+    if (eventosOrdenados.length === 0) {
+      container.innerHTML = `
+        <div class="empty-state">
+          Nenhum evento cadastrado.
+        </div>
+      `;
+      return;
+    }
+
+    container.innerHTML = eventosOrdenados.map(evento => {
+      const inscritos = obterInscritosEvento(evento.id);
+      const vagasDisponiveis = obterVagasDisponiveis(evento);
+
+      let classeStatus = "status";
+      let textoStatus = evento.status || "Aberto";
+
+      if (vagasDisponiveis <= 0) {
+        classeStatus = "status danger";
+        textoStatus = "Esgotado";
+      } else if (vagasDisponiveis <= 3) {
+        classeStatus = "status warning";
+        textoStatus = "Poucas vagas";
+      } else if (
+        String(evento.status || "").toLowerCase() === "encerrado"
+      ) {
+        classeStatus = "status closed";
+        textoStatus = "Encerrado";
+      }
+
+      const imagemOuIcone = evento.imagem
+        ? `<img src="${evento.imagem}" alt="${evento.titulo}">`
+        : `<i class="${obterIconeCategoria(evento.categoria)}"></i>`;
+
+      return `
+        <div class="event-item" onclick="abrirEvento(${evento.id})" style="cursor:pointer;">
+          <div class="thumb">
+            ${imagemOuIcone}
+          </div>
+
+          <div class="event-info">
+            <h3>${evento.titulo || "Evento"}</h3>
+
+            <span>
+              ${evento.data || "Data não informada"}
+              •
+              ${evento.horario || "Horário não informado"}
+            </span>
+
+            <br>
+
+            <span>
+              ${inscritos} participante(s)
+              •
+              ${vagasDisponiveis} vaga(s)
+            </span>
+          </div>
+
+          <div class="${classeStatus}">
+            ${textoStatus}
+          </div>
+        </div>
+      `;
+    }).join("");
+  }
+
+  function renderizarAtividades() {
+    const container = document.getElementById("listaAtividades");
+    const atividades = [];
+
+    inscricoesOrganizador.forEach(inscricao => {
+      atividades.push({
+        titulo:
+          inscricao.status === "Cancelada"
+            ? "Inscrição cancelada"
+            : "Nova inscrição",
+
+        descricao:
+          `${inscricao.nomeUsuario || "Participante"} — ${inscricao.titulo || "Evento"}`,
+
+        data:
+          inscricao.dataCancelamento ||
+          inscricao.dataInscricao ||
+          "Recentemente",
+
+        ordem:
+          Number(inscricao.id) || 0
+      });
+    });
+
+    eventosDoOrganizador.forEach(evento => {
+      atividades.push({
+        titulo: "Evento cadastrado",
+        descricao: evento.titulo || "Evento",
+        data: evento.dataCadastro || "Recentemente",
+        ordem: Number(evento.id) || 0
+      });
+    });
+
+    atividades.sort((a, b) => b.ordem - a.ordem);
+
+    if (atividades.length === 0) {
+      container.innerHTML = `
+        <div class="empty-state">
+          Nenhuma atividade recente.
+        </div>
+      `;
+      return;
+    }
+
+    container.innerHTML = atividades
+      .slice(0, 6)
+      .map(atividade => `
+        <div class="activity">
+          <div>
+            <strong>${atividade.titulo}</strong>
+            <br>
+            <span>${atividade.descricao}</span>
+          </div>
+
+          <small>${atividade.data}</small>
+        </div>
+      `)
+      .join("");
+  }
+
+  function renderizarCategorias() {
+    const container = document.getElementById("listaCategorias");
+    const totais = {};
+
+    todosEventos.forEach(evento => {
+      const categoria = evento.categoria || "Outros";
+
+      totais[categoria] = (totais[categoria] || 0) + 1;
+    });
+
+    const categorias = Object.entries(totais)
+      .sort((a, b) => b[1] - a[1]);
+
+    if (categorias.length === 0) {
+      container.innerHTML = `
+        <div class="empty-state">
+          Nenhuma categoria encontrada.
+        </div>
+      `;
+      return;
+    }
+
+    container.innerHTML = categorias
+      .map(([categoria, total]) => `
+        <div class="category">
+          <span>${categoria}</span>
+          <strong>${total}</strong>
+        </div>
+      `)
+      .join("");
+  }
+
+  function formatarChaveData(data) {
+    const dia = String(data.getDate()).padStart(2, "0");
+    const mes = String(data.getMonth() + 1).padStart(2, "0");
+    const ano = data.getFullYear();
+
+    return `${dia}/${mes}/${ano}`;
+  }
+
+  function renderizarGrafico(dias = 7) {
+    const container = document.getElementById("graficoInscricoes");
+    const dados = [];
+    const hoje = new Date();
+
+    for (let indice = dias - 1; indice >= 0; indice--) {
+      const data = new Date(hoje);
+      data.setDate(hoje.getDate() - indice);
+
+      const chave = formatarChaveData(data);
+
+      const total = inscricoesOrganizador.filter(inscricao =>
+        inscricao.dataInscricao === chave &&
+        inscricao.status !== "Cancelada"
+      ).length;
+
+      dados.push({
+        data,
+        chave,
+        total
+      });
+    }
+
+    const maiorValor = Math.max(...dados.map(item => item.total), 1);
+
+    const largura = 600;
+    const altura = 220;
+    const margemX = 30;
+    const margemY = 25;
+    const larguraUtil = largura - margemX * 2;
+    const alturaUtil = altura - margemY * 2;
+
+    const pontos = dados.map((item, indice) => {
+      const divisor = Math.max(dados.length - 1, 1);
+
+      const x =
+        margemX +
+        (indice / divisor) * larguraUtil;
+
+      const y =
+        altura -
+        margemY -
+        (item.total / maiorValor) * alturaUtil;
+
+      return {
+        ...item,
+        x,
+        y
+      };
+    });
+
+    const linha = pontos
+      .map(item => `${item.x},${item.y}`)
+      .join(" ");
+
+    const circulos = pontos
+      .map(item => `
+        <circle
+          cx="${item.x}"
+          cy="${item.y}"
+          r="5"
+          fill="#5b21f6"
+        >
+          <title>${item.chave}: ${item.total} inscrição(ões)</title>
+        </circle>
+      `)
+      .join("");
+
+    const rotulos = pontos
+      .filter((item, indice) =>
+        dados.length <= 7 ||
+        indice % Math.ceil(dados.length / 7) === 0 ||
+        indice === dados.length - 1
+      )
+      .map(item => `
+        <text
+          x="${item.x}"
+          y="${altura - 5}"
+          text-anchor="middle"
+          font-size="10"
+          fill="#64748b"
+        >
+          ${String(item.data.getDate()).padStart(2, "0")}/${String(item.data.getMonth() + 1).padStart(2, "0")}
+        </text>
+      `)
+      .join("");
+
+    container.innerHTML = `
+      <svg viewBox="0 0 ${largura} ${altura}" role="img" aria-label="Gráfico de inscrições">
+        <line
+          x1="${margemX}"
+          y1="${altura - margemY}"
+          x2="${largura - margemX}"
+          y2="${altura - margemY}"
+          stroke="#e2e8f0"
+          stroke-width="1"
+        />
+
+        <polyline
+          points="${linha}"
+          fill="none"
+          stroke="#5b21f6"
+          stroke-width="4"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+
+        ${circulos}
+        ${rotulos}
+      </svg>
+    `;
+  }
+
+  document.getElementById("filtroGrafico").addEventListener("change", function() {
+    renderizarGrafico(Number(this.value));
+  });
+
+  const notificacoesOrganizador =
+    JSON.parse(localStorage.getItem("notificacoesOrganizador")) || [];
+
+  const notificacoesNaoLidas = notificacoesOrganizador.filter(
+    notificacao => !notificacao.lida
+  ).length;
+
+  document.getElementById("contadorNotificacoes").innerText =
+    notificacoesNaoLidas;
+
+  calcularResumo();
+  renderizarProximosEventos();
+  renderizarAtividades();
+  renderizarCategorias();
+  renderizarGrafico(7);
+</script>
+
+</body>
+</html>

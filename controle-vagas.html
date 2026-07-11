@@ -1,0 +1,2014 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Controle de Vagas - Conecta Eventos</title>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  >
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background: #f8fafc;
+      color: #0f172a;
+      min-height: 100vh;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    select {
+      font-family: inherit;
+    }
+
+    .topbar {
+      height: 80px;
+      background: #ffffff;
+      border-bottom: 1px solid #e2e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 35px;
+      position: relative;
+      z-index: 100;
+      gap: 25px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo img {
+      width: 45px;
+      height: 45px;
+      object-fit: contain;
+    }
+
+    .logo-brand {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #1e1b4b;
+      white-space: nowrap;
+    }
+
+    .logo-brand span {
+      color: #6366f1;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+
+    .search-box {
+      width: 360px;
+      height: 48px;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 0 16px;
+    }
+
+    .search-box i {
+      color: #64748b;
+    }
+
+    .search-box input {
+      border: none;
+      outline: none;
+      width: 100%;
+      font-size: 14px;
+      color: #334155;
+    }
+
+    .profile {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      position: relative;
+    }
+
+    .notification {
+      position: relative;
+      font-size: 22px;
+      color: #64748b;
+      cursor: pointer;
+      padding: 8px;
+      border-radius: 8px;
+    }
+
+    .notification:hover {
+      background: #f8fafc;
+    }
+
+    .notification span {
+      position: absolute;
+      top: 0;
+      right: -1px;
+      background: #5b21f6;
+      color: #ffffff;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      font-size: 11px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .user {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      padding: 6px 10px;
+      border-radius: 8px;
+      user-select: none;
+    }
+
+    .user:hover {
+      background: #f8fafc;
+    }
+
+    .user-avatar {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2px solid #5b21f6;
+      background: #ede9fe;
+      color: #5b21f6;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .user-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .user-info strong {
+      display: block;
+      font-size: 14px;
+    }
+
+    .user-info p {
+      font-size: 12px;
+      color: #64748b;
+      margin-top: 2px;
+    }
+
+    .dropdown {
+      position: absolute;
+      top: 68px;
+      right: 0;
+      width: 260px;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+      display: none;
+      padding: 8px;
+      z-index: 999;
+    }
+
+    .dropdown.show {
+      display: block;
+    }
+
+    .dropdown a {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      border-radius: 8px;
+      color: #334155;
+      font-size: 15px;
+      font-weight: 500;
+    }
+
+    .dropdown a:hover {
+      background: #f3f4f6;
+      color: #5b21f6;
+    }
+
+    .dropdown a.active {
+      background: #ede9fe;
+      color: #5b21f6;
+    }
+
+    .dropdown hr {
+      margin: 8px 0;
+      border: none;
+      border-top: 1px solid #e2e8f0;
+    }
+
+    .dropdown .logout {
+      color: #ef4444;
+    }
+
+    .main {
+      max-width: 1500px;
+      margin: 0 auto;
+      padding: 32px;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      gap: 20px;
+    }
+
+    .header h1 {
+      font-size: 30px;
+      margin-bottom: 6px;
+    }
+
+    .header p {
+      color: #64748b;
+      font-size: 15px;
+    }
+
+    .btn {
+      background: #5b21f6;
+      color: #ffffff;
+      border: none;
+      border-radius: 9px;
+      padding: 14px 22px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 15px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn:hover {
+      background: #4c1d95;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+      margin-bottom: 24px;
+    }
+
+    .card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 22px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .icon-box {
+      width: 64px;
+      height: 64px;
+      background: #ede9fe;
+      color: #5b21f6;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      flex-shrink: 0;
+    }
+
+    .icon-green {
+      background: #dcfce7;
+      color: #16a34a;
+    }
+
+    .icon-orange {
+      background: #ffedd5;
+      color: #ea580c;
+    }
+
+    .card h3 {
+      font-size: 14px;
+      margin-bottom: 6px;
+    }
+
+    .card strong {
+      font-size: 29px;
+      display: block;
+    }
+
+    .card p {
+      color: #64748b;
+      font-size: 13px;
+      margin-top: 5px;
+    }
+
+    .panel {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 18px;
+      margin-bottom: 20px;
+    }
+
+    .filters {
+      display: grid;
+      grid-template-columns: 2fr 1.4fr 1.4fr auto;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .input-box,
+    .select-box {
+      height: 50px;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 0 14px;
+      background: #ffffff;
+    }
+
+    .input-box:focus-within,
+    .select-box:focus-within {
+      border-color: #7c3aed;
+      box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.08);
+    }
+
+    .input-box i,
+    .select-box i {
+      color: #64748b;
+    }
+
+    .input-box input {
+      border: none;
+      outline: none;
+      width: 100%;
+      font-size: 14px;
+      color: #334155;
+    }
+
+    .select-box select {
+      border: none;
+      outline: none;
+      width: 100%;
+      background: transparent;
+      font-size: 14px;
+      color: #334155;
+      cursor: pointer;
+    }
+
+    .btn-filter {
+      height: 50px;
+      padding: 0 18px;
+      border: 1px solid #e2e8f0;
+      background: #ffffff;
+      color: #5b21f6;
+      border-radius: 10px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .btn-filter:hover {
+      background: #f8fafc;
+    }
+
+    .table-wrapper {
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      overflow: hidden;
+    }
+
+    .table-scroll {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #ffffff;
+      min-width: 1100px;
+    }
+
+    th {
+      text-align: left;
+      padding: 16px;
+      font-size: 14px;
+      color: #0f172a;
+      border-bottom: 1px solid #e2e8f0;
+      background: #f8fafc;
+      white-space: nowrap;
+    }
+
+    td {
+      padding: 14px 16px;
+      font-size: 14px;
+      border-bottom: 1px solid #e2e8f0;
+      vertical-align: middle;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tbody tr:hover {
+      background: #fafaff;
+    }
+
+    .event-cell {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 230px;
+    }
+
+    .event-img {
+      width: 72px;
+      height: 52px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #312e81, #06b6d4);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .event-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .event-name strong {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 6px;
+    }
+
+    .event-name span {
+      color: #64748b;
+      font-size: 12px;
+    }
+
+    .tag {
+      padding: 7px 10px;
+      border-radius: 7px;
+      font-size: 12px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .tag-purple {
+      background: #ede9fe;
+      color: #5b21f6;
+    }
+
+    .tag-blue {
+      background: #dbeafe;
+      color: #2563eb;
+    }
+
+    .tag-green {
+      background: #dcfce7;
+      color: #16a34a;
+    }
+
+    .tag-orange {
+      background: #ffedd5;
+      color: #ea580c;
+    }
+
+    .available-red {
+      color: #dc2626;
+      font-weight: 700;
+    }
+
+    .available-green {
+      color: #16a34a;
+      font-weight: 700;
+    }
+
+    .available-orange {
+      color: #ea580c;
+      font-weight: 700;
+    }
+
+    .progress-box {
+      width: 130px;
+    }
+
+    .progress-text {
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .progress-bg {
+      width: 100%;
+      height: 8px;
+      background: #e5e7eb;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      border-radius: 20px;
+      background: #5b21f6;
+    }
+
+    .progress-orange {
+      background: #f97316;
+    }
+
+    .progress-red {
+      background: #ef4444;
+    }
+
+    .status {
+      padding: 7px 11px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .status-open {
+      background: #dcfce7;
+      color: #15803d;
+    }
+
+    .status-warning {
+      background: #ffedd5;
+      color: #c2410c;
+    }
+
+    .status-full {
+      background: #fee2e2;
+      color: #dc2626;
+    }
+
+    .status-closed {
+      background: #e2e8f0;
+      color: #475569;
+    }
+
+    .status-draft {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .action-btn {
+      border: 1px solid #e2e8f0;
+      background: #ffffff;
+      color: #5b21f6;
+      border-radius: 8px;
+      padding: 9px 13px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .action-btn:hover {
+      background: #f5f3ff;
+    }
+
+    .footer-table {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px;
+      color: #64748b;
+      font-size: 14px;
+      border-top: 1px solid #e2e8f0;
+      gap: 15px;
+    }
+
+    .pagination {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .page {
+      min-width: 34px;
+      height: 34px;
+      padding: 0 8px;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #334155;
+      cursor: pointer;
+    }
+
+    .page.active {
+      background: #5b21f6;
+      color: #ffffff;
+      border-color: #5b21f6;
+    }
+
+    .page:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    .empty-state {
+      padding: 55px 20px;
+      text-align: center;
+      color: #64748b;
+    }
+
+    .empty-state i {
+      font-size: 45px;
+      color: #c4b5fd;
+      margin-bottom: 14px;
+    }
+
+    .empty-state h3 {
+      color: #334155;
+      margin-bottom: 7px;
+    }
+
+    .tip {
+      background: #f5f3ff;
+      border: 1px solid #ddd6fe;
+      border-radius: 12px;
+      padding: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .tip-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .tip-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: #5b21f6;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .tip strong {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .tip p {
+      color: #475569;
+      font-size: 14px;
+    }
+
+    .tip button {
+      border: 1px solid #c4b5fd;
+      color: #5b21f6;
+      background: #ffffff;
+      border-radius: 8px;
+      padding: 11px 18px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    @media (max-width: 1100px) {
+      .cards {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .filters {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .topbar {
+        padding: 0 18px;
+      }
+
+      .search-box {
+        display: none;
+      }
+
+      .main {
+        padding: 20px 16px;
+      }
+
+      .header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      .user-info {
+        display: none;
+      }
+
+      .footer-table {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .tip {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header class="topbar">
+
+  <div class="logo">
+    <img
+      src="logo.png"
+      alt="Logo Conecta Eventos"
+    >
+
+    <div class="logo-brand">
+      Conecta <span>Eventos</span>
+    </div>
+  </div>
+
+  <div class="search-box">
+    <i class="fa-solid fa-magnifying-glass"></i>
+
+    <input
+      type="search"
+      id="buscaTopo"
+      placeholder="Buscar evento..."
+    >
+  </div>
+
+  <div class="profile">
+
+    <div
+      class="notification"
+      id="btnNotificacoes"
+    >
+      <i class="fa-regular fa-bell"></i>
+      <span id="contadorNotificacoes">0</span>
+    </div>
+
+    <div
+      class="user"
+      id="profileBtn"
+    >
+      <div
+        class="user-avatar"
+        id="avatarOrganizador"
+      >
+        <span id="avatarInicial">O</span>
+      </div>
+
+      <div class="user-info">
+        <strong id="nomeOrganizador">
+          Olá, Organizador
+        </strong>
+
+        <p>Organizador</p>
+      </div>
+
+      <i class="fa-solid fa-chevron-down"></i>
+    </div>
+
+    <div
+      class="dropdown"
+      id="dropdown"
+    >
+      <a href="organizador.html">
+        <i class="fa-solid fa-house"></i>
+        Início
+      </a>
+
+      <a href="eventos-organizador.html">
+        <i class="fa-regular fa-calendar-days"></i>
+        Eventos
+      </a>
+
+      <a href="participantes-organizador.html">
+        <i class="fa-solid fa-users"></i>
+        Participantes
+      </a>
+
+      <a
+        href="controle-vagas.html"
+        class="active"
+      >
+        <i class="fa-regular fa-calendar-check"></i>
+        Controle de Vagas
+      </a>
+
+      <a href="comprovantes-organizador.html">
+        <i class="fa-regular fa-file-lines"></i>
+        Comprovantes
+      </a>
+
+      <a href="configuracoes.html">
+        <i class="fa-solid fa-gear"></i>
+        Configurações
+      </a>
+
+      <hr>
+
+      <a
+        href="#"
+        class="logout"
+        id="btnSair"
+      >
+        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+        Sair
+      </a>
+    </div>
+
+  </div>
+
+</header>
+
+<main class="main">
+
+  <div class="header">
+    <div>
+      <h1>Controle de Vagas</h1>
+
+      <p>
+        Acompanhe e gerencie a disponibilidade de vagas de todos os eventos.
+      </p>
+    </div>
+
+    <button
+      class="btn"
+      id="btnNovoEvento"
+    >
+      <i class="fa-solid fa-plus"></i>
+      Cadastrar novo evento
+    </button>
+  </div>
+
+  <div class="cards">
+
+    <div class="card">
+      <div class="icon-box">
+        <i class="fa-regular fa-calendar"></i>
+      </div>
+
+      <div>
+        <h3>Total de Eventos</h3>
+        <strong id="totalEventos">0</strong>
+        <p>Eventos cadastrados</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="icon-box">
+        <i class="fa-solid fa-users"></i>
+      </div>
+
+      <div>
+        <h3>Vagas Totais</h3>
+        <strong id="vagasTotaisResumo">0</strong>
+        <p>Vagas disponibilizadas</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="icon-box icon-green">
+        <i class="fa-solid fa-user-check"></i>
+      </div>
+
+      <div>
+        <h3>Inscritos</h3>
+        <strong id="totalInscritos">0</strong>
+        <p>Inscrições confirmadas</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="icon-box icon-orange">
+        <i class="fa-solid fa-chair"></i>
+      </div>
+
+      <div>
+        <h3>Vagas Disponíveis</h3>
+        <strong id="vagasDisponiveisResumo">0</strong>
+        <p>Vagas restantes</p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="panel">
+
+    <div class="filters">
+
+      <div class="input-box">
+        <i class="fa-solid fa-magnifying-glass"></i>
+
+        <input
+          type="search"
+          id="campoBusca"
+          placeholder="Buscar evento..."
+        >
+      </div>
+
+      <div class="select-box">
+        <i class="fa-solid fa-list"></i>
+
+        <select id="filtroTipo">
+          <option value="todos">
+            Todos os tipos
+          </option>
+        </select>
+      </div>
+
+      <div class="select-box">
+        <i class="fa-solid fa-filter"></i>
+
+        <select id="filtroStatus">
+          <option value="todos">
+            Todos os status
+          </option>
+
+          <option value="aberto">
+            Aberto
+          </option>
+
+          <option value="poucas vagas">
+            Poucas vagas
+          </option>
+
+          <option value="lotado">
+            Lotado
+          </option>
+
+          <option value="rascunho">
+            Rascunho
+          </option>
+
+          <option value="encerrado">
+            Encerrado
+          </option>
+        </select>
+      </div>
+
+      <button
+        class="btn-filter"
+        id="btnLimpar"
+      >
+        <i class="fa-solid fa-rotate-right"></i>
+        Limpar
+      </button>
+
+    </div>
+
+    <div class="table-wrapper">
+
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>Evento</th>
+              <th>Tipo</th>
+              <th>Data</th>
+              <th>Vagas</th>
+              <th>Inscritos</th>
+              <th>Disponíveis</th>
+              <th>Ocupação</th>
+              <th>Status</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+
+          <tbody id="corpoTabela"></tbody>
+        </table>
+      </div>
+
+      <div class="footer-table">
+        <span id="textoResultados">
+          Mostrando 0 eventos
+        </span>
+
+        <div
+          class="pagination"
+          id="paginacao"
+        ></div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="tip">
+    <div class="tip-left">
+      <div class="tip-icon">
+        <i class="fa-solid fa-circle-info"></i>
+      </div>
+
+      <div>
+        <strong>Dica importante</strong>
+
+        <p>
+          Eventos lotados não aceitam novas inscrições até que uma vaga seja liberada.
+        </p>
+      </div>
+    </div>
+
+    <button id="btnSaibaMais">
+      Saiba mais
+    </button>
+  </div>
+
+</main>
+
+<script>
+  const usuarioLogado =
+    JSON.parse(localStorage.getItem("usuarioLogado"));
+
+  if (!usuarioLogado) {
+    window.location.href = "login.html";
+  }
+
+  const tipoUsuario = String(
+    usuarioLogado.tipoPerfil ||
+    usuarioLogado.tipo ||
+    usuarioLogado.perfil ||
+    ""
+  ).toLowerCase();
+
+  if (
+    tipoUsuario &&
+    tipoUsuario !== "organizador" &&
+    tipoUsuario !== "administrador"
+  ) {
+    alert("Esta página é exclusiva para organizadores.");
+    window.location.href = "dashboard.html";
+  }
+
+  function formatarNome(nome) {
+    return String(nome || "")
+      .trim()
+      .toLowerCase()
+      .split(/\s+/)
+      .map((palavra, indice) => {
+        const conectivos = [
+          "da",
+          "de",
+          "do",
+          "das",
+          "dos",
+          "e"
+        ];
+
+        if (
+          indice > 0 &&
+          conectivos.includes(palavra)
+        ) {
+          return palavra;
+        }
+
+        return (
+          palavra.charAt(0).toUpperCase() +
+          palavra.slice(1)
+        );
+      })
+      .join(" ");
+  }
+
+  function normalizarTexto(texto) {
+    return String(texto || "")
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase();
+  }
+
+  const nomeCompleto = formatarNome(
+    usuarioLogado.nome || "Organizador"
+  );
+
+  const primeiroNome =
+    nomeCompleto.split(" ")[0];
+
+  const emailOrganizador =
+    usuarioLogado.email || "";
+
+  document.getElementById(
+    "nomeOrganizador"
+  ).innerText = `Olá, ${primeiroNome}`;
+
+  document.getElementById(
+    "avatarInicial"
+  ).innerText =
+    primeiroNome.charAt(0).toUpperCase();
+
+  if (usuarioLogado.foto) {
+    document.getElementById(
+      "avatarOrganizador"
+    ).innerHTML = `
+      <img
+        src="${usuarioLogado.foto}"
+        alt="${nomeCompleto}"
+      >
+    `;
+  }
+
+  const profileBtn =
+    document.getElementById("profileBtn");
+
+  const dropdown =
+    document.getElementById("dropdown");
+
+  profileBtn.addEventListener(
+    "click",
+    function(event) {
+      event.stopPropagation();
+      dropdown.classList.toggle("show");
+    }
+  );
+
+  document.addEventListener(
+    "click",
+    function(event) {
+      if (
+        !profileBtn.contains(event.target) &&
+        !dropdown.contains(event.target)
+      ) {
+        dropdown.classList.remove("show");
+      }
+    }
+  );
+
+  document.getElementById(
+    "btnSair"
+  ).addEventListener(
+    "click",
+    function(event) {
+      event.preventDefault();
+
+      localStorage.removeItem("usuarioLogado");
+
+      window.location.href = "login.html";
+    }
+  );
+
+  document.getElementById(
+    "btnNovoEvento"
+  ).addEventListener(
+    "click",
+    function() {
+      localStorage.removeItem("eventoEmEdicao");
+
+      window.location.href =
+        "cadastrar-evento.html";
+    }
+  );
+
+  document.getElementById(
+    "btnNotificacoes"
+  ).addEventListener(
+    "click",
+    function() {
+      window.location.href =
+        "notificacoes-organizador.html";
+    }
+  );
+
+  const notificacoes =
+    JSON.parse(
+      localStorage.getItem("notificacoesOrganizador")
+    ) || [];
+
+  const notificacoesNaoLidas =
+    notificacoes.filter(item => !item.lida).length;
+
+  document.getElementById(
+    "contadorNotificacoes"
+  ).innerText =
+    notificacoesNaoLidas;
+
+  let eventos =
+    JSON.parse(
+      localStorage.getItem("eventosCadastrados")
+    ) || [];
+
+  let inscricoes =
+    JSON.parse(
+      localStorage.getItem("inscricoesConecta")
+    ) || [];
+
+  const eventosPadrao = [
+    {
+      id: 101,
+      titulo: "Curso de HTML e CSS",
+      categoria: "Curso",
+      data: "15/08/2026",
+      horario: "09:00",
+      local: "Sala 01",
+      vagasTotais: 50,
+      status: "Aberto",
+      imagem: "",
+      organizadorEmail: ""
+    },
+    {
+      id: 102,
+      titulo: "Oficina de Inteligência Artificial",
+      categoria: "Oficina",
+      data: "20/08/2026",
+      horario: "14:00",
+      local: "Auditório Principal",
+      vagasTotais: 40,
+      status: "Aberto",
+      imagem: "",
+      organizadorEmail: ""
+    },
+    {
+      id: 103,
+      titulo: "Workshop Java",
+      categoria: "Workshop",
+      data: "05/09/2026",
+      horario: "09:00",
+      local: "Sala 203",
+      vagasTotais: 20,
+      status: "Aberto",
+      imagem: "",
+      organizadorEmail: ""
+    }
+  ];
+
+  function adicionarEventosPadrao() {
+    let alterou = false;
+
+    eventosPadrao.forEach(eventoPadrao => {
+      const existe = eventos.some(
+        evento =>
+          Number(evento.id) ===
+          Number(eventoPadrao.id)
+      );
+
+      if (!existe) {
+        eventos.push(eventoPadrao);
+        alterou = true;
+      }
+    });
+
+    if (alterou) {
+      localStorage.setItem(
+        "eventosCadastrados",
+        JSON.stringify(eventos)
+      );
+    }
+  }
+
+  adicionarEventosPadrao();
+
+  function eventosDoOrganizador() {
+    return eventos.filter(evento => {
+      const emailEvento =
+        evento.organizadorEmail ||
+        evento.emailOrganizador ||
+        evento.emailCriador ||
+        "";
+
+      if (!emailEvento) {
+        return true;
+      }
+
+      return emailEvento === emailOrganizador;
+    });
+  }
+
+  function obterVagasTotais(evento) {
+    return Math.max(
+      Number(
+        evento.vagasTotais ??
+        evento.totalVagas ??
+        evento.quantidadeVagas ??
+        evento.vagas ??
+        0
+      ),
+      0
+    );
+  }
+
+  function obterInscricoesAtivas(eventoId) {
+    return inscricoes.filter(inscricao =>
+      Number(inscricao.eventoId) === Number(eventoId) &&
+      normalizarTexto(inscricao.status) !== "cancelada"
+    );
+  }
+
+  function obterQuantidadeInscritos(eventoId) {
+    return obterInscricoesAtivas(eventoId).length;
+  }
+
+  function obterVagasDisponiveis(evento) {
+    const total =
+      obterVagasTotais(evento);
+
+    const inscritos =
+      obterQuantidadeInscritos(evento.id);
+
+    return Math.max(total - inscritos, 0);
+  }
+
+  function obterOcupacao(evento) {
+    const total =
+      obterVagasTotais(evento);
+
+    const inscritos =
+      obterQuantidadeInscritos(evento.id);
+
+    if (total <= 0) {
+      return 0;
+    }
+
+    return Math.min(
+      Math.round((inscritos / total) * 100),
+      100
+    );
+  }
+
+  function obterStatusReal(evento) {
+    const statusSalvo =
+      normalizarTexto(evento.status || "Aberto");
+
+    if (statusSalvo === "rascunho") {
+      return "Rascunho";
+    }
+
+    if (
+      statusSalvo === "encerrado" ||
+      statusSalvo === "cancelado"
+    ) {
+      return "Encerrado";
+    }
+
+    const disponiveis =
+      obterVagasDisponiveis(evento);
+
+    if (disponiveis <= 0) {
+      return "Lotado";
+    }
+
+    if (disponiveis <= 3) {
+      return "Poucas vagas";
+    }
+
+    return "Aberto";
+  }
+
+  function obterClasseStatus(status) {
+    const valor =
+      normalizarTexto(status);
+
+    if (valor === "aberto") {
+      return "status-open";
+    }
+
+    if (valor === "poucas vagas") {
+      return "status-warning";
+    }
+
+    if (valor === "lotado") {
+      return "status-full";
+    }
+
+    if (valor === "rascunho") {
+      return "status-draft";
+    }
+
+    return "status-closed";
+  }
+
+  function obterClasseTag(categoria) {
+    const valor =
+      normalizarTexto(categoria);
+
+    if (valor.includes("curso")) {
+      return "tag-purple";
+    }
+
+    if (valor.includes("palestra")) {
+      return "tag-blue";
+    }
+
+    if (valor.includes("oficina")) {
+      return "tag-green";
+    }
+
+    return "tag-orange";
+  }
+
+  function obterIconeCategoria(categoria) {
+    const valor =
+      normalizarTexto(categoria);
+
+    if (valor.includes("curso")) {
+      return "fa-solid fa-code";
+    }
+
+    if (valor.includes("oficina")) {
+      return "fa-solid fa-robot";
+    }
+
+    if (valor.includes("workshop")) {
+      return "fa-solid fa-laptop-code";
+    }
+
+    if (valor.includes("palestra")) {
+      return "fa-solid fa-microphone";
+    }
+
+    return "fa-regular fa-calendar";
+  }
+
+  function carregarFiltroTipos() {
+    const filtro =
+      document.getElementById("filtroTipo");
+
+    const categorias = [
+      ...new Set(
+        eventosDoOrganizador()
+          .map(evento => evento.categoria)
+          .filter(Boolean)
+      )
+    ].sort();
+
+    filtro.innerHTML = `
+      <option value="todos">
+        Todos os tipos
+      </option>
+    `;
+
+    categorias.forEach(categoria => {
+      filtro.innerHTML += `
+        <option value="${normalizarTexto(categoria)}">
+          ${categoria}
+        </option>
+      `;
+    });
+  }
+
+  function atualizarResumo() {
+    const lista =
+      eventosDoOrganizador();
+
+    const totalEventos =
+      lista.length;
+
+    const vagasTotais =
+      lista.reduce(
+        (soma, evento) =>
+          soma + obterVagasTotais(evento),
+        0
+      );
+
+    const totalInscritos =
+      lista.reduce(
+        (soma, evento) =>
+          soma + obterQuantidadeInscritos(evento.id),
+        0
+      );
+
+    const vagasDisponiveis =
+      lista.reduce(
+        (soma, evento) =>
+          soma + obterVagasDisponiveis(evento),
+        0
+      );
+
+    document.getElementById(
+      "totalEventos"
+    ).innerText = totalEventos;
+
+    document.getElementById(
+      "vagasTotaisResumo"
+    ).innerText = vagasTotais;
+
+    document.getElementById(
+      "totalInscritos"
+    ).innerText = totalInscritos;
+
+    document.getElementById(
+      "vagasDisponiveisResumo"
+    ).innerText = vagasDisponiveis;
+  }
+
+  const itensPorPagina = 5;
+  let paginaAtual = 1;
+
+  function filtrarEventos() {
+    const busca =
+      normalizarTexto(
+        document.getElementById("campoBusca").value
+      );
+
+    const tipo =
+      normalizarTexto(
+        document.getElementById("filtroTipo").value
+      );
+
+    const status =
+      normalizarTexto(
+        document.getElementById("filtroStatus").value
+      );
+
+    return eventosDoOrganizador()
+      .filter(evento => {
+        const textoEvento =
+          normalizarTexto(
+            [
+              evento.titulo,
+              evento.local,
+              evento.categoria,
+              evento.data
+            ].join(" ")
+          );
+
+        const statusEvento =
+          normalizarTexto(
+            obterStatusReal(evento)
+          );
+
+        const categoriaEvento =
+          normalizarTexto(evento.categoria);
+
+        const correspondeBusca =
+          !busca ||
+          textoEvento.includes(busca);
+
+        const correspondeTipo =
+          tipo === "todos" ||
+          categoriaEvento === tipo;
+
+        const correspondeStatus =
+          status === "todos" ||
+          statusEvento === status;
+
+        return (
+          correspondeBusca &&
+          correspondeTipo &&
+          correspondeStatus
+        );
+      })
+      .sort(
+        (a, b) =>
+          Number(b.id) - Number(a.id)
+      );
+  }
+
+  function obterClasseDisponiveis(quantidade) {
+    if (quantidade <= 0) {
+      return "available-red";
+    }
+
+    if (quantidade <= 3) {
+      return "available-orange";
+    }
+
+    return "available-green";
+  }
+
+  function obterClasseProgresso(ocupacao) {
+    if (ocupacao >= 100) {
+      return "progress-red";
+    }
+
+    if (ocupacao >= 80) {
+      return "progress-orange";
+    }
+
+    return "";
+  }
+
+  function renderizarTabela() {
+    const corpoTabela =
+      document.getElementById("corpoTabela");
+
+    const listaFiltrada =
+      filtrarEventos();
+
+    const totalPaginas =
+      Math.max(
+        Math.ceil(listaFiltrada.length / itensPorPagina),
+        1
+      );
+
+    if (paginaAtual > totalPaginas) {
+      paginaAtual = totalPaginas;
+    }
+
+    const inicio =
+      (paginaAtual - 1) * itensPorPagina;
+
+    const fim =
+      inicio + itensPorPagina;
+
+    const eventosPagina =
+      listaFiltrada.slice(inicio, fim);
+
+    if (eventosPagina.length === 0) {
+      corpoTabela.innerHTML = `
+        <tr>
+          <td colspan="9">
+            <div class="empty-state">
+              <i class="fa-regular fa-calendar-xmark"></i>
+
+              <h3>Nenhum evento encontrado</h3>
+
+              <p>
+                Altere os filtros ou cadastre um novo evento.
+              </p>
+            </div>
+          </td>
+        </tr>
+      `;
+    } else {
+      corpoTabela.innerHTML =
+        eventosPagina.map(evento => {
+          const vagasTotais =
+            obterVagasTotais(evento);
+
+          const inscritos =
+            obterQuantidadeInscritos(evento.id);
+
+          const disponiveis =
+            obterVagasDisponiveis(evento);
+
+          const ocupacao =
+            obterOcupacao(evento);
+
+          const status =
+            obterStatusReal(evento);
+
+          const imagemOuIcone =
+            evento.imagem
+              ? `
+                <img
+                  src="${evento.imagem}"
+                  alt="${evento.titulo}"
+                >
+              `
+              : `
+                <i class="${obterIconeCategoria(evento.categoria)}"></i>
+              `;
+
+          return `
+            <tr>
+              <td>
+                <div class="event-cell">
+                  <div class="event-img">
+                    ${imagemOuIcone}
+                  </div>
+
+                  <div class="event-name">
+                    <strong>
+                      ${evento.titulo || "Evento"}
+                    </strong>
+
+                    <span>
+                      ${evento.local || "Local não informado"}
+                    </span>
+                  </div>
+                </div>
+              </td>
+
+              <td>
+                <span class="tag ${obterClasseTag(evento.categoria)}">
+                  ${evento.categoria || "Evento"}
+                </span>
+              </td>
+
+              <td>
+                ${evento.data || "Data não informada"}
+              </td>
+
+              <td>
+                ${vagasTotais}
+              </td>
+
+              <td>
+                ${inscritos}
+              </td>
+
+              <td class="${obterClasseDisponiveis(disponiveis)}">
+                ${disponiveis}
+              </td>
+
+              <td>
+                <div class="progress-box">
+                  <div class="progress-text">
+                    ${ocupacao}%
+                  </div>
+
+                  <div class="progress-bg">
+                    <div
+                      class="progress-fill ${obterClasseProgresso(ocupacao)}"
+                      style="width:${ocupacao}%"
+                    ></div>
+                  </div>
+                </div>
+              </td>
+
+              <td>
+                <span class="status ${obterClasseStatus(status)}">
+                  ${status}
+                </span>
+              </td>
+
+              <td>
+                <div class="actions">
+                  <button
+                    class="action-btn"
+                    title="Ver detalhes"
+                    onclick="visualizarEvento(${evento.id})"
+                  >
+                    <i class="fa-regular fa-eye"></i>
+                  </button>
+
+                  <button
+                    class="action-btn"
+                    title="Editar evento"
+                    onclick="editarEvento(${evento.id})"
+                  >
+                    <i class="fa-solid fa-pen"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          `;
+        }).join("");
+    }
+
+    const primeiroResultado =
+      listaFiltrada.length === 0
+        ? 0
+        : inicio + 1;
+
+    const ultimoResultado =
+      Math.min(fim, listaFiltrada.length);
+
+    document.getElementById(
+      "textoResultados"
+    ).innerText =
+      `Mostrando ${primeiroResultado} a ${ultimoResultado} de ${listaFiltrada.length} evento(s)`;
+
+    renderizarPaginacao(totalPaginas);
+  }
+
+  function renderizarPaginacao(totalPaginas) {
+    const container =
+      document.getElementById("paginacao");
+
+    let html = `
+      <button
+        class="page"
+        onclick="mudarPagina(${paginaAtual - 1})"
+        ${paginaAtual === 1 ? "disabled" : ""}
+      >
+        <i class="fa-solid fa-chevron-left"></i>
+      </button>
+    `;
+
+    for (
+      let pagina = 1;
+      pagina <= totalPaginas;
+      pagina++
+    ) {
+      html += `
+        <button
+          class="page ${pagina === paginaAtual ? "active" : ""}"
+          onclick="mudarPagina(${pagina})"
+        >
+          ${pagina}
+        </button>
+      `;
+    }
+
+    html += `
+      <button
+        class="page"
+        onclick="mudarPagina(${paginaAtual + 1})"
+        ${paginaAtual === totalPaginas ? "disabled" : ""}
+      >
+        <i class="fa-solid fa-chevron-right"></i>
+      </button>
+    `;
+
+    container.innerHTML = html;
+  }
+
+  function mudarPagina(novaPagina) {
+    const totalPaginas =
+      Math.max(
+        Math.ceil(
+          filtrarEventos().length /
+          itensPorPagina
+        ),
+        1
+      );
+
+    if (
+      novaPagina < 1 ||
+      novaPagina > totalPaginas
+    ) {
+      return;
+    }
+
+    paginaAtual = novaPagina;
+    renderizarTabela();
+  }
+
+  function localizarEvento(id) {
+    return eventos.find(
+      evento =>
+        Number(evento.id) === Number(id)
+    );
+  }
+
+  function visualizarEvento(id) {
+    const evento =
+      localizarEvento(id);
+
+    if (!evento) {
+      alert("Evento não encontrado.");
+      return;
+    }
+
+    localStorage.setItem(
+      "eventoSelecionadoAdmin",
+      JSON.stringify(evento)
+    );
+
+    localStorage.setItem(
+      "eventoSelecionado",
+      JSON.stringify(evento)
+    );
+
+    window.location.href =
+      `detalhes-evento-organizador.html?id=${id}`;
+  }
+
+  function editarEvento(id) {
+    const evento =
+      localizarEvento(id);
+
+    if (!evento) {
+      alert("Evento não encontrado.");
+      return;
+    }
+
+    localStorage.setItem(
+      "eventoEmEdicao",
+      JSON.stringify(evento)
+    );
+
+    /*
+      A página cadastrar-evento.html já possui
+      a função de carregar o evento em edição.
+    */
+    window.location.href =
+      `cadastrar-evento.html?id=${id}`;
+  }
+
+  document.getElementById(
+    "campoBusca"
+  ).addEventListener(
+    "input",
+    function() {
+      paginaAtual = 1;
+      renderizarTabela();
+    }
+  );
+
+  document.getElementById(
+    "filtroTipo"
+  ).addEventListener(
+    "change",
+    function() {
+      paginaAtual = 1;
+      renderizarTabela();
+    }
+  );
+
+  document.getElementById(
+    "filtroStatus"
+  ).addEventListener(
+    "change",
+    function() {
+      paginaAtual = 1;
+      renderizarTabela();
+    }
+  );
+
+  document.getElementById(
+    "buscaTopo"
+  ).addEventListener(
+    "input",
+    function() {
+      document.getElementById(
+        "campoBusca"
+      ).value = this.value;
+
+      paginaAtual = 1;
+      renderizarTabela();
+    }
+  );
+
+  document.getElementById(
+    "btnLimpar"
+  ).addEventListener(
+    "click",
+    function() {
+      document.getElementById(
+        "campoBusca"
+      ).value = "";
+
+      document.getElementById(
+        "buscaTopo"
+      ).value = "";
+
+      document.getElementById(
+        "filtroTipo"
+      ).value = "todos";
+
+      document.getElementById(
+        "filtroStatus"
+      ).value = "todos";
+
+      paginaAtual = 1;
+      renderizarTabela();
+    }
+  );
+
+  document.getElementById(
+    "btnSaibaMais"
+  ).addEventListener(
+    "click",
+    function() {
+      alert(
+        "Quando um evento atinge o limite de vagas, ele passa automaticamente para o status Lotado. Caso uma inscrição seja cancelada, a vaga é liberada e o status volta a ser atualizado."
+      );
+    }
+  );
+
+  carregarFiltroTipos();
+  atualizarResumo();
+  renderizarTabela();
+</script>
+
+</body>
+</html>
